@@ -30,6 +30,7 @@ Partial Class Form1
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.scrnsvr = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Button1
@@ -111,6 +112,11 @@ Partial Class Form1
         Me.TextBox4.Size = New System.Drawing.Size(227, 35)
         Me.TextBox4.TabIndex = 7
         '
+        'scrnsvr
+        '
+        Me.scrnsvr.Enabled = True
+        Me.scrnsvr.Interval = 5000
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -140,4 +146,5 @@ Partial Class Form1
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents TextBox3 As TextBox
     Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents scrnsvr As Timer
 End Class
