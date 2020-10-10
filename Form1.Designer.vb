@@ -23,6 +23,7 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
@@ -43,6 +44,7 @@ Partial Class Form1
         Me.Label4 = New System.Windows.Forms.Label()
         Me.lstboxhandels = New System.Windows.Forms.ListBox()
         Me.allprocess = New System.Windows.Forms.Timer(Me.components)
+        Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.SuspendLayout()
         '
         'Button1
@@ -202,6 +204,12 @@ Partial Class Form1
         Me.allprocess.Enabled = True
         Me.allprocess.Interval = 60000
         '
+        'NotifyIcon1
+        '
+        Me.NotifyIcon1.Icon = CType(resources.GetObject("NotifyIcon1.Icon"), System.Drawing.Icon)
+        Me.NotifyIcon1.Text = "NotifyIcon1"
+        Me.NotifyIcon1.Visible = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -247,4 +255,5 @@ Partial Class Form1
     Friend WithEvents Label4 As Label
     Friend WithEvents lstboxhandels As ListBox
     Friend WithEvents allprocess As Timer
+    Friend WithEvents NotifyIcon1 As NotifyIcon
 End Class

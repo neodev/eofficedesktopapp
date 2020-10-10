@@ -114,4 +114,34 @@
             End If
         Next p
     End Sub
+
+    Private Sub lvwFGWindow_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvwFGWindow.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub NotifyIcon1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseDoubleClick
+
+        Me.WindowState = FormWindowState.Normal
+
+    End Sub
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
+        'NotifyIcon1.BalloonTipText = "I'm here in your Sys tray for your help!"
+        'NotifyIcon1.BalloonTipTitle = "Happy Coding!"
+        'NotifyIcon1.ShowBalloonTip(2000)
+    End Sub
+
+    Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        If Me.WindowState = FormWindowState.Minimized Then
+            NotifyIcon1.Visible = True
+            'NotifyIcon1.Icon = SystemIcons.Application
+            NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
+            NotifyIcon1.BalloonTipText = "I'm here in your Systray for your help!"
+            NotifyIcon1.BalloonTipTitle = "Happy Coding!"
+            NotifyIcon1.ShowBalloonTip(2000)
+            'Me.Hide()
+            ShowInTaskbar = False
+        End If
+    End Sub
 End Class
