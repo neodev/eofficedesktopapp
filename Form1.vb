@@ -13,18 +13,33 @@
     Declare Function GetWindowText Lib "user32" Alias "GetWindowTextA" (ByVal hwnd As Integer, ByVal lpString As String, ByVal cch As Integer) As Integer
     Declare Function GetWindowThreadProcessId Lib "user32" (ByVal hWnd As Long, lpdwProcessId As Long) As Long
 
+    Dim lastscreensaver As Date
+    Dim minsec As Integer = 200 'Take screenshort every X seconds irrespctive of winow changed or not
+
+
+
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
-        Dim lastscreensaver = CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds)
-        ''Dim unused = MsgBox(milliseconds)
+        'Dim lastscreensaver = CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds)
 
-        Dim screenSize As Size = New Size(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
-        Dim screenGrab As New Bitmap(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
-        Dim g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(screenGrab)
-        g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
-        screenGrab.Save("d:\screengrabs\ss_" & lastscreensaver & ".jpg")
-        ''or screenGrab.Save("C:\screenGrab.jpg", System.Drawing.Imaging.ImageFormat.Jpeg)
+        Dim seconds As Long = DateDiff(DateInterval.Second, lastscreensaver, Now)
+
+        Console.WriteLine(seconds)
+
+        If (seconds > minsec) Then
+            ''Dim unused = MsgBox(milliseconds)
+
+            Dim screenSize As Size = New Size(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
+            Dim screenGrab As New Bitmap(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
+            Dim g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(screenGrab)
+            g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
+            screenGrab.Save("d:\screengrabs\MS" & CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg")
+            ''or screenGrab.Save("C:\screenGrab.jpg", System.Drawing.Imaging.ImageFormat.Jpeg)
+
+            lastscreensaver = Now
+
+        End If
 
     End Sub
     Private m_LastHwnd As Integer
@@ -68,6 +83,15 @@
         list_item.SubItems.Add(fg_hwnd)
         list_item.SubItems.Add(fg_wndttle)
         list_item.SubItems.Add(fg_wndttle)
+
+        'Take screenshot if active window is changed
+        lastscreensaver = Now
+
+        Dim screenSize As Size = New Size(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
+        Dim screenGrab As New Bitmap(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
+        Dim g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(screenGrab)
+        g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
+        screenGrab.Save("d:\screengrabs\WC" & CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg")
 
         list_item.EnsureVisible()
     End Sub
