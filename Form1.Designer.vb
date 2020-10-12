@@ -1,4 +1,6 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
@@ -45,6 +47,12 @@ Partial Class Form1
         Me.lstboxhandels = New System.Windows.Forms.ListBox()
         Me.allprocess = New System.Windows.Forms.Timer(Me.components)
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.InactivityTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.inactivitylogs = New System.Windows.Forms.ListBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
+        Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Button1
@@ -63,6 +71,7 @@ Partial Class Form1
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(218, 13)
         Me.TextBox1.TabIndex = 1
+        Me.TextBox1.Text = "test@test.com"
         '
         'TextBox2
         '
@@ -73,6 +82,7 @@ Partial Class Form1
         Me.TextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TextBox2.Size = New System.Drawing.Size(218, 13)
         Me.TextBox2.TabIndex = 2
+        Me.TextBox2.Text = "password"
         '
         'Label1
         '
@@ -136,7 +146,7 @@ Partial Class Form1
         Me.lvwFGWindow.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4, Me.ColumnHeader5})
         Me.lvwFGWindow.GridLines = True
         Me.lvwFGWindow.HideSelection = False
-        Me.lvwFGWindow.Location = New System.Drawing.Point(296, 41)
+        Me.lvwFGWindow.Location = New System.Drawing.Point(296, 30)
         Me.lvwFGWindow.Name = "lvwFGWindow"
         Me.lvwFGWindow.Size = New System.Drawing.Size(711, 140)
         Me.lvwFGWindow.TabIndex = 8
@@ -176,7 +186,7 @@ Partial Class Form1
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(293, 25)
+        Me.Label3.Location = New System.Drawing.Point(293, 9)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(79, 13)
         Me.Label3.TabIndex = 9
@@ -185,7 +195,7 @@ Partial Class Form1
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(293, 200)
+        Me.Label4.Location = New System.Drawing.Point(293, 185)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(59, 13)
         Me.Label4.TabIndex = 10
@@ -194,9 +204,9 @@ Partial Class Form1
         'lstboxhandels
         '
         Me.lstboxhandels.HorizontalScrollbar = True
-        Me.lstboxhandels.Location = New System.Drawing.Point(296, 226)
+        Me.lstboxhandels.Location = New System.Drawing.Point(296, 214)
         Me.lstboxhandels.Name = "lstboxhandels"
-        Me.lstboxhandels.Size = New System.Drawing.Size(928, 225)
+        Me.lstboxhandels.Size = New System.Drawing.Size(908, 134)
         Me.lstboxhandels.TabIndex = 11
         '
         'allprocess
@@ -210,11 +220,62 @@ Partial Class Form1
         Me.NotifyIcon1.Text = "NotifyIcon1"
         Me.NotifyIcon1.Visible = True
         '
+        'InactivityTimer
+        '
+        Me.InactivityTimer.Enabled = True
+        '
+        'inactivitylogs
+        '
+        Me.inactivitylogs.FormattingEnabled = True
+        Me.inactivitylogs.Location = New System.Drawing.Point(296, 392)
+        Me.inactivitylogs.Name = "inactivitylogs"
+        Me.inactivitylogs.Size = New System.Drawing.Size(237, 108)
+        Me.inactivitylogs.TabIndex = 14
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(293, 376)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(75, 13)
+        Me.Label7.TabIndex = 17
+        Me.Label7.Text = "Inactivity Logs"
+        '
+        'RichTextBox1
+        '
+        Me.RichTextBox1.Location = New System.Drawing.Point(40, 309)
+        Me.RichTextBox1.Name = "RichTextBox1"
+        Me.RichTextBox1.Size = New System.Drawing.Size(225, 191)
+        Me.RichTextBox1.TabIndex = 18
+        Me.RichTextBox1.Text = ""
+        '
+        'WebBrowser1
+        '
+        Me.WebBrowser1.Location = New System.Drawing.Point(562, 376)
+        Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
+        Me.WebBrowser1.Name = "WebBrowser1"
+        Me.WebBrowser1.Size = New System.Drawing.Size(642, 330)
+        Me.WebBrowser1.TabIndex = 19
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(190, 521)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 20
+        Me.Button2.Text = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1236, 471)
+        Me.ClientSize = New System.Drawing.Size(1236, 587)
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.WebBrowser1)
+        Me.Controls.Add(Me.RichTextBox1)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.inactivitylogs)
         Me.Controls.Add(Me.lstboxhandels)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
@@ -256,4 +317,10 @@ Partial Class Form1
     Friend WithEvents lstboxhandels As ListBox
     Friend WithEvents allprocess As Timer
     Friend WithEvents NotifyIcon1 As NotifyIcon
+    Private WithEvents InactivityTimer As Timer
+    Friend WithEvents inactivitylogs As ListBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents RichTextBox1 As RichTextBox
+    Friend WithEvents WebBrowser1 As WebBrowser
+    Friend WithEvents Button2 As Button
 End Class

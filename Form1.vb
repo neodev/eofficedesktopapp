@@ -1,6 +1,14 @@
-﻿Public Class Form1
+﻿Imports System.Web
+Imports System.Net
+Imports System.IO
+Imports System.Text
+
+Public Class Form1
+
 
     Inherits System.Windows.Forms.Form
+
+    Private _inactiveTimeRetriever As cIdleTimeStool
 
     'Declare Function GetWindowThreadProcessId Lib "user32" (ByVal hWnd As Long, lpdwProcessId As Long) As Long
 
@@ -14,7 +22,13 @@
     Declare Function GetWindowThreadProcessId Lib "user32" (ByVal hWnd As Long, lpdwProcessId As Long) As Long
 
     Dim lastscreensaver As Date
+    Dim inactstart As Date
+    Dim inactend As Date
+    Dim inactsec As Integer
+
     Dim minsec As Integer = 200 'Take screenshort every X seconds irrespctive of winow changed or not
+
+    Dim logincookie As CookieContainer
 
 
 
@@ -107,7 +121,7 @@
         For Each p In Process.GetProcesses(System.Environment.MachineName)
             'Only add proccess that there HWND is not 0
             If p.MainWindowHandle.ToString <> IntPtr.Zero.ToString Then
-                lstboxhandels.Items.Add(p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
+                lstboxhandels.Items.Add(Now.ToString("dd:MM:yy hh:mm:ss") + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
                 + " | File Name : " + p.MainModule.FileName.ToString + " | Machine : " + p.MachineName.ToString + " | File Description : " + p.MainModule.FileVersionInfo.FileDescription
                 )
                 'LstBoxHWNDCaptions.Items.Add(p.MainWindowTitle.ToString)
@@ -130,6 +144,7 @@
         'NotifyIcon1.BalloonTipText = "I'm here in your Sys tray for your help!"
         'NotifyIcon1.BalloonTipTitle = "Happy Coding!"
         'NotifyIcon1.ShowBalloonTip(2000)
+        _inactiveTimeRetriever = New cIdleTimeStool
     End Sub
 
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -143,5 +158,98 @@
             'Me.Hide()
             ShowInTaskbar = False
         End If
+    End Sub
+
+    Private Sub InactivityTimer_Tick(sender As Object, e As EventArgs) Handles InactivityTimer.Tick
+        'Calculates for how long we have been idle
+        Dim inactiveTime = _inactiveTimeRetriever.GetInactiveTime
+
+        If (inactiveTime Is Nothing) Then
+            'Unknow state
+
+        ElseIf (inactiveTime.Value.TotalSeconds > 5) Then
+
+            'Idle
+            inactsec = inactiveTime.Value.TotalSeconds.ToString("#")
+            DoSomething()
+
+        Else
+            'Active
+
+            If inactsec > 0 Then
+                inactivitylogs.Items.Add(inactsec & "|" & Now.ToString("dd:MM:yy hh:mm:ss"))
+                inactsec = 0
+
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub DoSomething()
+        'With ProgressBar1
+        'If .Value >= .Maximum Then
+        '.Value = 0
+        'End If
+        ' .Value += 1
+        ' End With
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'MsgBox(HaveInternetConnection())
+
+        ' Dim httpClient = New HttpClient()
+
+        'Dim req As New Chilkat.HttpRequest
+
+
+        'Dim postData As String = "referer=https%3A%2F%2Ffaketestjson.herokuapp.com?un=" & TextBox1.Text & "&pw=" & TextBox2.Text
+        'Dim postData As String = "https%3A%2F%2Ffaketestjson.herokuapp.com?un=" & TextBox1.Text & "&pw=" & TextBox2.Text
+        Dim postData As String = "un=" & TextBox1.Text & "&pw=" & TextBox2.Text
+
+        MsgBox(postData)
+        Dim tempCookies As New CookieContainer
+        Dim encoding As New UTF8Encoding
+        Dim byteData As Byte() = encoding.GetBytes(postData)
+
+        Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create("https://faketestjson.herokuapp.com"), HttpWebRequest)
+        postReq.Method = "POST"
+        postReq.KeepAlive = True
+        postReq.CookieContainer = tempCookies
+        postReq.ContentType = "application/x-www-form-urlencoded"
+        postReq.Referer = "https://faketestjson.herokuapp.com"
+        postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
+        postReq.ContentLength = byteData.Length
+
+        Dim postreqstream As Stream = postReq.GetRequestStream()
+        postreqstream.Write(byteData, 0, byteData.Length)
+        postreqstream.Close()
+        Dim postresponse As HttpWebResponse
+
+        postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
+        tempCookies.Add(postresponse.Cookies)
+        logincookie = tempCookies
+        Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
+
+        Dim thepage As String = postreqreader.ReadToEnd
+
+        RichTextBox1.Text = thepage
+
+    End Sub
+
+
+
+    Public Function HaveInternetConnection() As Boolean
+
+        Try
+            Return My.Computer.Network.Ping("www.google.com")
+        Catch
+            Return False
+        End Try
+
+    End Function
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        WebBrowser1.DocumentText = RichTextBox1.Text
     End Sub
 End Class
