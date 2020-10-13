@@ -198,14 +198,11 @@ Public Class Form1
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         'MsgBox(HaveInternetConnection())
 
-        ' Dim httpClient = New HttpClient()
 
-        'Dim req As New Chilkat.HttpRequest
+        'Dim postData As String = "un=" & TextBox1.Text & "&pw=" & TextBox2.Text
 
+        Dim postData As String = "uid=" & TextBox5.Text
 
-        'Dim postData As String = "referer=https%3A%2F%2Ffaketestjson.herokuapp.com?un=" & TextBox1.Text & "&pw=" & TextBox2.Text
-        'Dim postData As String = "https%3A%2F%2Ffaketestjson.herokuapp.com?un=" & TextBox1.Text & "&pw=" & TextBox2.Text
-        Dim postData As String = "un=" & TextBox1.Text & "&pw=" & TextBox2.Text
 
         MsgBox(postData)
         Dim tempCookies As New CookieContainer

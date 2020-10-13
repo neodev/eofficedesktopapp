@@ -53,11 +53,14 @@ Partial Class Form1
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(157, 238)
+        Me.Button1.Location = New System.Drawing.Point(157, 234)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(109, 30)
         Me.Button1.TabIndex = 4
@@ -266,11 +269,42 @@ Partial Class Form1
         Me.Button2.Text = "Button2"
         Me.Button2.UseVisualStyleBackColor = True
         '
+        'TextBox5
+        '
+        Me.TextBox5.Location = New System.Drawing.Point(40, 283)
+        Me.TextBox5.Name = "TextBox5"
+        Me.TextBox5.Size = New System.Drawing.Size(225, 20)
+        Me.TextBox5.TabIndex = 21
+        Me.TextBox5.Text = "c4ca4238a0b923820dcc509a6f75849b"
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Location = New System.Drawing.Point(40, 234)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(79, 17)
+        Me.CheckBox2.TabIndex = 22
+        Me.CheckBox2.Text = "Full Screnn"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'CheckBox3
+        '
+        Me.CheckBox3.AutoSize = True
+        Me.CheckBox3.Location = New System.Drawing.Point(40, 257)
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.Size = New System.Drawing.Size(88, 17)
+        Me.CheckBox3.TabIndex = 23
+        Me.CheckBox3.Text = "Window Size"
+        Me.CheckBox3.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1236, 587)
+        Me.Controls.Add(Me.CheckBox3)
+        Me.Controls.Add(Me.CheckBox2)
+        Me.Controls.Add(Me.TextBox5)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.WebBrowser1)
         Me.Controls.Add(Me.RichTextBox1)
@@ -323,4 +357,7 @@ Partial Class Form1
     Friend WithEvents RichTextBox1 As RichTextBox
     Friend WithEvents WebBrowser1 As WebBrowser
     Friend WithEvents Button2 As Button
+    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents CheckBox2 As CheckBox
+    Friend WithEvents CheckBox3 As CheckBox
 End Class
