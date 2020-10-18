@@ -260,6 +260,7 @@ Public Class Form1
             inactivitylogs.Enabled = True
             tmrGetFgWindow.Enabled = True
             allprocess.Enabled = True
+            Button2.PerformClick()
         End If
 
     End Sub
@@ -489,6 +490,13 @@ Public Class Form1
                 task.ValueMember = "Key"
 
             End If
+        Else
+
+            Dim comboSource As New Dictionary(Of String, String)()
+            comboSource.Add("", "Select Task")
+            task.DataSource = New BindingSource(comboSource, Nothing)
+            task.DisplayMember = "Value"
+            task.ValueMember = "Key"
 
         End If
 
@@ -499,5 +507,9 @@ Public Class Form1
         Dim value As String = DirectCast(task.SelectedItem, KeyValuePair(Of String, String)).Value
 
         'MsgBox(key + " : " + value)
+    End Sub
+
+    Private Sub syncact_Tick(sender As Object, e As EventArgs) Handles syncact.Tick
+
     End Sub
 End Class

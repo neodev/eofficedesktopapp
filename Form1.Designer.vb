@@ -51,7 +51,6 @@ Partial Class Form1
         Me.inactivitylogs = New System.Windows.Forms.ListBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
-        Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.authkey = New System.Windows.Forms.TextBox()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
@@ -60,6 +59,9 @@ Partial Class Form1
         Me.task = New System.Windows.Forms.ComboBox()
         Me.Projects = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.syncact = New System.Windows.Forms.Timer(Me.components)
+        Me.ListBox1 = New System.Windows.Forms.ListBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Button1
@@ -154,7 +156,7 @@ Partial Class Form1
         Me.lvwFGWindow.HideSelection = False
         Me.lvwFGWindow.Location = New System.Drawing.Point(296, 30)
         Me.lvwFGWindow.Name = "lvwFGWindow"
-        Me.lvwFGWindow.Size = New System.Drawing.Size(711, 140)
+        Me.lvwFGWindow.Size = New System.Drawing.Size(908, 140)
         Me.lvwFGWindow.TabIndex = 8
         Me.lvwFGWindow.UseCompatibleStateImageBehavior = False
         Me.lvwFGWindow.View = System.Windows.Forms.View.Details
@@ -200,7 +202,7 @@ Partial Class Form1
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(293, 185)
+        Me.Label4.Location = New System.Drawing.Point(293, 196)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(59, 13)
         Me.Label4.TabIndex = 10
@@ -231,7 +233,7 @@ Partial Class Form1
         'inactivitylogs
         '
         Me.inactivitylogs.FormattingEnabled = True
-        Me.inactivitylogs.Location = New System.Drawing.Point(296, 392)
+        Me.inactivitylogs.Location = New System.Drawing.Point(967, 392)
         Me.inactivitylogs.Name = "inactivitylogs"
         Me.inactivitylogs.Size = New System.Drawing.Size(237, 108)
         Me.inactivitylogs.TabIndex = 14
@@ -239,7 +241,7 @@ Partial Class Form1
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(293, 376)
+        Me.Label7.Location = New System.Drawing.Point(964, 376)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(75, 13)
         Me.Label7.TabIndex = 17
@@ -252,14 +254,6 @@ Partial Class Form1
         Me.RichTextBox1.Size = New System.Drawing.Size(225, 54)
         Me.RichTextBox1.TabIndex = 18
         Me.RichTextBox1.Text = ""
-        '
-        'WebBrowser1
-        '
-        Me.WebBrowser1.Location = New System.Drawing.Point(562, 376)
-        Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
-        Me.WebBrowser1.Name = "WebBrowser1"
-        Me.WebBrowser1.Size = New System.Drawing.Size(642, 330)
-        Me.WebBrowser1.TabIndex = 19
         '
         'Button2
         '
@@ -335,11 +329,34 @@ Partial Class Form1
         Me.Label6.TabIndex = 29
         Me.Label6.Text = "Tasks"
         '
+        'syncact
+        '
+        Me.syncact.Interval = 5000
+        '
+        'ListBox1
+        '
+        Me.ListBox1.FormattingEnabled = True
+        Me.ListBox1.Location = New System.Drawing.Point(296, 392)
+        Me.ListBox1.Name = "ListBox1"
+        Me.ListBox1.Size = New System.Drawing.Size(654, 108)
+        Me.ListBox1.TabIndex = 30
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(293, 376)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(66, 13)
+        Me.Label5.TabIndex = 31
+        Me.Label5.Text = "Screenshots"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1236, 587)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.ListBox1)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Projects)
         Me.Controls.Add(Me.task)
@@ -348,7 +365,6 @@ Partial Class Form1
         Me.Controls.Add(Me.CheckBox2)
         Me.Controls.Add(Me.authkey)
         Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.WebBrowser1)
         Me.Controls.Add(Me.RichTextBox1)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.inactivitylogs)
@@ -397,7 +413,6 @@ Partial Class Form1
     Friend WithEvents inactivitylogs As ListBox
     Friend WithEvents Label7 As Label
     Friend WithEvents RichTextBox1 As RichTextBox
-    Friend WithEvents WebBrowser1 As WebBrowser
     Friend WithEvents Button2 As Button
     Friend WithEvents authkey As TextBox
     Friend WithEvents CheckBox2 As CheckBox
@@ -406,4 +421,7 @@ Partial Class Form1
     Friend WithEvents task As ComboBox
     Friend WithEvents Projects As Label
     Friend WithEvents Label6 As Label
+    Friend WithEvents syncact As Timer
+    Friend WithEvents ListBox1 As ListBox
+    Friend WithEvents Label5 As Label
 End Class
