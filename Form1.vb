@@ -2,6 +2,7 @@
 Imports System.Net
 Imports System.IO
 Imports System.Text
+Imports System.Web.Script.Serialization
 
 Public Class Form1
 
@@ -199,12 +200,12 @@ Public Class Form1
         'MsgBox(HaveInternetConnection())
 
 
-        'Dim postData As String = "un=" & TextBox1.Text & "&pw=" & TextBox2.Text
+        Dim postData As String = "un=" & TextBox1.Text & "&pw=" & TextBox2.Text
 
-        Dim postData As String = "uid=" & TextBox5.Text
+        'Dim postData As String = "uid=" & TextBox5.Text
 
 
-        MsgBox(postData)
+        'MsgBox(postData)
         Dim tempCookies As New CookieContainer
         Dim encoding As New UTF8Encoding
         Dim byteData As Byte() = encoding.GetBytes(postData)
@@ -231,6 +232,29 @@ Public Class Form1
         Dim thepage As String = postreqreader.ReadToEnd
 
         RichTextBox1.Text = thepage
+
+
+        Dim jss As New JavaScriptSerializer()
+        Dim datadict As Dictionary(Of String, String) = jss.Deserialize(Of Dictionary(Of String, String))(thepage)
+
+        authkey.Text = datadict("uid")
+
+        'https://www.youtube.com/watch?v=2VJfYboYVpI
+        'Dim jss As New JavaScriptSerializer()
+        'Dim dict As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(RichTextBox1.Text)
+
+        'Dim jsonResulttodict = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(thepage)
+        'MsgBox(Convert.ToInt32(JObject.Parse(thepage)("id")))
+
+        ' Dim jsonResulttodict = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(rawresp)
+        'Dim firstItem = jsonResulttodict.item("id")
+        'authkey.Text = dict.item("uid").GetType
+        '
+        'For Each item As Object In dict
+
+        'MsgBox(item("uid"))
+
+        'Next
 
     End Sub
 

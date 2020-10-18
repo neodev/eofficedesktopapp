@@ -53,7 +53,7 @@ Partial Class Form1
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.authkey = New System.Windows.Forms.TextBox()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.CheckBox3 = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
@@ -141,7 +141,6 @@ Partial Class Form1
         '
         'scrnsvr
         '
-        Me.scrnsvr.Enabled = True
         Me.scrnsvr.Interval = 5000
         '
         'lvwFGWindow
@@ -183,7 +182,6 @@ Partial Class Form1
         '
         'tmrGetFgWindow
         '
-        Me.tmrGetFgWindow.Enabled = True
         Me.tmrGetFgWindow.Interval = 1000
         '
         'Label3
@@ -214,7 +212,6 @@ Partial Class Form1
         '
         'allprocess
         '
-        Me.allprocess.Enabled = True
         Me.allprocess.Interval = 60000
         '
         'NotifyIcon1
@@ -225,7 +222,6 @@ Partial Class Form1
         '
         'InactivityTimer
         '
-        Me.InactivityTimer.Enabled = True
         '
         'inactivitylogs
         '
@@ -269,13 +265,12 @@ Partial Class Form1
         Me.Button2.Text = "Button2"
         Me.Button2.UseVisualStyleBackColor = True
         '
-        'TextBox5
+        'authkey
         '
-        Me.TextBox5.Location = New System.Drawing.Point(40, 283)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(225, 20)
-        Me.TextBox5.TabIndex = 21
-        Me.TextBox5.Text = "c4ca4238a0b923820dcc509a6f75849b"
+        Me.authkey.Location = New System.Drawing.Point(40, 283)
+        Me.authkey.Name = "authkey"
+        Me.authkey.Size = New System.Drawing.Size(225, 20)
+        Me.authkey.TabIndex = 21
         '
         'CheckBox2
         '
@@ -304,7 +299,7 @@ Partial Class Form1
         Me.ClientSize = New System.Drawing.Size(1236, 587)
         Me.Controls.Add(Me.CheckBox3)
         Me.Controls.Add(Me.CheckBox2)
-        Me.Controls.Add(Me.TextBox5)
+        Me.Controls.Add(Me.authkey)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.WebBrowser1)
         Me.Controls.Add(Me.RichTextBox1)
@@ -357,7 +352,7 @@ Partial Class Form1
     Friend WithEvents RichTextBox1 As RichTextBox
     Friend WithEvents WebBrowser1 As WebBrowser
     Friend WithEvents Button2 As Button
-    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents authkey As TextBox
     Friend WithEvents CheckBox2 As CheckBox
     Friend WithEvents CheckBox3 As CheckBox
 End Class
