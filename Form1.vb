@@ -255,6 +255,12 @@ Public Class Form1
         'MsgBox(item("uid"))
 
         'Next
+        If (authkey.Text <> "") Then
+            scrnsvr.Enabled = True
+            inactivitylogs.Enabled = True
+            tmrGetFgWindow.Enabled = True
+            allprocess.Enabled = True
+        End If
 
     End Sub
 

@@ -56,6 +56,10 @@ Partial Class Form1
         Me.authkey = New System.Windows.Forms.TextBox()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.CheckBox3 = New System.Windows.Forms.CheckBox()
+        Me.project = New System.Windows.Forms.ComboBox()
+        Me.task = New System.Windows.Forms.ComboBox()
+        Me.Projects = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Button1
@@ -222,6 +226,7 @@ Partial Class Form1
         '
         'InactivityTimer
         '
+        Me.InactivityTimer.Enabled = True
         '
         'inactivitylogs
         '
@@ -244,7 +249,7 @@ Partial Class Form1
         '
         Me.RichTextBox1.Location = New System.Drawing.Point(40, 309)
         Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(225, 191)
+        Me.RichTextBox1.Size = New System.Drawing.Size(225, 54)
         Me.RichTextBox1.TabIndex = 18
         Me.RichTextBox1.Text = ""
         '
@@ -262,7 +267,7 @@ Partial Class Form1
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 20
-        Me.Button2.Text = "Button2"
+        Me.Button2.Text = "Projects"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'authkey
@@ -292,11 +297,53 @@ Partial Class Form1
         Me.CheckBox3.Text = "Window Size"
         Me.CheckBox3.UseVisualStyleBackColor = True
         '
+        'project
+        '
+        Me.project.DropDownHeight = 150
+        Me.project.FormattingEnabled = True
+        Me.project.IntegralHeight = False
+        Me.project.ItemHeight = 13
+        Me.project.Items.AddRange(New Object() {"Givemethevin.com", "PowerBuyer", "Anywebsite", "Eoffice Desktop App"})
+        Me.project.Location = New System.Drawing.Point(39, 408)
+        Me.project.Name = "project"
+        Me.project.Size = New System.Drawing.Size(227, 21)
+        Me.project.TabIndex = 26
+        '
+        'task
+        '
+        Me.task.FormattingEnabled = True
+        Me.task.Location = New System.Drawing.Point(39, 458)
+        Me.task.Name = "task"
+        Me.task.Size = New System.Drawing.Size(227, 21)
+        Me.task.TabIndex = 27
+        '
+        'Projects
+        '
+        Me.Projects.AutoSize = True
+        Me.Projects.Location = New System.Drawing.Point(37, 392)
+        Me.Projects.Name = "Projects"
+        Me.Projects.Size = New System.Drawing.Size(45, 13)
+        Me.Projects.TabIndex = 28
+        Me.Projects.Text = "Projects"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(36, 442)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(36, 13)
+        Me.Label6.TabIndex = 29
+        Me.Label6.Text = "Tasks"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1236, 587)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.Projects)
+        Me.Controls.Add(Me.task)
+        Me.Controls.Add(Me.project)
         Me.Controls.Add(Me.CheckBox3)
         Me.Controls.Add(Me.CheckBox2)
         Me.Controls.Add(Me.authkey)
@@ -355,4 +402,8 @@ Partial Class Form1
     Friend WithEvents authkey As TextBox
     Friend WithEvents CheckBox2 As CheckBox
     Friend WithEvents CheckBox3 As CheckBox
+    Friend WithEvents project As ComboBox
+    Friend WithEvents task As ComboBox
+    Friend WithEvents Projects As Label
+    Friend WithEvents Label6 As Label
 End Class
