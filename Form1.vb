@@ -44,12 +44,13 @@ Public Class Form1
 
         If (seconds > minsec) Then
             ''Dim unused = MsgBox(milliseconds)
-
+            Dim sgfilename As String
             Dim screenSize As Size = New Size(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
             Dim screenGrab As New Bitmap(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
             Dim g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(screenGrab)
             g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
-            screenGrab.Save("d:\screengrabs\MS" & CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg")
+            sgfilename = CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
+            screenGrab.Save("d:\screengrabs\MS" & sgfilename)
             ''or screenGrab.Save("C:\screenGrab.jpg", System.Drawing.Imaging.ImageFormat.Jpeg)
 
             lastscreensaver = Now
@@ -97,16 +98,19 @@ Public Class Form1
 
         list_item.SubItems.Add(fg_hwnd)
         list_item.SubItems.Add(fg_wndttle)
-        list_item.SubItems.Add(fg_wndttle)
+
 
         'Take screenshot if active window is changed
         lastscreensaver = Now
-
+        Dim sgfilename As String
         Dim screenSize As Size = New Size(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
         Dim screenGrab As New Bitmap(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
         Dim g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(screenGrab)
         g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
-        screenGrab.Save("d:\screengrabs\WC" & CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg")
+        sgfilename = "WC" & CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
+        screenGrab.Save("d:\screengrabs\" & sgfilename)
+
+        list_item.SubItems.Add(sgfilename)
 
         list_item.EnsureVisible()
     End Sub
