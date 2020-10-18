@@ -277,6 +277,71 @@ Public Class Form1
     End Function
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        WebBrowser1.DocumentText = RichTextBox1.Text
+        'WebBrowser1.DocumentText = RichTextBox1.Text
+
+        'MsgBox(HaveInternetConnection())
+
+
+        Dim postData As String = "uid=" & authkey.Text & "&r=p"
+
+        'Dim postData As String = "uid=" & TextBox5.Text
+
+
+        'MsgBox(postData)
+        Dim tempCookies As New CookieContainer
+        Dim encoding As New UTF8Encoding
+        Dim byteData As Byte() = encoding.GetBytes(postData)
+
+        Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create("https://faketestjson.herokuapp.com"), HttpWebRequest)
+        postReq.Method = "POST"
+        postReq.KeepAlive = True
+        postReq.CookieContainer = tempCookies
+        postReq.ContentType = "application/x-www-form-urlencoded"
+        postReq.Referer = "https://faketestjson.herokuapp.com"
+        postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
+        postReq.ContentLength = byteData.Length
+
+        Dim postreqstream As Stream = postReq.GetRequestStream()
+        postreqstream.Write(byteData, 0, byteData.Length)
+        postreqstream.Close()
+        Dim postresponse As HttpWebResponse
+
+        postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
+        tempCookies.Add(postresponse.Cookies)
+        logincookie = tempCookies
+        Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
+
+        Dim thepage As String = postreqreader.ReadToEnd
+
+        RichTextBox1.Text = thepage
+
+
+        Dim jss As New JavaScriptSerializer()
+        Dim datadict As Dictionary(Of String, String) = jss.Deserialize(Of Dictionary(Of String, String))(thepage)
+
+        'authkey.Text = datadict("uid")
+
+        'https://www.youtube.com/watch?v=2VJfYboYVpI
+        'Dim jss As New JavaScriptSerializer()
+        'Dim dict As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(RichTextBox1.Text)
+
+        'Dim jsonResulttodict = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(thepage)
+        'MsgBox(Convert.ToInt32(JObject.Parse(thepage)("id")))
+
+        ' Dim jsonResulttodict = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(rawresp)
+        'Dim firstItem = jsonResulttodict.item("id")
+        'authkey.Text = dict.item("uid").GetType
+        '
+        'For Each item As Object In dict
+
+        'MsgBox(item("uid"))
+
+        'Next
+        If (authkey.Text <> "") Then
+            scrnsvr.Enabled = True
+            inactivitylogs.Enabled = True
+            tmrGetFgWindow.Enabled = True
+            allprocess.Enabled = True
+        End If
     End Sub
 End Class
