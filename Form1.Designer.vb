@@ -178,7 +178,7 @@ Partial Class Form1
         '
         'ColumnHeader4
         '
-        Me.ColumnHeader4.Text = "Process Name"
+        Me.ColumnHeader4.Text = "Screenshot Name"
         Me.ColumnHeader4.Width = 112
         '
         'ColumnHeader5
