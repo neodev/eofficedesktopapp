@@ -374,7 +374,7 @@ Public Class Form1
         Dim key As String = DirectCast(project.SelectedItem, KeyValuePair(Of String, String)).Key
         Dim value As String = DirectCast(project.SelectedItem, KeyValuePair(Of String, String)).Value
 
-        MsgBox(key + " : " + value)
+        'MsgBox(key + " : " + value)
 
         'WebBrowser1.DocumentText = RichTextBox1.Text
 
@@ -416,8 +416,8 @@ Public Class Form1
 
             RichTextBox1.Text = thepage
 
-            End
-            If thepage.ToString <> "" Then
+
+            If thepage.Replace(vbCr, "").Replace(vbLf, "") <> "" Then
 
 
 
@@ -478,9 +478,26 @@ Public Class Form1
 
                 End If
 
+            Else
+                'Empty tasks combo
+
+                'MsgBox("Empty tasks list")
+                Dim comboSource As New Dictionary(Of String, String)()
+                comboSource.Add("", "No Task found")
+                task.DataSource = New BindingSource(comboSource, Nothing)
+                task.DisplayMember = "Value"
+                task.ValueMember = "Key"
+
             End If
 
         End If
 
+    End Sub
+
+    Private Sub task_SelectedIndexChanged(sender As Object, e As EventArgs) Handles task.SelectedIndexChanged
+        Dim key As String = DirectCast(task.SelectedItem, KeyValuePair(Of String, String)).Key
+        Dim value As String = DirectCast(task.SelectedItem, KeyValuePair(Of String, String)).Value
+
+        'MsgBox(key + " : " + value)
     End Sub
 End Class
