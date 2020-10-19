@@ -173,7 +173,7 @@ Partial Class Form1
         '
         'ColumnHeader3
         '
-        Me.ColumnHeader3.Text = "Process ID"
+        Me.ColumnHeader3.Text = "Window Title"
         Me.ColumnHeader3.Width = 112
         '
         'ColumnHeader4
