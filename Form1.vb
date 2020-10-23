@@ -4,6 +4,7 @@ Imports System.IO
 Imports System.Text
 Imports System.Web.Script.Serialization
 Imports System.Reflection
+Imports System.ComponentModel
 
 Public Class Form1
 
@@ -210,8 +211,16 @@ Public Class Form1
             NotifyIcon1.BalloonTipTitle = "Happy Coding!"
             NotifyIcon1.ShowBalloonTip(2000)
             'Me.Hide()
-            ShowInTaskbar = False
+            'ShowInTaskbar = False
         End If
+
+        If Me.WindowState <> FormWindowState.Minimized Then
+
+            'MsgBox(Me.WindowState)
+            ShowInTaskbar = True
+
+        End If
+
     End Sub
 
     Private Sub InactivityTimer_Tick(sender As Object, e As EventArgs) Handles InactivityTimer.Tick
@@ -588,5 +597,10 @@ Public Class Form1
         End If
     End Sub
 
-
+    Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        MsgBox("Bye")
+        If (MessageBox.Show("Close?", "", MessageBoxButtons.YesNo) = Windows.Forms.DialogResult.No) Then
+            e.Cancel = True
+        End If
+    End Sub
 End Class
