@@ -3,6 +3,7 @@ Imports System.Net
 Imports System.IO
 Imports System.Text
 Imports System.Web.Script.Serialization
+Imports System.Reflection
 
 Public Class Form1
 
@@ -150,6 +151,54 @@ Public Class Form1
         'NotifyIcon1.BalloonTipTitle = "Happy Coding!"
         'NotifyIcon1.ShowBalloonTip(2000)
         _inactiveTimeRetriever = New cIdleTimeStool
+
+        Dim applicationName As String = Application.ProductName
+        Dim applicationPath As String = Application.ExecutablePath
+        Dim checkregkey As String = applicationName
+
+        Dim startwithos As String
+        Dim versionNumber As Version
+
+        Dim CurrentVersion As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "CurrentVersion", Nothing)
+        startwithos = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", applicationName, Nothing)
+
+        versionNumber = Assembly.GetExecutingAssembly().GetName().Version
+
+        'If version number mismatching or missing write to registery
+        If CurrentVersion <> versionNumber.ToString Then
+
+            MsgBox("versionNumber is mismatching")
+
+            'Assume the application is loading first time or someone modified the version key mannully
+
+            My.Computer.Registry.CurrentUser.CreateSubKey(applicationName)
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "CurrentVersion", versionNumber.ToString)
+
+            My.Computer.Registry.CurrentUser.CreateSubKey(applicationName)
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", applicationName, """" & applicationPath & """")
+            autostart.Checked = True
+
+        Else
+
+            If startwithos = "" Then
+
+                autostart.Checked = False
+
+            ElseIf startwithos = """" & applicationPath & """" Then
+                autostart.Checked = True
+
+            ElseIf startwithos <> "" And startwithos <> """" & applicationPath & """" Then
+
+                My.Computer.Registry.CurrentUser.CreateSubKey(applicationName)
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", applicationName, """" & applicationPath & """")
+                autostart.Checked = True
+
+            End If
+
+
+        End If
+
+
     End Sub
 
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -516,4 +565,28 @@ Public Class Form1
     Private Sub syncact_Tick(sender As Object, e As EventArgs) Handles syncact.Tick
 
     End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub autostart_CheckedChanged(sender As Object, e As EventArgs) Handles autostart.CheckedChanged
+        Dim applicationName As String = Application.ProductName
+        Dim applicationPath As String = Application.ExecutablePath
+
+        'MsgBox(autostart.Checked)
+
+        If autostart.Checked Then
+
+            My.Computer.Registry.CurrentUser.CreateSubKey(applicationName)
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", applicationName, """" & applicationPath & """")
+
+        Else
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", applicationName, "")
+
+        End If
+    End Sub
+
+
 End Class
