@@ -322,6 +322,12 @@ Public Class Form1
             inactivitylogs.Enabled = True
             tmrGetFgWindow.Enabled = True
             allprocess.Enabled = True
+
+
+            afterlogin.Visible = True
+            beforelogin.Visible = False
+            afterlogin.Top = beforelogin.Top
+            'afterlogin.Left = beforelogin.Top
             Button2.PerformClick()
         End If
 
@@ -635,6 +641,18 @@ Public Class Form1
         End If
         Me.WindowState = 1
         ShowInTaskbar = False
+
+    End Sub
+
+    Private Sub logout_Click(sender As Object, e As EventArgs) Handles logout.Click
+        scrnsvr.Enabled = False
+        inactivitylogs.Enabled = False
+        tmrGetFgWindow.Enabled = False
+        allprocess.Enabled = False
+
+        afterlogin.Visible = False
+        beforelogin.Visible = True
+        taskdetailslink.Visible = False
 
     End Sub
 End Class
