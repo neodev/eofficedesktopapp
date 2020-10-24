@@ -33,7 +33,7 @@ Public Class Form1
 
     Dim logincookie As CookieContainer
 
-
+    Dim systrayalert As Boolean = True
 
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
@@ -602,7 +602,10 @@ Public Class Form1
     Protected Overrides Sub OnFormClosing(e As FormClosingEventArgs)
         If e.CloseReason = CloseReason.UserClosing Then
 
-            MsgBox("I'm here in your Systray for your help!")
+            If systrayalert = True Then
+                MsgBox("I'm here in your Systray for your help!")
+                systrayalert = False
+            End If
 
             Me.WindowState = FormWindowState.Minimized
             e.Cancel = True
