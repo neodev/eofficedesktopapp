@@ -616,5 +616,25 @@ Public Class Form1
         MyBase.OnFormClosing(e)
     End Sub
 
+    Private Sub AboutToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem1.Click
 
+    End Sub
+
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+        End
+    End Sub
+
+    Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
+        If systrayalert = True Then
+            MsgBox("I'm here in your Systray for your help!")
+            systrayalert = False
+        End If
+        Me.WindowState = 1
+        ShowInTaskbar = False
+
+    End Sub
 End Class
