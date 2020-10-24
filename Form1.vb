@@ -597,10 +597,14 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        MsgBox("Bye")
-        If (MessageBox.Show("Close?", "", MessageBoxButtons.YesNo) = Windows.Forms.DialogResult.No) Then
+
+
+    Protected Overrides Sub OnFormClosing(e As FormClosingEventArgs)
+        If e.CloseReason = CloseReason.UserClosing Then
+            Me.WindowState = FormWindowState.Minimized
             e.Cancel = True
         End If
+        MyBase.OnFormClosing(e)
     End Sub
+
 End Class
