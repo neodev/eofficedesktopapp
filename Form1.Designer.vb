@@ -63,14 +63,14 @@ Partial Class Form1
         Me.ListBox1 = New System.Windows.Forms.ListBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.autostart = New System.Windows.Forms.CheckBox()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(236, 360)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button1.Location = New System.Drawing.Point(157, 234)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(164, 46)
+        Me.Button1.Size = New System.Drawing.Size(109, 30)
         Me.Button1.TabIndex = 4
         Me.Button1.Text = "Login"
         Me.Button1.UseVisualStyleBackColor = True
@@ -78,10 +78,9 @@ Partial Class Form1
         'TextBox1
         '
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox1.Location = New System.Drawing.Point(70, 102)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.TextBox1.Location = New System.Drawing.Point(47, 66)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(327, 19)
+        Me.TextBox1.Size = New System.Drawing.Size(218, 13)
         Me.TextBox1.TabIndex = 1
         Me.TextBox1.Text = "test@test.com"
         '
@@ -89,31 +88,28 @@ Partial Class Form1
         '
         Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(70, 223)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.TextBox2.Location = New System.Drawing.Point(47, 145)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TextBox2.Size = New System.Drawing.Size(327, 19)
+        Me.TextBox2.Size = New System.Drawing.Size(218, 13)
         Me.TextBox2.TabIndex = 2
         Me.TextBox2.Text = "password"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(58, 63)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(39, 41)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(83, 20)
+        Me.Label1.Size = New System.Drawing.Size(55, 13)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "Username"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(58, 180)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(39, 117)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(78, 20)
+        Me.Label2.Size = New System.Drawing.Size(53, 13)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Password"
         '
@@ -122,10 +118,9 @@ Partial Class Form1
         Me.CheckBox1.AutoSize = True
         Me.CheckBox1.Checked = True
         Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox1.Location = New System.Drawing.Point(58, 294)
-        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.CheckBox1.Location = New System.Drawing.Point(39, 191)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(201, 24)
+        Me.CheckBox1.Size = New System.Drawing.Size(135, 17)
         Me.CheckBox1.TabIndex = 3
         Me.CheckBox1.Text = "Remember login details"
         Me.CheckBox1.UseVisualStyleBackColor = True
@@ -135,11 +130,10 @@ Partial Class Form1
         Me.TextBox3.BackColor = System.Drawing.SystemColors.Window
         Me.TextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox3.Enabled = False
-        Me.TextBox3.Location = New System.Drawing.Point(60, 208)
-        Me.TextBox3.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.TextBox3.Location = New System.Drawing.Point(40, 135)
         Me.TextBox3.Multiline = True
         Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(340, 53)
+        Me.TextBox3.Size = New System.Drawing.Size(227, 35)
         Me.TextBox3.TabIndex = 6
         '
         'TextBox4
@@ -147,11 +141,10 @@ Partial Class Form1
         Me.TextBox4.BackColor = System.Drawing.SystemColors.Window
         Me.TextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox4.Enabled = False
-        Me.TextBox4.Location = New System.Drawing.Point(62, 89)
-        Me.TextBox4.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.TextBox4.Location = New System.Drawing.Point(41, 58)
         Me.TextBox4.Multiline = True
         Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(340, 53)
+        Me.TextBox4.Size = New System.Drawing.Size(227, 35)
         Me.TextBox4.TabIndex = 7
         '
         'scrnsvr
@@ -163,10 +156,9 @@ Partial Class Form1
         Me.lvwFGWindow.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4, Me.ColumnHeader5})
         Me.lvwFGWindow.GridLines = True
         Me.lvwFGWindow.HideSelection = False
-        Me.lvwFGWindow.Location = New System.Drawing.Point(444, 46)
-        Me.lvwFGWindow.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.lvwFGWindow.Location = New System.Drawing.Point(296, 30)
         Me.lvwFGWindow.Name = "lvwFGWindow"
-        Me.lvwFGWindow.Size = New System.Drawing.Size(1360, 213)
+        Me.lvwFGWindow.Size = New System.Drawing.Size(908, 140)
         Me.lvwFGWindow.TabIndex = 8
         Me.lvwFGWindow.UseCompatibleStateImageBehavior = False
         Me.lvwFGWindow.View = System.Windows.Forms.View.Details
@@ -203,31 +195,27 @@ Partial Class Form1
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(440, 14)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(293, 9)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(112, 20)
+        Me.Label3.Size = New System.Drawing.Size(79, 13)
         Me.Label3.TabIndex = 9
         Me.Label3.Text = "Active Window"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(440, 302)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Location = New System.Drawing.Point(293, 196)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(87, 20)
+        Me.Label4.Size = New System.Drawing.Size(59, 13)
         Me.Label4.TabIndex = 10
         Me.Label4.Text = "All Process"
         '
         'lstboxhandels
         '
         Me.lstboxhandels.HorizontalScrollbar = True
-        Me.lstboxhandels.ItemHeight = 20
-        Me.lstboxhandels.Location = New System.Drawing.Point(444, 329)
-        Me.lstboxhandels.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.lstboxhandels.Location = New System.Drawing.Point(296, 214)
         Me.lstboxhandels.Name = "lstboxhandels"
-        Me.lstboxhandels.Size = New System.Drawing.Size(1360, 204)
+        Me.lstboxhandels.Size = New System.Drawing.Size(908, 134)
         Me.lstboxhandels.TabIndex = 11
         '
         'allprocess
@@ -247,57 +235,50 @@ Partial Class Form1
         'inactivitylogs
         '
         Me.inactivitylogs.FormattingEnabled = True
-        Me.inactivitylogs.ItemHeight = 20
-        Me.inactivitylogs.Location = New System.Drawing.Point(1450, 603)
-        Me.inactivitylogs.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.inactivitylogs.Location = New System.Drawing.Point(967, 392)
         Me.inactivitylogs.Name = "inactivitylogs"
-        Me.inactivitylogs.Size = New System.Drawing.Size(354, 164)
+        Me.inactivitylogs.Size = New System.Drawing.Size(237, 108)
         Me.inactivitylogs.TabIndex = 14
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(1446, 578)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label7.Location = New System.Drawing.Point(964, 376)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(109, 20)
+        Me.Label7.Size = New System.Drawing.Size(75, 13)
         Me.Label7.TabIndex = 17
         Me.Label7.Text = "Inactivity Logs"
         '
         'RichTextBox1
         '
-        Me.RichTextBox1.Location = New System.Drawing.Point(58, 494)
-        Me.RichTextBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.RichTextBox1.Location = New System.Drawing.Point(39, 321)
         Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(336, 81)
+        Me.RichTextBox1.Size = New System.Drawing.Size(225, 54)
         Me.RichTextBox1.TabIndex = 18
         Me.RichTextBox1.Text = ""
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(285, 802)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button2.Location = New System.Drawing.Point(190, 521)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(112, 35)
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 20
         Me.Button2.Text = "Projects"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'authkey
         '
-        Me.authkey.Location = New System.Drawing.Point(60, 454)
-        Me.authkey.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.authkey.Location = New System.Drawing.Point(40, 295)
         Me.authkey.Name = "authkey"
-        Me.authkey.Size = New System.Drawing.Size(336, 26)
+        Me.authkey.Size = New System.Drawing.Size(225, 20)
         Me.authkey.TabIndex = 21
         '
         'CheckBox2
         '
         Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(60, 365)
-        Me.CheckBox2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.CheckBox2.Location = New System.Drawing.Point(40, 237)
         Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(115, 24)
+        Me.CheckBox2.Size = New System.Drawing.Size(79, 17)
         Me.CheckBox2.TabIndex = 22
         Me.CheckBox2.Text = "Full Screnn"
         Me.CheckBox2.UseVisualStyleBackColor = True
@@ -305,10 +286,9 @@ Partial Class Form1
         'CheckBox3
         '
         Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Location = New System.Drawing.Point(62, 400)
-        Me.CheckBox3.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.CheckBox3.Location = New System.Drawing.Point(41, 260)
         Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(126, 24)
+        Me.CheckBox3.Size = New System.Drawing.Size(88, 17)
         Me.CheckBox3.TabIndex = 23
         Me.CheckBox3.Text = "Window Size"
         Me.CheckBox3.UseVisualStyleBackColor = True
@@ -318,40 +298,36 @@ Partial Class Form1
         Me.project.DropDownHeight = 150
         Me.project.FormattingEnabled = True
         Me.project.IntegralHeight = False
-        Me.project.ItemHeight = 20
+        Me.project.ItemHeight = 13
         Me.project.Items.AddRange(New Object() {"Givemethevin.com", "PowerBuyer", "Anywebsite", "Eoffice Desktop App"})
-        Me.project.Location = New System.Drawing.Point(58, 628)
-        Me.project.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.project.Location = New System.Drawing.Point(39, 408)
         Me.project.Name = "project"
-        Me.project.Size = New System.Drawing.Size(338, 28)
+        Me.project.Size = New System.Drawing.Size(227, 21)
         Me.project.TabIndex = 26
         '
         'task
         '
         Me.task.FormattingEnabled = True
-        Me.task.Location = New System.Drawing.Point(58, 705)
-        Me.task.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.task.Location = New System.Drawing.Point(39, 458)
         Me.task.Name = "task"
-        Me.task.Size = New System.Drawing.Size(338, 28)
+        Me.task.Size = New System.Drawing.Size(227, 21)
         Me.task.TabIndex = 27
         '
         'Projects
         '
         Me.Projects.AutoSize = True
-        Me.Projects.Location = New System.Drawing.Point(56, 603)
-        Me.Projects.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Projects.Location = New System.Drawing.Point(37, 392)
         Me.Projects.Name = "Projects"
-        Me.Projects.Size = New System.Drawing.Size(66, 20)
+        Me.Projects.Size = New System.Drawing.Size(45, 13)
         Me.Projects.TabIndex = 28
         Me.Projects.Text = "Projects"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(54, 680)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label6.Location = New System.Drawing.Point(36, 442)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(51, 20)
+        Me.Label6.Size = New System.Drawing.Size(36, 13)
         Me.Label6.TabIndex = 29
         Me.Label6.Text = "Tasks"
         '
@@ -362,39 +338,39 @@ Partial Class Form1
         'ListBox1
         '
         Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.ItemHeight = 20
-        Me.ListBox1.Location = New System.Drawing.Point(444, 603)
-        Me.ListBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.ListBox1.Location = New System.Drawing.Point(296, 392)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(979, 164)
+        Me.ListBox1.Size = New System.Drawing.Size(654, 108)
         Me.ListBox1.TabIndex = 30
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(440, 578)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label5.Location = New System.Drawing.Point(293, 376)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(99, 20)
+        Me.Label5.Size = New System.Drawing.Size(66, 13)
         Me.Label5.TabIndex = 31
         Me.Label5.Text = "Screenshots"
         '
         'autostart
         '
         Me.autostart.AutoSize = True
-        Me.autostart.Location = New System.Drawing.Point(60, 329)
-        Me.autostart.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.autostart.Location = New System.Drawing.Point(40, 214)
         Me.autostart.Name = "autostart"
-        Me.autostart.Size = New System.Drawing.Size(108, 24)
+        Me.autostart.Size = New System.Drawing.Size(73, 17)
         Me.autostart.TabIndex = 32
         Me.autostart.Text = "Auto Start"
         Me.autostart.UseVisualStyleBackColor = True
         '
+        'Timer1
+        '
+        Me.Timer1.Interval = 500
+        '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1854, 903)
+        Me.ClientSize = New System.Drawing.Size(1236, 587)
         Me.Controls.Add(Me.autostart)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.ListBox1)
@@ -421,7 +397,7 @@ Partial Class Form1
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.TextBox3)
         Me.Controls.Add(Me.TextBox4)
-        Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.MinimizeBox = False
         Me.Name = "Form1"
         Me.Text = "E Office"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
@@ -467,4 +443,5 @@ Partial Class Form1
     Friend WithEvents ListBox1 As ListBox
     Friend WithEvents Label5 As Label
     Friend WithEvents autostart As CheckBox
+    Friend WithEvents Timer1 As Timer
 End Class

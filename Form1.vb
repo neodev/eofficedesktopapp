@@ -601,10 +601,17 @@ Public Class Form1
 
     Protected Overrides Sub OnFormClosing(e As FormClosingEventArgs)
         If e.CloseReason = CloseReason.UserClosing Then
+
+            MsgBox("I'm here in your Systray for your help!")
+
             Me.WindowState = FormWindowState.Minimized
             e.Cancel = True
+
+            ShowInTaskbar = False
+
         End If
         MyBase.OnFormClosing(e)
     End Sub
+
 
 End Class
