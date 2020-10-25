@@ -489,6 +489,7 @@ Public Class Form1
         'MsgBox(HaveInternetConnection())
         If key <> "" Then
 
+        Dim AutoSelProjectReg As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", Nothing)
 
 
             Dim postData As String = "uid=" & authkey.Text & "&r=t&p=" & key
@@ -709,6 +710,19 @@ Public Class Form1
         afterlogin.Visible = False
         beforelogin.Visible = True
         taskdetailslink.Visible = False
+
+    End Sub
+    Private Sub autoselproject_CheckedChanged(sender As Object, e As EventArgs) Handles autoselproject.CheckedChanged
+
+        If autoselproject.Checked Then
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", autoselproject.Checked)
+
+        Else
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", "")
+
+        End If
 
     End Sub
 End Class
