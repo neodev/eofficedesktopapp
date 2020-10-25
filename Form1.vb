@@ -157,6 +157,10 @@ Public Class Form1
         AutoSelProjectReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", Nothing)
         LastProjectReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", Nothing)
         LastTaskReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", Nothing)
+        Me.Height = 450
+        Me.Width = 432
+        Me.CenterToScreen()
+        Me.CenterToParent()
         'NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
         'NotifyIcon1.BalloonTipText = "I'm here in your Sys tray for your help!"
         'NotifyIcon1.BalloonTipTitle = "Happy Coding!"
@@ -738,6 +742,11 @@ Public Class Form1
         Else
 
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoLogin", "")
+
+        End If
+
+    End Sub
+
     Private Sub autoselproject_CheckedChanged(sender As Object, e As EventArgs) Handles autoselproject.CheckedChanged
 
         If autoselproject.Checked Then
