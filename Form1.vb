@@ -487,11 +487,12 @@ Public Class Form1
         'WebBrowser1.DocumentText = RichTextBox1.Text
 
         'MsgBox(HaveInternetConnection())
-        If key <> "" Then
 
         Dim AutoSelProjectReg As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", Nothing)
 
+        My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", key)
 
+        If key <> "" Then
             Dim postData As String = "uid=" & authkey.Text & "&r=t&p=" & key
 
             'Dim postData As String = "uid=" & TextBox5.Text
