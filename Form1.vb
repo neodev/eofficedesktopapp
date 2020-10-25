@@ -35,6 +35,11 @@ Public Class Form1
 
     Dim systrayalert As Boolean = True
 
+    Dim AutoSelProjectReg As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", Nothing)
+    Dim LastProjectReg As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", Nothing)
+    Dim LastTaskReg As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", Nothing)
+
+    Dim flaglasttask As Boolean = True 'Disable saving selected task
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
@@ -147,6 +152,11 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        flaglasttask = True
+
+        AutoSelProjectReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", Nothing)
+        LastProjectReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", Nothing)
+        LastTaskReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", Nothing)
         'NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
         'NotifyIcon1.BalloonTipText = "I'm here in your Sys tray for your help!"
         'NotifyIcon1.BalloonTipTitle = "Happy Coding!"
@@ -261,6 +271,9 @@ Public Class Form1
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         'MsgBox(HaveInternetConnection())
 
+        AutoSelProjectReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", Nothing)
+        LastProjectReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", Nothing)
+        LastTaskReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", Nothing)
 
         Dim postData As String = "un=" & TextBox1.Text & "&pw=" & TextBox2.Text
 
@@ -346,6 +359,15 @@ Public Class Form1
     End Function
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        flaglasttask = True
+        Dim projectindex As Integer
+        Dim itemindex As Integer
+
+        If AutoSelProjectReg = "True" Then
+
+            autoselproject.Checked = True
+
+        End If
         'WebBrowser1.DocumentText = RichTextBox1.Text
 
         'MsgBox(HaveInternetConnection())
@@ -423,6 +445,13 @@ Public Class Form1
 
             comboSource.Add(item.key, item.Value)
 
+            If item.key = LastProjectReg Then
+                'MsgBox("Last Project : " & LastProjectReg)
+                projectindex = projectindex + 1
+                itemindex = projectindex
+            Else
+                projectindex = projectindex + 1
+            End If
         Next
 
         project.DataSource = New BindingSource(comboSource, Nothing)
@@ -435,10 +464,20 @@ Public Class Form1
         'tmrGetFgWindow.Enabled = True
         'allprocess.Enabled = True
         'End If
+        If AutoSelProjectReg = "True" Then
+
+            'If item.key = LastProjectReg Then
+            'MsgBox("Last Project : " & LastProjectReg)
+            project.SelectedIndex = itemindex
+            ' End If
+
+        End If
     End Sub
 
     Private Sub project_SelectedIndexChanged(sender As Object, e As EventArgs) Handles project.SelectedIndexChanged
 
+        Dim taskindex As Integer
+        Dim itemindex As Integer
         'task.Items.Clear()
         Dim key As String = DirectCast(project.SelectedItem, KeyValuePair(Of String, String)).Key
         Dim value As String = DirectCast(project.SelectedItem, KeyValuePair(Of String, String)).Value
@@ -532,6 +571,13 @@ Public Class Form1
 
                         comboSource.Add(item.key, item.Value)
 
+                        If item.key = LastTaskReg Then
+                            MsgBox("Last Task : " & LastTaskReg)
+                            taskindex = taskindex + 1
+                            itemindex = taskindex
+                        Else
+                            taskindex = taskindex + 1
+                        End If
                     Next
 
                     task.DataSource = New BindingSource(comboSource, Nothing)
@@ -568,6 +614,13 @@ Public Class Form1
 
         End If
 
+        If AutoSelProjectReg = "True" Then
+
+            task.SelectedIndex = itemindex
+            flaglasttask = False
+
+        End If
+
     End Sub
 
     Private Sub task_SelectedIndexChanged(sender As Object, e As EventArgs) Handles task.SelectedIndexChanged
@@ -575,6 +628,9 @@ Public Class Form1
         Dim value As String = DirectCast(task.SelectedItem, KeyValuePair(Of String, String)).Value
 
         'MsgBox(key + " : " + value)
+        If flaglasttask = False Then
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", key)
+        End If
     End Sub
 
     Private Sub syncact_Tick(sender As Object, e As EventArgs) Handles syncact.Tick
