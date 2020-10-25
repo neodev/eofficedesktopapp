@@ -585,7 +585,6 @@ Public Class Form1
                         comboSource.Add(item.key, item.Value)
 
                         If item.key = LastTaskReg Then
-                            MsgBox("Last Task : " & LastTaskReg)
                             taskindex = taskindex + 1
                             itemindex = taskindex
                         Else
