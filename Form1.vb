@@ -717,6 +717,21 @@ Public Class Form1
         taskdetailslink.Visible = False
 
     End Sub
+    Private Sub autologin_CheckedChanged(sender As Object, e As EventArgs) Handles autologin.CheckedChanged
+
+
+        If autostart.Checked Then
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoLogin", autologin.Checked)
+
+        Else
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoLogin", "")
+
+        End If
+
+    End Sub
+
     Private Sub autoselproject_CheckedChanged(sender As Object, e As EventArgs) Handles autoselproject.CheckedChanged
 
         If autoselproject.Checked Then
