@@ -302,10 +302,10 @@ Partial Class Form1
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(17, 246)
+        Me.Button2.Location = New System.Drawing.Point(224, 26)
         Me.Button2.Margin = New System.Windows.Forms.Padding(4)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(146, 36)
+        Me.Button2.Size = New System.Drawing.Size(113, 36)
         Me.Button2.TabIndex = 20
         Me.Button2.Text = "Refresh"
         Me.Button2.UseVisualStyleBackColor = True
@@ -347,7 +347,7 @@ Partial Class Form1
         Me.project.FormattingEnabled = True
         Me.project.IntegralHeight = False
         Me.project.ItemHeight = 18
-        Me.project.Location = New System.Drawing.Point(17, 44)
+        Me.project.Location = New System.Drawing.Point(17, 112)
         Me.project.Margin = New System.Windows.Forms.Padding(4)
         Me.project.Name = "project"
         Me.project.Size = New System.Drawing.Size(321, 26)
@@ -357,7 +357,7 @@ Partial Class Form1
         '
         Me.task.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.task.FormattingEnabled = True
-        Me.task.Location = New System.Drawing.Point(17, 128)
+        Me.task.Location = New System.Drawing.Point(17, 196)
         Me.task.Margin = New System.Windows.Forms.Padding(4)
         Me.task.Name = "task"
         Me.task.Size = New System.Drawing.Size(321, 26)
@@ -366,7 +366,7 @@ Partial Class Form1
         'Projects
         '
         Me.Projects.AutoSize = True
-        Me.Projects.Location = New System.Drawing.Point(16, 21)
+        Me.Projects.Location = New System.Drawing.Point(16, 89)
         Me.Projects.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Projects.Name = "Projects"
         Me.Projects.Size = New System.Drawing.Size(59, 17)
@@ -376,7 +376,7 @@ Partial Class Form1
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(13, 102)
+        Me.Label6.Location = New System.Drawing.Point(13, 170)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(46, 17)
@@ -496,7 +496,7 @@ Partial Class Form1
         '
         'logout
         '
-        Me.logout.Location = New System.Drawing.Point(195, 246)
+        Me.logout.Location = New System.Drawing.Point(20, 323)
         Me.logout.Margin = New System.Windows.Forms.Padding(4)
         Me.logout.Name = "logout"
         Me.logout.Size = New System.Drawing.Size(145, 36)
@@ -517,13 +517,13 @@ Partial Class Form1
         Me.afterlogin.Location = New System.Drawing.Point(29, 477)
         Me.afterlogin.Margin = New System.Windows.Forms.Padding(4)
         Me.afterlogin.Name = "afterlogin"
-        Me.afterlogin.Size = New System.Drawing.Size(353, 341)
+        Me.afterlogin.Size = New System.Drawing.Size(353, 362)
         Me.afterlogin.TabIndex = 35
         '
         'autoselproject
         '
         Me.autoselproject.AutoSize = True
-        Me.autoselproject.Location = New System.Drawing.Point(20, 206)
+        Me.autoselproject.Location = New System.Drawing.Point(20, 274)
         Me.autoselproject.Name = "autoselproject"
         Me.autoselproject.Size = New System.Drawing.Size(207, 21)
         Me.autoselproject.TabIndex = 38
@@ -533,7 +533,7 @@ Partial Class Form1
         'taskdetailslink
         '
         Me.taskdetailslink.AutoSize = True
-        Me.taskdetailslink.Location = New System.Drawing.Point(221, 165)
+        Me.taskdetailslink.Location = New System.Drawing.Point(221, 233)
         Me.taskdetailslink.Name = "taskdetailslink"
         Me.taskdetailslink.Size = New System.Drawing.Size(119, 17)
         Me.taskdetailslink.TabIndex = 40
@@ -614,7 +614,7 @@ Partial Class Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(414, 821)
+        Me.ClientSize = New System.Drawing.Size(414, 875)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.beforelogin)
         Me.Controls.Add(Me.afterlogin)
