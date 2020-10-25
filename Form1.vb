@@ -158,7 +158,7 @@ Public Class Form1
         LastProjectReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", Nothing)
         LastTaskReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", Nothing)
         Me.Height = 450
-        Me.Width = 432
+        Me.Width = 326
         Me.CenterToScreen()
         Me.CenterToParent()
         'NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
