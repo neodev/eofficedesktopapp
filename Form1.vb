@@ -631,6 +631,13 @@ Public Class Form1
         If flaglasttask = False Then
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", key)
         End If
+
+        If key <> "" Then
+            taskdetailslink.Visible = True
+        Else
+            taskdetailslink.Visible = False
+        End If
+
     End Sub
 
     Private Sub syncact_Tick(sender As Object, e As EventArgs) Handles syncact.Tick
