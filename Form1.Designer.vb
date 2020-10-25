@@ -307,7 +307,7 @@ Partial Class Form1
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(146, 36)
         Me.Button2.TabIndex = 20
-        Me.Button2.Text = "Projects"
+        Me.Button2.Text = "Refresh"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'authkey
@@ -517,7 +517,7 @@ Partial Class Form1
         Me.afterlogin.Location = New System.Drawing.Point(29, 477)
         Me.afterlogin.Margin = New System.Windows.Forms.Padding(4)
         Me.afterlogin.Name = "afterlogin"
-        Me.afterlogin.Size = New System.Drawing.Size(353, 320)
+        Me.afterlogin.Size = New System.Drawing.Size(353, 341)
         Me.afterlogin.TabIndex = 35
         '
         'autoselproject

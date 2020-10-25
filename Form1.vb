@@ -494,10 +494,12 @@ Public Class Form1
         'WebBrowser1.DocumentText = RichTextBox1.Text
 
         'MsgBox(HaveInternetConnection())
+
+        Dim AutoSelProjectReg As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", Nothing)
+
+        My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", key)
+
         If key <> "" Then
-
-
-
             Dim postData As String = "uid=" & authkey.Text & "&r=t&p=" & key
 
             'Dim postData As String = "uid=" & TextBox5.Text
@@ -736,6 +738,15 @@ Public Class Form1
         Else
 
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoLogin", "")
+    Private Sub autoselproject_CheckedChanged(sender As Object, e As EventArgs) Handles autoselproject.CheckedChanged
+
+        If autoselproject.Checked Then
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", autoselproject.Checked)
+
+        Else
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", "")
 
         End If
 
