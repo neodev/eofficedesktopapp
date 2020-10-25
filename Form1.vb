@@ -699,11 +699,11 @@ Public Class Form1
     End Sub
 
     Private Sub AboutToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem1.Click
-
+        System.Diagnostics.Process.Start(shorturl & "supprt")
     End Sub
 
     Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
-
+        System.Diagnostics.Process.Start(shorturl & "gvfdbk")
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
@@ -763,5 +763,18 @@ Public Class Form1
 
     Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
         System.Diagnostics.Process.Start(shorturl & "fptpass")
+    End Sub
+
+    Private Sub LinkLabel2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel2.LinkClicked
+        System.Diagnostics.Process.Start(shorturl & "cnewact")
+    End Sub
+
+    Private Sub taskdetailslink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles taskdetailslink.LinkClicked
+        Dim key As String = DirectCast(task.SelectedItem, KeyValuePair(Of String, String)).Key
+        System.Diagnostics.Process.Start(shorturl & "tskdtls?cf=" & key)
+    End Sub
+
+    Private Sub ToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem3.Click
+        System.Diagnostics.Process.Start(shorturl & "myaccnt")
     End Sub
 End Class
