@@ -171,6 +171,7 @@ Public Class Form1
         Dim versionNumber As Version
 
         Dim CurrentVersion As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "CurrentVersion", Nothing)
+        Dim AutoLoginReg As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoLogin", Nothing)
         startwithos = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", applicationName, Nothing)
 
         versionNumber = Assembly.GetExecutingAssembly().GetName().Version
@@ -209,6 +210,12 @@ Public Class Form1
 
         End If
 
+        If AutoLoginReg = "True" Then
+
+            autologin.Checked = True
+            Button1.PerformClick()
+
+        End If
 
     End Sub
 
@@ -718,4 +725,20 @@ Public Class Form1
         taskdetailslink.Visible = False
 
     End Sub
+
+    Private Sub autologin_CheckedChanged(sender As Object, e As EventArgs) Handles autologin.CheckedChanged
+
+
+        If autostart.Checked Then
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoLogin", autologin.Checked)
+
+        Else
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoLogin", "")
+
+        End If
+
+    End Sub
+
 End Class
