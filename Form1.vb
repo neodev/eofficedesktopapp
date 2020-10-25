@@ -40,6 +40,7 @@ Public Class Form1
     Dim LastTaskReg As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", Nothing)
 
     Dim flaglasttask As Boolean = True 'Disable saving selected task
+    Dim shorturl As String = "http:///www.brwz.in/"
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
@@ -717,5 +718,9 @@ Public Class Form1
         beforelogin.Visible = True
         taskdetailslink.Visible = False
 
+    End Sub
+
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        System.Diagnostics.Process.Start(shorturl & "fptpass")
     End Sub
 End Class
