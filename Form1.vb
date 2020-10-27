@@ -117,15 +117,20 @@ Public Class Form1
 
         list_item.SubItems.Add(fg_hwnd)
         list_item.SubItems.Add(fg_wndttle)
-
-
         'Take screenshot if active window is changed
         lastscreensaver = Now
         Dim sgfilename As String
         Dim screenSize As Size = New Size(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
         Dim screenGrab As New Bitmap(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
-        Dim g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(screenGrab)
-        g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
+
+        Try
+            Dim g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(screenGrab)
+            g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
+        Catch ex As Exception
+            Console.WriteLine(ex)
+        End Try
+
+
         sgfilename = "WC" & CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
         screenGrab.Save("d:\screengrabs\" & sgfilename)
 
