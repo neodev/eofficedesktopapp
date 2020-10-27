@@ -782,4 +782,26 @@ Public Class Form1
 
     End Function
 
+    Public Function InitializeApp() As Boolean
+
+        If AutoLoginReg = "True" Then
+
+            GetAuthKey()
+            islogin = Login()
+            SetProjects()
+            SetProjectTask()
+            SetAutoProjectTask()
+
+        End If
+
+        Return True
+    End Function
+
+    Private Sub initializer_Tick(sender As Object, e As EventArgs) Handles initializer.Tick
+        'MsgBox("Initialise")
+        Console.WriteLine("Initialise Timer : " & Now.ToString("dd:MM:yy hh:mm:ss"))
+        'Console.WriteLine("Initialise")
+        InitializeApp()
+        initializer.Enabled = False
+    End Sub
 End Class
