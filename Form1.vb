@@ -35,12 +35,23 @@ Public Class Form1
 
     Dim systrayalert As Boolean = True
 
-    Dim AutoSelProjectReg As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", Nothing)
-    Dim LastProjectReg As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", Nothing)
-    Dim LastTaskReg As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", Nothing)
+    'Registery values
+
+    Dim startwithos As String
+    Dim CurrentVersion As String
+    Dim AutoLoginReg As String
+
+    Dim AutoSelProjectReg As String
+    Dim LastProjectReg As String
+    Dim LastTaskReg As String
+
+
+    Dim applicationName As String = Application.ProductName
+    Dim applicationPath As String = Application.ExecutablePath
 
     Dim flaglasttask As Boolean = True 'Disable saving selected task
     Dim shorturl As String = "http:///www.brwz.in/"
+    Dim islogin As Boolean = False 'flag varibale to restrcit project and task auto selection
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
