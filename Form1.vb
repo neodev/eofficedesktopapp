@@ -170,18 +170,21 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        'Console.Clear()
+
+        Console.WriteLine("Form Load : " & Now.ToString("dd:MM:yy hh:mm:ss"))
+
+        'Me.Height = 450
+        'Me.Width = 326
+        Me.CenterToScreen()
+        Me.CenterToParent()
 
         Dim checkregkey As String = applicationName
 
         Dim versionNumber As Version
         versionNumber = Assembly.GetExecutingAssembly().GetName().Version
 
-        Me.Height = 450
-        Me.Width = 326
-        Me.CenterToScreen()
-        Me.CenterToParent()
-
-        flaglasttask = True
+        'flaglasttask = True
 
         GetRegValues()
 
@@ -223,11 +226,7 @@ Public Class Form1
         If AutoLoginReg = "True" Then
 
             autologin.Checked = True
-            GetAuthKey()
-            islogin = Login()
-            SetProjects()
-            SetProjectTask()
-            SetAutoProjectTask()
+
 
         End If
 
