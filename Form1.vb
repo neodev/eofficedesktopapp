@@ -164,38 +164,27 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        flaglasttask = True
 
-        AutoSelProjectReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", Nothing)
-        LastProjectReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", Nothing)
-        LastTaskReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", Nothing)
+
+        Dim checkregkey As String = applicationName
+
+        Dim versionNumber As Version
+        versionNumber = Assembly.GetExecutingAssembly().GetName().Version
+
         Me.Height = 450
         Me.Width = 326
         Me.CenterToScreen()
         Me.CenterToParent()
-        'NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
-        'NotifyIcon1.BalloonTipText = "I'm here in your Sys tray for your help!"
-        'NotifyIcon1.BalloonTipTitle = "Happy Coding!"
-        'NotifyIcon1.ShowBalloonTip(2000)
+
+        flaglasttask = True
+
+        GetRegValues()
+
         _inactiveTimeRetriever = New cIdleTimeStool
 
-        Dim applicationName As String = Application.ProductName
-        Dim applicationPath As String = Application.ExecutablePath
-        Dim checkregkey As String = applicationName
-
-        Dim startwithos As String
-        Dim versionNumber As Version
-
-        Dim CurrentVersion As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "CurrentVersion", Nothing)
-        Dim AutoLoginReg As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoLogin", Nothing)
-        startwithos = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", applicationName, Nothing)
-
-        versionNumber = Assembly.GetExecutingAssembly().GetName().Version
 
         'If version number mismatching or missing write to registery
         If CurrentVersion <> versionNumber.ToString Then
-
-            MsgBox("versionNumber is mismatching")
 
             'Assume the application is loading first time or someone modified the version key mannully
 
@@ -213,6 +202,7 @@ Public Class Form1
                 autostart.Checked = False
 
             ElseIf startwithos = """" & applicationPath & """" Then
+
                 autostart.Checked = True
 
             ElseIf startwithos <> "" And startwithos <> """" & applicationPath & """" Then
@@ -223,13 +213,16 @@ Public Class Form1
 
             End If
 
-
         End If
 
         If AutoLoginReg = "True" Then
 
             autologin.Checked = True
-            Button1.PerformClick()
+            GetAuthKey()
+            islogin = Login()
+            SetProjects()
+            SetProjectTask()
+            SetAutoProjectTask()
 
         End If
 
@@ -292,80 +285,18 @@ Public Class Form1
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        'MsgBox(HaveInternetConnection())
 
-        AutoSelProjectReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", Nothing)
-        LastProjectReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", Nothing)
-        LastTaskReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", Nothing)
+        GetRegValues()
 
-        Dim postData As String = "un=" & TextBox1.Text & "&pw=" & TextBox2.Text
+        GetAuthKey()
 
-        'Dim postData As String = "uid=" & TextBox5.Text
+        islogin = Login()
 
+        SetProjects()
 
-        'MsgBox(postData)
-        Dim tempCookies As New CookieContainer
-        Dim encoding As New UTF8Encoding
-        Dim byteData As Byte() = encoding.GetBytes(postData)
+        SetProjectTask()
 
-        Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create("https://faketestjson.herokuapp.com"), HttpWebRequest)
-        postReq.Method = "POST"
-        postReq.KeepAlive = True
-        postReq.CookieContainer = tempCookies
-        postReq.ContentType = "application/x-www-form-urlencoded"
-        postReq.Referer = "https://faketestjson.herokuapp.com"
-        postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
-        postReq.ContentLength = byteData.Length
-
-        Dim postreqstream As Stream = postReq.GetRequestStream()
-        postreqstream.Write(byteData, 0, byteData.Length)
-        postreqstream.Close()
-        Dim postresponse As HttpWebResponse
-
-        postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
-        tempCookies.Add(postresponse.Cookies)
-        logincookie = tempCookies
-        Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
-
-        Dim thepage As String = postreqreader.ReadToEnd
-
-        RichTextBox1.Text = thepage
-
-
-        Dim jss As New JavaScriptSerializer()
-        Dim datadict As Dictionary(Of String, String) = jss.Deserialize(Of Dictionary(Of String, String))(thepage)
-
-        authkey.Text = datadict("uid")
-
-        'https://www.youtube.com/watch?v=2VJfYboYVpI
-        'Dim jss As New JavaScriptSerializer()
-        'Dim dict As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(RichTextBox1.Text)
-
-        'Dim jsonResulttodict = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(thepage)
-        'MsgBox(Convert.ToInt32(JObject.Parse(thepage)("id")))
-
-        ' Dim jsonResulttodict = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(rawresp)
-        'Dim firstItem = jsonResulttodict.item("id")
-        'authkey.Text = dict.item("uid").GetType
-        '
-        'For Each item As Object In dict
-
-        'MsgBox(item("uid"))
-
-        'Next
-        If (authkey.Text <> "") Then
-            scrnsvr.Enabled = True
-            inactivitylogs.Enabled = True
-            tmrGetFgWindow.Enabled = True
-            allprocess.Enabled = True
-
-
-            afterlogin.Visible = True
-            beforelogin.Visible = False
-            afterlogin.Top = beforelogin.Top
-            'afterlogin.Left = beforelogin.Top
-            Button2.PerformClick()
-        End If
+        SetAutoProjectTask()
 
     End Sub
 
@@ -382,284 +313,35 @@ Public Class Form1
     End Function
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        flaglasttask = True
-        Dim projectindex As Integer
-        Dim itemindex As Integer
 
-        If AutoSelProjectReg = "True" Then
+        SetProjects()
+        SetProjectTask()
 
-            autoselproject.Checked = True
-
-        End If
-        'WebBrowser1.DocumentText = RichTextBox1.Text
-
-        'MsgBox(HaveInternetConnection())
-
-
-        Dim postData As String = "uid=" & authkey.Text & "&r=p"
-
-        'Dim postData As String = "uid=" & TextBox5.Text
-
-
-        'MsgBox(postData)
-        Dim tempCookies As New CookieContainer
-        Dim encoding As New UTF8Encoding
-        Dim byteData As Byte() = encoding.GetBytes(postData)
-
-        Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create("https://faketestjson.herokuapp.com"), HttpWebRequest)
-        postReq.Method = "POST"
-        postReq.KeepAlive = True
-        postReq.CookieContainer = tempCookies
-        postReq.ContentType = "application/x-www-form-urlencoded"
-        postReq.Referer = "https://faketestjson.herokuapp.com"
-        postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
-        postReq.ContentLength = byteData.Length
-
-        Dim postreqstream As Stream = postReq.GetRequestStream()
-        postreqstream.Write(byteData, 0, byteData.Length)
-        postreqstream.Close()
-        Dim postresponse As HttpWebResponse
-
-        postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
-        tempCookies.Add(postresponse.Cookies)
-        logincookie = tempCookies
-        Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
-
-        Dim thepage As String = postreqreader.ReadToEnd
-
-        RichTextBox1.Text = thepage
-
-        Dim jss As New JavaScriptSerializer()
-        Dim datadict As Dictionary(Of String, Object) = jss.Deserialize(Of Dictionary(Of String, Object))(thepage)
-
-        RichTextBox1.Text = datadict("p").ToString
-
-
-        'Dim jss As New JavaScriptSerializer()
-        ' Dim datadict As Dictionary(Of String, String) = jss.Deserialize(Of Dictionary(Of String, String))(thepage)
-
-        'authkey.Text = datadict("uid")
-
-        'https://www.youtube.com/watch?v=2VJfYboYVpI
-        'Dim jss As New JavaScriptSerializer()
-        ' Dim dict As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(thepage)
-
-        'datadict("uid")
-
-        'Dim jsonResulttodict = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(thepage)
-        'MsgBox(Convert.ToInt32(JObject.Parse(thepage)("p")))
-
-        ' Dim jsonResulttodict = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(rawresp)
-        'Dim firstItem = jsonResulttodict.item("id")
-        'authkey.Text = dict.item("uid").GetType
-        '
-        Dim mailItems = New List(Of Task)
-        'project.Items.Clear()
-
-        Dim comboSource As New Dictionary(Of String, String)()
-
-        comboSource.Add("", "Select Project")
-
-        For Each item As Object In datadict("p")
-
-            'MsgBox(item.key)
-            'MsgBox(item.Value)
-            'project.Items.ad(item.value.ToString)
-
-            comboSource.Add(item.key, item.Value)
-
-            If item.key = LastProjectReg Then
-                'MsgBox("Last Project : " & LastProjectReg)
-                projectindex = projectindex + 1
-                itemindex = projectindex
-            Else
-                projectindex = projectindex + 1
-            End If
-        Next
-
-        project.DataSource = New BindingSource(comboSource, Nothing)
-        project.DisplayMember = "Value"
-        project.ValueMember = "Key"
-
-        'If (authkey.Text <> "") Then
-        'scrnsvr.Enabled = True
-        'inactivitylogs.Enabled = True
-        'tmrGetFgWindow.Enabled = True
-        'allprocess.Enabled = True
-        'End If
-        If AutoSelProjectReg = "True" Then
-
-            'If item.key = LastProjectReg Then
-            'MsgBox("Last Project : " & LastProjectReg)
-            project.SelectedIndex = itemindex
-            ' End If
-
-        End If
     End Sub
 
     Private Sub project_SelectedIndexChanged(sender As Object, e As EventArgs) Handles project.SelectedIndexChanged
 
-        Dim taskindex As Integer
-        Dim itemindex As Integer
-        'task.Items.Clear()
-        Dim key As String = DirectCast(project.SelectedItem, KeyValuePair(Of String, String)).Key
-        Dim value As String = DirectCast(project.SelectedItem, KeyValuePair(Of String, String)).Value
+        If islogin Then
 
-        'MsgBox(key + " : " + value)
-
-        'WebBrowser1.DocumentText = RichTextBox1.Text
-
-        'MsgBox(HaveInternetConnection())
-
-        Dim AutoSelProjectReg As String = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", Nothing)
-
-        My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", key)
-
-        If key <> "" Then
-            Dim postData As String = "uid=" & authkey.Text & "&r=t&p=" & key
-
-            'Dim postData As String = "uid=" & TextBox5.Text
-
-
-            'MsgBox(postData)
-            Dim tempCookies As New CookieContainer
-            Dim encoding As New UTF8Encoding
-            Dim byteData As Byte() = encoding.GetBytes(postData)
-
-            Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create("https://faketestjson.herokuapp.com"), HttpWebRequest)
-            postReq.Method = "POST"
-            postReq.KeepAlive = True
-            postReq.CookieContainer = tempCookies
-            postReq.ContentType = "application/x-www-form-urlencoded"
-            postReq.Referer = "https://faketestjson.herokuapp.com"
-            postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
-            postReq.ContentLength = byteData.Length
-
-            Dim postreqstream As Stream = postReq.GetRequestStream()
-            postreqstream.Write(byteData, 0, byteData.Length)
-            postreqstream.Close()
-            Dim postresponse As HttpWebResponse
-
-            postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
-            tempCookies.Add(postresponse.Cookies)
-            logincookie = tempCookies
-            Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
-
-            Dim thepage As String = postreqreader.ReadToEnd
-
-            RichTextBox1.Text = thepage
-
-
-            If thepage.Replace(vbCr, "").Replace(vbLf, "") <> "" Then
-
-
-
-                Dim jss As New JavaScriptSerializer()
-                Dim datadict As Dictionary(Of String, Object) = jss.Deserialize(Of Dictionary(Of String, Object))(thepage)
-
-                If datadict("t").ToString <> "" Then
-
-
-                    RichTextBox1.Text = datadict("t").ToString
-
-
-                    'Dim jss As New JavaScriptSerializer()
-                    ' Dim datadict As Dictionary(Of String, String) = jss.Deserialize(Of Dictionary(Of String, String))(thepage)
-
-                    'authkey.Text = datadict("uid")
-
-                    'https://www.youtube.com/watch?v=2VJfYboYVpI
-                    'Dim jss As New JavaScriptSerializer()
-                    ' Dim dict As Object = New JavaScriptSerializer().Deserialize(Of List(Of Object))(thepage)
-
-                    'datadict("uid")
-
-                    'Dim jsonResulttodict = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(thepage)
-                    'MsgBox(Convert.ToInt32(JObject.Parse(thepage)("p")))
-
-                    ' Dim jsonResulttodict = JsonConvert.DeserializeObject(Of Dictionary(Of String, Object))(rawresp)
-                    'Dim firstItem = jsonResulttodict.item("id")
-                    'authkey.Text = dict.item("uid").GetType
-                    '
-                    Dim mailItems = New List(Of Task)
-                    'task.Items.Clear()
-
-                    Dim comboSource As New Dictionary(Of String, String)()
-
-                    comboSource.Add("", "Select Task")
-
-                    For Each item As Object In datadict("t")
-
-                        'MsgBox(item.key)
-                        'MsgBox(item.Value)
-                        'project.Items.ad(item.value.ToString)
-
-                        comboSource.Add(item.key, item.Value)
-
-                        If item.key = LastTaskReg Then
-                            taskindex = taskindex + 1
-                            itemindex = taskindex
-                        Else
-                            taskindex = taskindex + 1
-                        End If
-                    Next
-
-                    task.DataSource = New BindingSource(comboSource, Nothing)
-                    task.DisplayMember = "Value"
-                    task.ValueMember = "Key"
-
-                    'If (authkey.Text <> "") Then
-                    'scrnsvr.Enabled = True
-                    'inactivitylogs.Enabled = True
-                    'tmrGetFgWindow.Enabled = True
-                    'allprocess.Enabled = True
-                    'End If
-
-                End If
-
-            Else
-                'Empty tasks combo
-
-                'MsgBox("Empty tasks list")
-                Dim comboSource As New Dictionary(Of String, String)()
-                comboSource.Add("", "No Task found")
-                task.DataSource = New BindingSource(comboSource, Nothing)
-                task.DisplayMember = "Value"
-                task.ValueMember = "Key"
-
-            End If
-        Else
-
-            Dim comboSource As New Dictionary(Of String, String)()
-            comboSource.Add("", "Select Task")
-            task.DataSource = New BindingSource(comboSource, Nothing)
-            task.DisplayMember = "Value"
-            task.ValueMember = "Key"
+            SetTasks()
 
         End If
 
-        If AutoSelProjectReg = "True" Then
 
-            task.SelectedIndex = itemindex
-            flaglasttask = False
+        If autoselproject.Checked And islogin Then
+
+            SaveLastProjectTask()
 
         End If
 
     End Sub
 
     Private Sub task_SelectedIndexChanged(sender As Object, e As EventArgs) Handles task.SelectedIndexChanged
-        Dim key As String = DirectCast(task.SelectedItem, KeyValuePair(Of String, String)).Key
-        Dim value As String = DirectCast(task.SelectedItem, KeyValuePair(Of String, String)).Value
 
-        'MsgBox(key + " : " + value)
-        If flaglasttask = False Then
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", key)
-        End If
+        If autoselproject.Checked And islogin Then
 
-        If key <> "" Then
-            taskdetailslink.Visible = True
-        Else
-            taskdetailslink.Visible = False
+            SaveLastProjectTask()
+
         End If
 
     End Sub
@@ -676,7 +358,6 @@ Public Class Form1
         Dim applicationName As String = Application.ProductName
         Dim applicationPath As String = Application.ExecutablePath
 
-        'MsgBox(autostart.Checked)
 
         If autostart.Checked Then
 
@@ -732,6 +413,8 @@ Public Class Form1
     End Sub
 
     Private Sub logout_Click(sender As Object, e As EventArgs) Handles logout.Click
+
+        islogin = False
         scrnsvr.Enabled = False
         inactivitylogs.Enabled = False
         tmrGetFgWindow.Enabled = False
@@ -740,6 +423,14 @@ Public Class Form1
         afterlogin.Visible = False
         beforelogin.Visible = True
         taskdetailslink.Visible = False
+
+        task.DataSource = Nothing
+        task.Items.Clear()
+
+        project.DataSource = Nothing
+        project.Items.Clear()
+
+        autoselproject.Checked = False
 
     End Sub
 
@@ -759,16 +450,19 @@ Public Class Form1
     End Sub
 
     Private Sub autoselproject_CheckedChanged(sender As Object, e As EventArgs) Handles autoselproject.CheckedChanged
+        If islogin = True Then
+            If autoselproject.Checked Then
 
-        If autoselproject.Checked Then
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", autoselproject.Checked)
 
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", autoselproject.Checked)
+            Else
 
-        Else
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", "")
 
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", "")
-
+            End If
+            SaveLastProjectTask()
         End If
+
 
     End Sub
 
@@ -788,4 +482,300 @@ Public Class Form1
     Private Sub ToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem3.Click
         System.Diagnostics.Process.Start(shorturl & "myaccnt")
     End Sub
+
+    Public Function SaveLastProjectTask()
+
+        If autoselproject.Checked Then
+
+            Dim projectkey As String = DirectCast(project.SelectedItem, KeyValuePair(Of String, String)).Key
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", projectkey)
+
+            Dim taskkey As String = DirectCast(task.SelectedItem, KeyValuePair(Of String, String)).Key
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", taskkey)
+
+        Else
+
+            'My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", "")
+            'My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", "")
+
+        End If
+
+        Return True
+
+    End Function
+
+    Public Function GetRegValues() As Boolean
+
+        startwithos = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", applicationName, Nothing)
+
+        CurrentVersion = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "CurrentVersion", Nothing)
+        AutoLoginReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoLogin", Nothing)
+
+        AutoSelProjectReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoSelProject", Nothing)
+        LastProjectReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", Nothing)
+        LastTaskReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", Nothing)
+
+        Return True
+
+    End Function
+
+    Public Function GetAuthKey() As String
+
+        Dim postData As String = "un=" & TextBox1.Text & "&pw=" & TextBox2.Text
+        Dim tempCookies As New CookieContainer
+        Dim encoding As New UTF8Encoding
+        Dim byteData As Byte() = encoding.GetBytes(postData)
+
+        Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create("https://faketestjson.herokuapp.com"), HttpWebRequest)
+        postReq.Method = "POST"
+        postReq.KeepAlive = True
+        postReq.CookieContainer = tempCookies
+        postReq.ContentType = "application/x-www-form-urlencoded"
+        postReq.Referer = "https://faketestjson.herokuapp.com"
+        postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
+        postReq.ContentLength = byteData.Length
+
+        Dim postreqstream As Stream = postReq.GetRequestStream()
+        postreqstream.Write(byteData, 0, byteData.Length)
+        postreqstream.Close()
+
+        Dim postresponse As HttpWebResponse
+        postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
+        tempCookies.Add(postresponse.Cookies)
+        logincookie = tempCookies
+
+        Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
+        Dim thepage As String = postreqreader.ReadToEnd
+
+        RichTextBox1.Text = thepage
+
+        Dim jss As New JavaScriptSerializer()
+        Dim datadict As Dictionary(Of String, String) = jss.Deserialize(Of Dictionary(Of String, String))(thepage)
+
+        authkey.Text = datadict("uid")
+
+        Return True
+
+    End Function
+
+    Public Function Login() As Boolean
+
+        'Successfully logined
+        If (authkey.Text <> "") Then
+
+            islogin = True
+            scrnsvr.Enabled = True
+            inactivitylogs.Enabled = True
+            tmrGetFgWindow.Enabled = True
+            allprocess.Enabled = True
+
+            afterlogin.Visible = True
+            beforelogin.Visible = False
+            afterlogin.Top = beforelogin.Top
+
+            Return True
+
+        Else
+
+            Return False
+
+        End If
+
+    End Function
+
+    Public Function SetProjects() As Boolean
+
+        Dim projectindex As Integer
+        Dim itemindex As Integer
+
+        Dim tempCookies As New CookieContainer
+        Dim encoding As New UTF8Encoding
+        Dim postData As String = "uid=" & authkey.Text & "&r=p"
+        Dim byteData As Byte() = encoding.GetBytes(postData)
+
+        Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create("https://faketestjson.herokuapp.com"), HttpWebRequest)
+        postReq.Method = "POST"
+        postReq.KeepAlive = True
+        postReq.CookieContainer = tempCookies
+        postReq.ContentType = "application/x-www-form-urlencoded"
+        postReq.Referer = "https://faketestjson.herokuapp.com"
+        postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
+        postReq.ContentLength = byteData.Length
+
+        Dim postreqstream As Stream = postReq.GetRequestStream()
+        postreqstream.Write(byteData, 0, byteData.Length)
+        postreqstream.Close()
+
+        Dim postresponse As HttpWebResponse
+        postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
+        tempCookies.Add(postresponse.Cookies)
+        logincookie = tempCookies
+
+        Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
+        Dim thepage As String = postreqreader.ReadToEnd
+
+        RichTextBox1.Text = thepage
+
+        Dim jss As New JavaScriptSerializer()
+        Dim datadict As Dictionary(Of String, Object) = jss.Deserialize(Of Dictionary(Of String, Object))(thepage)
+
+        RichTextBox1.Text = datadict("p").ToString
+
+        Dim mailItems = New List(Of Task)
+        Dim comboSource As New Dictionary(Of String, String)()
+        comboSource.Add("", "Select Project")
+
+        For Each item As Object In datadict("p")
+
+            comboSource.Add(item.key, item.Value)
+
+            If item.key = LastProjectReg Then
+
+                projectindex = projectindex + 1
+                itemindex = projectindex
+
+            Else
+                projectindex = projectindex + 1
+            End If
+        Next
+
+        project.DataSource = New BindingSource(comboSource, Nothing)
+        project.DisplayMember = "Value"
+        project.ValueMember = "Key"
+
+        Return True
+
+    End Function
+
+    Public Function SetTasks() As Boolean
+
+        Dim taskindex As Integer
+        Dim itemindex As Integer
+
+        Dim key As String = DirectCast(project.SelectedItem, KeyValuePair(Of String, String)).Key
+        Dim value As String = DirectCast(project.SelectedItem, KeyValuePair(Of String, String)).Value
+
+        If key <> "" Then
+
+            Dim postData As String = "uid=" & authkey.Text & "&r=t&p=" & key
+
+            Dim tempCookies As New CookieContainer
+            Dim encoding As New UTF8Encoding
+            Dim byteData As Byte() = encoding.GetBytes(postData)
+
+            Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create("https://faketestjson.herokuapp.com"), HttpWebRequest)
+            postReq.Method = "POST"
+            postReq.KeepAlive = True
+            postReq.CookieContainer = tempCookies
+            postReq.ContentType = "application/x-www-form-urlencoded"
+            postReq.Referer = "https://faketestjson.herokuapp.com"
+            postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
+            postReq.ContentLength = byteData.Length
+
+            Dim postreqstream As Stream = postReq.GetRequestStream()
+            postreqstream.Write(byteData, 0, byteData.Length)
+            postreqstream.Close()
+            Dim postresponse As HttpWebResponse
+
+            postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
+            tempCookies.Add(postresponse.Cookies)
+            logincookie = tempCookies
+            Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
+
+            Dim thepage As String = postreqreader.ReadToEnd
+
+            RichTextBox1.Text = thepage
+
+            If thepage.Replace(vbCr, "").Replace(vbLf, "") <> "" Then
+
+                Dim jss As New JavaScriptSerializer()
+                Dim datadict As Dictionary(Of String, Object) = jss.Deserialize(Of Dictionary(Of String, Object))(thepage)
+
+                If datadict("t").ToString <> "" Then
+
+                    RichTextBox1.Text = datadict("t").ToString
+
+                    Dim comboSource As New Dictionary(Of String, String)()
+                    comboSource.Add("", "Select Task")
+
+                    For Each item As Object In datadict("t")
+
+                        comboSource.Add(item.key, item.Value)
+
+                        If item.key = LastTaskReg Then
+                            taskindex = taskindex + 1
+                            itemindex = taskindex
+                        Else
+                            taskindex = taskindex + 1
+                        End If
+                    Next
+
+                    task.DataSource = New BindingSource(comboSource, Nothing)
+                    task.DisplayMember = "Value"
+                    task.ValueMember = "Key"
+
+                End If
+
+            Else
+
+                Dim comboSource As New Dictionary(Of String, String)()
+                comboSource.Add("", "No Task found")
+                task.DataSource = New BindingSource(comboSource, Nothing)
+                task.DisplayMember = "Value"
+                task.ValueMember = "Key"
+
+            End If
+        Else
+
+            Dim comboSource As New Dictionary(Of String, String)()
+            comboSource.Add("", "Select Task")
+            task.DataSource = New BindingSource(comboSource, Nothing)
+            task.DisplayMember = "Value"
+            task.ValueMember = "Key"
+
+        End If
+
+        Return True
+
+    End Function
+
+    Public Function SetProjectTask() As Boolean
+
+        If AutoSelProjectReg = "True" Then
+
+            Dim itemindex As Integer
+
+            For Each item As Object In project.DataSource
+
+                Console.WriteLine(item.key & " - " & item.Value)
+                If item.key = LastProjectReg And LastProjectReg <> "" Then
+                    project.SelectedIndex = itemindex
+                End If
+                itemindex = itemindex + 1
+
+            Next
+
+            Dim taskindex As Integer
+            For Each item As Object In task.DataSource
+
+                Console.WriteLine(item.key & " - " & item.Value)
+                If item.key = LastTaskReg And LastTaskReg <> "" Then
+                    task.SelectedIndex = taskindex
+                End If
+                taskindex = taskindex + 1
+
+            Next
+
+        End If
+        Return True
+    End Function
+
+    Public Function SetAutoProjectTask() As Boolean
+
+        If AutoSelProjectReg = "True" Then
+            autoselproject.Checked = True
+        End If
+
+    End Function
+
 End Class

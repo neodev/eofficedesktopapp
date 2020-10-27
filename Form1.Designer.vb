@@ -302,10 +302,10 @@ Partial Class Form1
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(224, 26)
+        Me.Button2.Location = New System.Drawing.Point(200, 26)
         Me.Button2.Margin = New System.Windows.Forms.Padding(4)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(113, 36)
+        Me.Button2.Size = New System.Drawing.Size(142, 36)
         Me.Button2.TabIndex = 20
         Me.Button2.Text = "Refresh"
         Me.Button2.UseVisualStyleBackColor = True
@@ -446,7 +446,7 @@ Partial Class Form1
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(170, 26)
-        Me.ExitToolStripMenuItem.Text = "Exit"
+        Me.ExitToolStripMenuItem.Text = "Quit"
         '
         'HelpToolStripMenuItem
         '
@@ -496,7 +496,7 @@ Partial Class Form1
         '
         'logout
         '
-        Me.logout.Location = New System.Drawing.Point(20, 323)
+        Me.logout.Location = New System.Drawing.Point(17, 313)
         Me.logout.Margin = New System.Windows.Forms.Padding(4)
         Me.logout.Name = "logout"
         Me.logout.Size = New System.Drawing.Size(145, 36)
