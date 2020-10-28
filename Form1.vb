@@ -52,6 +52,7 @@ Public Class Form1
     Dim flaglasttask As Boolean = True 'Disable saving selected task
     Dim shorturl As String = "http:///www.brwz.in/"
     Dim islogin As Boolean = False 'flag varibale to restrcit project and task auto selection
+    Dim apiurl As String = "http://kenprotechnologies.com/eofficedesktopapp/api/"
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
@@ -530,12 +531,12 @@ Public Class Form1
         Dim encoding As New UTF8Encoding
         Dim byteData As Byte() = encoding.GetBytes(postData)
 
-        Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create("https://faketestjson.herokuapp.com"), HttpWebRequest)
+        Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
         postReq.Method = "POST"
         postReq.KeepAlive = True
         postReq.CookieContainer = tempCookies
         postReq.ContentType = "application/x-www-form-urlencoded"
-        postReq.Referer = "https://faketestjson.herokuapp.com"
+        postReq.Referer = apiurl
         postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
         postReq.ContentLength = byteData.Length
 
@@ -597,12 +598,12 @@ Public Class Form1
         Dim postData As String = "uid=" & authkey.Text & "&r=p"
         Dim byteData As Byte() = encoding.GetBytes(postData)
 
-        Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create("https://faketestjson.herokuapp.com"), HttpWebRequest)
+        Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
         postReq.Method = "POST"
         postReq.KeepAlive = True
         postReq.CookieContainer = tempCookies
         postReq.ContentType = "application/x-www-form-urlencoded"
-        postReq.Referer = "https://faketestjson.herokuapp.com"
+        postReq.Referer = apiurl
         postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
         postReq.ContentLength = byteData.Length
 
@@ -667,12 +668,12 @@ Public Class Form1
             Dim encoding As New UTF8Encoding
             Dim byteData As Byte() = encoding.GetBytes(postData)
 
-            Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create("https://faketestjson.herokuapp.com"), HttpWebRequest)
+            Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
             postReq.Method = "POST"
             postReq.KeepAlive = True
             postReq.CookieContainer = tempCookies
             postReq.ContentType = "application/x-www-form-urlencoded"
-            postReq.Referer = "https://faketestjson.herokuapp.com"
+            postReq.Referer = apiurl
             postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
             postReq.ContentLength = byteData.Length
 
