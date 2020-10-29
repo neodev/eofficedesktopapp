@@ -45,6 +45,10 @@ Public Class Form1
     Dim LastProjectReg As String
     Dim LastTaskReg As String
 
+    Dim SaveCredentialReg As String
+    Dim UsernameReg As String
+    Dim PasswordReg As String
+
 
     Dim applicationName As String = Application.ProductName
     Dim applicationPath As String = Application.ExecutablePath
@@ -228,8 +232,22 @@ Public Class Form1
 
             autologin.Checked = True
 
+            If UsernameReg <> "" And PasswordReg <> "" Then
+
+                Button1.Enabled = False
+
+            End If
 
         End If
+
+        If SaveCredentialReg = "True" Then
+
+            SetLoginCredentials()
+            savelogin.Checked = True
+
+        End If
+
+        Button1.Select()
 
     End Sub
 
@@ -293,15 +311,27 @@ Public Class Form1
 
         GetRegValues()
 
-        GetAuthKey()
+        SaveLoginCredentials()
 
-        islogin = Login()
+        If TextBox1.Text = "" Or TextBox2.Text = "" Then
 
-        SetProjects()
+            MsgBox("Username and Password is required")
 
-        SetProjectTask()
+        Else
 
-        SetAutoProjectTask()
+
+            GetAuthKey()
+            islogin = Login()
+
+            If (islogin) Then
+
+                SetProjects()
+                SetProjectTask()
+                SetAutoProjectTask()
+
+            End If
+
+        End If
 
     End Sub
 
@@ -437,6 +467,11 @@ Public Class Form1
 
         autoselproject.Checked = False
 
+        If savelogin.Checked = False Then
+            TextBox1.Text = ""
+            TextBox2.Text = ""
+        End If
+        Button1.Enabled = True
     End Sub
 
     Private Sub autologin_CheckedChanged(sender As Object, e As EventArgs) Handles autologin.CheckedChanged
@@ -520,46 +555,61 @@ Public Class Form1
         LastProjectReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastProject", Nothing)
         LastTaskReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "LastTask", Nothing)
 
+        SaveCredentialReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "SaveCredential", Nothing)
+        UsernameReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "Username", Nothing)
+        PasswordReg = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "Password", Nothing)
+
         Return True
 
     End Function
 
     Public Function GetAuthKey() As String
 
-        Dim postData As String = "un=" & TextBox1.Text & "&pw=" & TextBox2.Text
-        Dim tempCookies As New CookieContainer
-        Dim encoding As New UTF8Encoding
-        Dim byteData As Byte() = encoding.GetBytes(postData)
+        authkey.Text = ""
 
-        Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
-        postReq.Method = "POST"
-        postReq.KeepAlive = True
-        postReq.CookieContainer = tempCookies
-        postReq.ContentType = "application/x-www-form-urlencoded"
-        postReq.Referer = apiurl
-        postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
-        postReq.ContentLength = byteData.Length
+        If (TextBox1.Text <> "" And TextBox2.Text <> "") Then
 
-        Dim postreqstream As Stream = postReq.GetRequestStream()
-        postreqstream.Write(byteData, 0, byteData.Length)
-        postreqstream.Close()
+            Dim postData As String = "un=" & TextBox1.Text & "&pw=" & TextBox2.Text
+            Dim tempCookies As New CookieContainer
+            Dim encoding As New UTF8Encoding
+            Dim byteData As Byte() = encoding.GetBytes(postData)
 
-        Dim postresponse As HttpWebResponse
-        postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
-        tempCookies.Add(postresponse.Cookies)
-        logincookie = tempCookies
+            Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
+            postReq.Method = "POST"
+            postReq.KeepAlive = True
+            postReq.CookieContainer = tempCookies
+            postReq.ContentType = "application/x-www-form-urlencoded"
+            postReq.Referer = apiurl
+            postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
+            postReq.ContentLength = byteData.Length
 
-        Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
-        Dim thepage As String = postreqreader.ReadToEnd
+            Dim postreqstream As Stream = postReq.GetRequestStream()
+            postreqstream.Write(byteData, 0, byteData.Length)
+            postreqstream.Close()
 
-        RichTextBox1.Text = thepage
+            Dim postresponse As HttpWebResponse
+            postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
+            tempCookies.Add(postresponse.Cookies)
+            logincookie = tempCookies
 
-        Dim jss As New JavaScriptSerializer()
-        Dim datadict As Dictionary(Of String, String) = jss.Deserialize(Of Dictionary(Of String, String))(thepage)
+            Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
+            Dim thepage As String = postreqreader.ReadToEnd
 
-        authkey.Text = datadict("uid")
+            RichTextBox1.Text = thepage
 
-        Return True
+            Dim jss As New JavaScriptSerializer()
+            Dim datadict As Dictionary(Of String, String) = jss.Deserialize(Of Dictionary(Of String, String))(thepage)
+
+            authkey.Text = datadict("uid")
+
+
+        End If
+
+        If authkey.Text <> "" Then
+            Return True
+        Else
+            Return False
+        End If
 
     End Function
 
@@ -581,7 +631,9 @@ Public Class Form1
             Return True
 
         Else
-
+            initializer.Enabled = False
+            MsgBox("Wrong username or password")
+            Button1.Enabled = True
             Return False
 
         End If
@@ -787,15 +839,22 @@ Public Class Form1
 
         If AutoLoginReg = "True" Then
 
-            GetAuthKey()
-            islogin = Login()
-            SetProjects()
-            SetProjectTask()
-            SetAutoProjectTask()
+            If TextBox1.Text <> "" And TextBox2.Text <> "" Then
+
+                GetAuthKey()
+                islogin = Login()
+                If islogin Then
+                    SetProjects()
+                    SetProjectTask()
+                    SetAutoProjectTask()
+                End If
+
+            End If
 
         End If
 
-        Return True
+        Return islogin
+
     End Function
 
     Private Sub initializer_Tick(sender As Object, e As EventArgs) Handles initializer.Tick
@@ -804,5 +863,84 @@ Public Class Form1
         'Console.WriteLine("Initialise")
         InitializeApp()
         initializer.Enabled = False
+
+    End Sub
+
+
+    Public Function SaveLoginCredentials()
+
+        If savelogin.Checked Then
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "SaveCredential", savelogin.Checked)
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "Username", TextBox1.Text)
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "Password", TextBox2.Text)
+
+        Else
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "SaveCredential", savelogin.Checked)
+
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "Username", "")
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "Password", "")
+
+        End If
+
+        Return True
+
+    End Function
+
+    Private Sub savelogin_CheckedChanged(sender As Object, e As EventArgs) Handles savelogin.CheckedChanged
+
+        SaveLoginCredentials()
+
+    End Sub
+
+    Public Function SetLoginCredentials()
+
+        TextBox1.Text = UsernameReg
+        TextBox2.Text = PasswordReg
+
+        Return True
+
+    End Function
+
+
+    Private Sub TextBox4_Click(sender As Object, e As EventArgs)
+        TextBox1.Select()
+    End Sub
+
+
+    Private Sub TextBox3_Click(sender As Object, e As EventArgs)
+        TextBox2.Select()
+    End Sub
+
+    Private Sub TextBox4_TextChanged(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub TextBox4_MouseClick(sender As Object, e As MouseEventArgs)
+        TextBox1.Select()
+    End Sub
+
+    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
+        TextBox1.Select()
+    End Sub
+
+    Private Sub Label8_Click(sender As Object, e As EventArgs) Handles Label8.Click
+        TextBox2.Select()
+    End Sub
+
+
+    Private Sub TextBox2_LostFocus(sender As Object, e As EventArgs) Handles TextBox2.LostFocus
+
+        SaveLoginCredentials()
+
+    End Sub
+
+
+    Private Sub TextBox1_LostFocus(sender As Object, e As EventArgs) Handles TextBox1.LostFocus
+
+        SaveLoginCredentials()
+
     End Sub
 End Class
