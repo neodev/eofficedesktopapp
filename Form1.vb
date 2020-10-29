@@ -175,8 +175,8 @@ Public Class Form1
 
         Console.WriteLine("Form Load : " & Now.ToString("dd:MM:yy hh:mm:ss"))
 
-        'Me.Height = 450
-        'Me.Width = 326
+        Me.Height = 450
+        Me.Width = 326
         Me.CenterToScreen()
         Me.CenterToParent()
 
