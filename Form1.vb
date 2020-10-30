@@ -58,6 +58,9 @@ Public Class Form1
     Dim islogin As Boolean = False 'flag varibale to restrcit project and task auto selection
     Dim apiurl As String = "http://kenprotechnologies.com/eofficedesktopapp/api/"
 
+    Dim sssavepath As String = "d:\screengrabs\"
+    Dim mysqldateformat As String = "yyyy-MM-dd hh:mm:ss"
+
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
         'Dim lastscreensaver = CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds)
@@ -74,7 +77,7 @@ Public Class Form1
             Dim g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(screenGrab)
             g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
             sgfilename = CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
-            screenGrab.Save("d:\screengrabs\MS" & sgfilename)
+            screenGrab.Save(sssavepath & "MS" & sgfilename)
             ''or screenGrab.Save("C:\screenGrab.jpg", System.Drawing.Imaging.ImageFormat.Jpeg)
 
             lastscreensaver = Now
@@ -118,7 +121,7 @@ Public Class Form1
 
         ' Display the time and the window's title.
         Dim list_item As System.Windows.Forms.ListViewItem
-        list_item = lvwFGWindow.Items.Add(text:=Now.ToString("dd:MM:yy hh:mm:ss"))
+        list_item = lvwFGWindow.Items.Add(text:=Now.ToString(mysqldateformat))
 
         list_item.SubItems.Add(fg_hwnd)
         list_item.SubItems.Add(fg_wndttle)
@@ -137,7 +140,7 @@ Public Class Form1
 
 
         sgfilename = "WC" & CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
-        screenGrab.Save("d:\screengrabs\" & sgfilename)
+        screenGrab.Save(sssavepath & sgfilename)
 
         list_item.SubItems.Add(sgfilename)
 
@@ -155,7 +158,7 @@ Public Class Form1
         For Each p In Process.GetProcesses(System.Environment.MachineName)
             'Only add proccess that there HWND is not 0
             If p.MainWindowHandle.ToString <> IntPtr.Zero.ToString Then
-                lstboxhandels.Items.Add(Now.ToString("dd:MM:yy hh:mm:ss") + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
+                lstboxhandels.Items.Add(Now.ToString(mysqldateformat) + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
                 + " | File Name : " + p.MainModule.FileName.ToString + " | Machine : " + p.MachineName.ToString + " | File Description : " + p.MainModule.FileVersionInfo.FileDescription
                 )
                 'LstBoxHWNDCaptions.Items.Add(p.MainWindowTitle.ToString)
@@ -177,10 +180,12 @@ Public Class Form1
 
         'Console.Clear()
 
-        Console.WriteLine("Form Load : " & Now.ToString("dd:MM:yy hh:mm:ss"))
+        Console.WriteLine("Form Load : " & Now.ToString(mysqldateformat))
 
-        Me.Height = 450
-        Me.Width = 326
+        'Me.Height = 450
+        'Me.Width = 326
+        'Me.WindowState = vbNormal
+
         Me.CenterToScreen()
         Me.CenterToParent()
 
@@ -289,7 +294,7 @@ Public Class Form1
             'Active
 
             If inactsec > 0 Then
-                inactivitylogs.Items.Add(inactsec & "|" & Now.ToString("dd:MM:yy hh:mm:ss"))
+                inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
                 inactsec = 0
 
             End If
@@ -859,7 +864,7 @@ Public Class Form1
 
     Private Sub initializer_Tick(sender As Object, e As EventArgs) Handles initializer.Tick
         'MsgBox("Initialise")
-        Console.WriteLine("Initialise Timer : " & Now.ToString("dd:MM:yy hh:mm:ss"))
+        Console.WriteLine("Initialise Timer : " & Now.ToString(mysqldateformat))
         'Console.WriteLine("Initialise")
         InitializeApp()
         initializer.Enabled = False
