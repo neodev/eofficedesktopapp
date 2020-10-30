@@ -948,4 +948,12 @@ Public Class Form1
         SaveLoginCredentials()
 
     End Sub
+
+    Private Sub NotifyIcon1_MouseClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseClick
+        Me.WindowState = FormWindowState.Normal
+    End Sub
+
+    Private Sub NotifyIcon1_Click(sender As Object, e As EventArgs) Handles NotifyIcon1.Click
+        Me.WindowState = FormWindowState.Normal
+    End Sub
 End Class
