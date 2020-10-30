@@ -87,6 +87,7 @@ Partial Class Form1
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.initializer = New System.Windows.Forms.Timer(Me.components)
+        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.afterlogin.SuspendLayout()
         Me.beforelogin.SuspendLayout()
@@ -95,9 +96,10 @@ Partial Class Form1
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(146, 238)
+        Me.Button1.Location = New System.Drawing.Point(195, 293)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(109, 30)
+        Me.Button1.Size = New System.Drawing.Size(145, 37)
         Me.Button1.TabIndex = 4
         Me.Button1.Text = "Login"
         Me.Button1.UseVisualStyleBackColor = True
@@ -105,45 +107,50 @@ Partial Class Form1
         'TextBox1
         '
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox1.Location = New System.Drawing.Point(26, 48)
+        Me.TextBox1.Location = New System.Drawing.Point(35, 59)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(221, 13)
+        Me.TextBox1.Size = New System.Drawing.Size(295, 15)
         Me.TextBox1.TabIndex = 1
         '
         'TextBox2
         '
         Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(25, 126)
+        Me.TextBox2.Location = New System.Drawing.Point(33, 155)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TextBox2.Size = New System.Drawing.Size(218, 13)
+        Me.TextBox2.Size = New System.Drawing.Size(291, 16)
         Me.TextBox2.TabIndex = 2
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(13, 17)
+        Me.Label1.Location = New System.Drawing.Point(17, 21)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(55, 13)
+        Me.Label1.Size = New System.Drawing.Size(73, 17)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "Username"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(14, 96)
+        Me.Label2.Location = New System.Drawing.Point(19, 118)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(53, 13)
+        Me.Label2.Size = New System.Drawing.Size(69, 17)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Password"
         '
         'savelogin
         '
         Me.savelogin.AutoSize = True
-        Me.savelogin.Location = New System.Drawing.Point(16, 179)
+        Me.savelogin.Location = New System.Drawing.Point(21, 220)
+        Me.savelogin.Margin = New System.Windows.Forms.Padding(4)
         Me.savelogin.Name = "savelogin"
-        Me.savelogin.Size = New System.Drawing.Size(135, 17)
+        Me.savelogin.Size = New System.Drawing.Size(178, 21)
         Me.savelogin.TabIndex = 3
         Me.savelogin.Text = "Remember login details"
         Me.savelogin.UseVisualStyleBackColor = True
@@ -157,9 +164,10 @@ Partial Class Form1
         Me.lvwFGWindow.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4, Me.ColumnHeader5})
         Me.lvwFGWindow.GridLines = True
         Me.lvwFGWindow.HideSelection = False
-        Me.lvwFGWindow.Location = New System.Drawing.Point(13, 38)
+        Me.lvwFGWindow.Location = New System.Drawing.Point(17, 47)
+        Me.lvwFGWindow.Margin = New System.Windows.Forms.Padding(4)
         Me.lvwFGWindow.Name = "lvwFGWindow"
-        Me.lvwFGWindow.Size = New System.Drawing.Size(725, 140)
+        Me.lvwFGWindow.Size = New System.Drawing.Size(965, 171)
         Me.lvwFGWindow.TabIndex = 8
         Me.lvwFGWindow.UseCompatibleStateImageBehavior = False
         Me.lvwFGWindow.View = System.Windows.Forms.View.Details
@@ -196,27 +204,31 @@ Partial Class Form1
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(10, 19)
+        Me.Label3.Location = New System.Drawing.Point(13, 23)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(79, 13)
+        Me.Label3.Size = New System.Drawing.Size(99, 17)
         Me.Label3.TabIndex = 9
         Me.Label3.Text = "Active Window"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(10, 188)
+        Me.Label4.Location = New System.Drawing.Point(13, 231)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(59, 13)
+        Me.Label4.Size = New System.Drawing.Size(78, 17)
         Me.Label4.TabIndex = 10
         Me.Label4.Text = "All Process"
         '
         'lstboxhandels
         '
         Me.lstboxhandels.HorizontalScrollbar = True
-        Me.lstboxhandels.Location = New System.Drawing.Point(13, 204)
+        Me.lstboxhandels.ItemHeight = 16
+        Me.lstboxhandels.Location = New System.Drawing.Point(17, 251)
+        Me.lstboxhandels.Margin = New System.Windows.Forms.Padding(4)
         Me.lstboxhandels.Name = "lstboxhandels"
-        Me.lstboxhandels.Size = New System.Drawing.Size(725, 134)
+        Me.lstboxhandels.Size = New System.Drawing.Size(965, 164)
         Me.lstboxhandels.TabIndex = 11
         '
         'allprocess
@@ -236,50 +248,57 @@ Partial Class Form1
         'inactivitylogs
         '
         Me.inactivitylogs.FormattingEnabled = True
-        Me.inactivitylogs.Location = New System.Drawing.Point(500, 377)
+        Me.inactivitylogs.ItemHeight = 16
+        Me.inactivitylogs.Location = New System.Drawing.Point(667, 464)
+        Me.inactivitylogs.Margin = New System.Windows.Forms.Padding(4)
         Me.inactivitylogs.Name = "inactivitylogs"
-        Me.inactivitylogs.Size = New System.Drawing.Size(237, 134)
+        Me.inactivitylogs.Size = New System.Drawing.Size(315, 164)
         Me.inactivitylogs.TabIndex = 14
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(498, 361)
+        Me.Label7.Location = New System.Drawing.Point(664, 444)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(75, 13)
+        Me.Label7.Size = New System.Drawing.Size(97, 17)
         Me.Label7.TabIndex = 17
         Me.Label7.Text = "Inactivity Logs"
         '
         'RichTextBox1
         '
-        Me.RichTextBox1.Location = New System.Drawing.Point(13, 421)
+        Me.RichTextBox1.Location = New System.Drawing.Point(17, 518)
+        Me.RichTextBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(474, 90)
+        Me.RichTextBox1.Size = New System.Drawing.Size(631, 110)
         Me.RichTextBox1.TabIndex = 18
         Me.RichTextBox1.Text = ""
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(150, 24)
+        Me.Button2.Location = New System.Drawing.Point(200, 30)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(4)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(107, 29)
+        Me.Button2.Size = New System.Drawing.Size(143, 36)
         Me.Button2.TabIndex = 20
         Me.Button2.Text = "Refresh"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'authkey
         '
-        Me.authkey.Location = New System.Drawing.Point(13, 377)
+        Me.authkey.Location = New System.Drawing.Point(17, 464)
+        Me.authkey.Margin = New System.Windows.Forms.Padding(4)
         Me.authkey.Name = "authkey"
-        Me.authkey.Size = New System.Drawing.Size(474, 20)
+        Me.authkey.Size = New System.Drawing.Size(631, 22)
         Me.authkey.TabIndex = 21
         '
         'CheckBox2
         '
         Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(553, 14)
+        Me.CheckBox2.Location = New System.Drawing.Point(737, 17)
+        Me.CheckBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(79, 17)
+        Me.CheckBox2.Size = New System.Drawing.Size(101, 21)
         Me.CheckBox2.TabIndex = 22
         Me.CheckBox2.Text = "Full Screnn"
         Me.CheckBox2.UseVisualStyleBackColor = True
@@ -287,9 +306,10 @@ Partial Class Form1
         'CheckBox3
         '
         Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Location = New System.Drawing.Point(652, 14)
+        Me.CheckBox3.Location = New System.Drawing.Point(869, 17)
+        Me.CheckBox3.Margin = New System.Windows.Forms.Padding(4)
         Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(88, 17)
+        Me.CheckBox3.Size = New System.Drawing.Size(110, 21)
         Me.CheckBox3.TabIndex = 23
         Me.CheckBox3.Text = "Window Size"
         Me.CheckBox3.UseVisualStyleBackColor = True
@@ -300,36 +320,40 @@ Partial Class Form1
         Me.project.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.project.FormattingEnabled = True
         Me.project.IntegralHeight = False
-        Me.project.ItemHeight = 15
-        Me.project.Location = New System.Drawing.Point(13, 91)
+        Me.project.ItemHeight = 18
+        Me.project.Location = New System.Drawing.Point(17, 112)
+        Me.project.Margin = New System.Windows.Forms.Padding(4)
         Me.project.Name = "project"
-        Me.project.Size = New System.Drawing.Size(242, 23)
+        Me.project.Size = New System.Drawing.Size(321, 26)
         Me.project.TabIndex = 26
         '
         'task
         '
         Me.task.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.task.FormattingEnabled = True
-        Me.task.Location = New System.Drawing.Point(13, 159)
+        Me.task.Location = New System.Drawing.Point(17, 196)
+        Me.task.Margin = New System.Windows.Forms.Padding(4)
         Me.task.Name = "task"
-        Me.task.Size = New System.Drawing.Size(242, 23)
+        Me.task.Size = New System.Drawing.Size(321, 26)
         Me.task.TabIndex = 27
         '
         'Projects
         '
         Me.Projects.AutoSize = True
-        Me.Projects.Location = New System.Drawing.Point(12, 72)
+        Me.Projects.Location = New System.Drawing.Point(16, 89)
+        Me.Projects.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Projects.Name = "Projects"
-        Me.Projects.Size = New System.Drawing.Size(45, 13)
+        Me.Projects.Size = New System.Drawing.Size(59, 17)
         Me.Projects.TabIndex = 28
         Me.Projects.Text = "Projects"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(10, 138)
+        Me.Label6.Location = New System.Drawing.Point(13, 170)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(36, 13)
+        Me.Label6.Size = New System.Drawing.Size(46, 17)
         Me.Label6.TabIndex = 29
         Me.Label6.Text = "Tasks"
         '
@@ -340,9 +364,10 @@ Partial Class Form1
         'autostart
         '
         Me.autostart.AutoSize = True
-        Me.autostart.Location = New System.Drawing.Point(16, 212)
+        Me.autostart.Location = New System.Drawing.Point(21, 261)
+        Me.autostart.Margin = New System.Windows.Forms.Padding(4)
         Me.autostart.Name = "autostart"
-        Me.autostart.Size = New System.Drawing.Size(73, 17)
+        Me.autostart.Size = New System.Drawing.Size(93, 21)
         Me.autostart.TabIndex = 32
         Me.autostart.Text = "Auto Start"
         Me.autostart.UseVisualStyleBackColor = True
@@ -358,8 +383,8 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1027, 24)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(7, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1570, 26)
         Me.MenuStrip1.TabIndex = 33
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -367,88 +392,89 @@ Partial Class Form1
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem3, Me.ToolStripSeparator6, Me.ToolStripMenuItem2, Me.ToolStripSeparator3, Me.ExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 22)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 24)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(139, 22)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(170, 26)
         Me.ToolStripMenuItem3.Text = "My Account"
         '
         'ToolStripSeparator6
         '
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(136, 6)
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(167, 6)
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(139, 22)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(170, 26)
         Me.ToolStripMenuItem2.Text = "Close"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(136, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(167, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(139, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(170, 26)
         Me.ExitToolStripMenuItem.Text = "Quit"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ToolStripSeparator4, Me.AboutToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem1, Me.ToolStripSeparator2, Me.AboutEOfficeDesktopToolStripMenuItem})
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 22)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(55, 24)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(197, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(248, 26)
         Me.ToolStripMenuItem1.Text = "Keyboard Shortcuts"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(194, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(245, 6)
         '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(248, 26)
         Me.AboutToolStripMenuItem.Text = "Give Feddback"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(194, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(245, 6)
         '
         'AboutToolStripMenuItem1
         '
         Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
-        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(197, 22)
+        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(248, 26)
         Me.AboutToolStripMenuItem1.Text = "Conatct Support"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(194, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(245, 6)
         '
         'AboutEOfficeDesktopToolStripMenuItem
         '
         Me.AboutEOfficeDesktopToolStripMenuItem.Name = "AboutEOfficeDesktopToolStripMenuItem"
-        Me.AboutEOfficeDesktopToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.AboutEOfficeDesktopToolStripMenuItem.Size = New System.Drawing.Size(248, 26)
         Me.AboutEOfficeDesktopToolStripMenuItem.Text = "About E Office Desktop"
         '
         'logout
         '
-        Me.logout.Location = New System.Drawing.Point(13, 254)
+        Me.logout.Location = New System.Drawing.Point(17, 313)
+        Me.logout.Margin = New System.Windows.Forms.Padding(4)
         Me.logout.Name = "logout"
-        Me.logout.Size = New System.Drawing.Size(109, 29)
+        Me.logout.Size = New System.Drawing.Size(145, 36)
         Me.logout.TabIndex = 34
         Me.logout.Text = "Logout"
         Me.logout.UseVisualStyleBackColor = True
@@ -463,18 +489,19 @@ Partial Class Form1
         Me.afterlogin.Controls.Add(Me.Projects)
         Me.afterlogin.Controls.Add(Me.Label6)
         Me.afterlogin.Controls.Add(Me.Button2)
-        Me.afterlogin.Location = New System.Drawing.Point(22, 387)
+        Me.afterlogin.Location = New System.Drawing.Point(29, 476)
+        Me.afterlogin.Margin = New System.Windows.Forms.Padding(4)
         Me.afterlogin.Name = "afterlogin"
-        Me.afterlogin.Size = New System.Drawing.Size(265, 294)
+        Me.afterlogin.Size = New System.Drawing.Size(353, 362)
         Me.afterlogin.TabIndex = 35
         '
         'autoselproject
         '
         Me.autoselproject.AutoSize = True
-        Me.autoselproject.Location = New System.Drawing.Point(15, 222)
-        Me.autoselproject.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.autoselproject.Location = New System.Drawing.Point(20, 273)
+        Me.autoselproject.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.autoselproject.Name = "autoselproject"
-        Me.autoselproject.Size = New System.Drawing.Size(160, 17)
+        Me.autoselproject.Size = New System.Drawing.Size(207, 21)
         Me.autoselproject.TabIndex = 38
         Me.autoselproject.Text = "Autoselect Project and Task"
         Me.autoselproject.UseVisualStyleBackColor = True
@@ -482,10 +509,9 @@ Partial Class Form1
         'taskdetailslink
         '
         Me.taskdetailslink.AutoSize = True
-        Me.taskdetailslink.Location = New System.Drawing.Point(166, 189)
-        Me.taskdetailslink.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.taskdetailslink.Location = New System.Drawing.Point(221, 233)
         Me.taskdetailslink.Name = "taskdetailslink"
-        Me.taskdetailslink.Size = New System.Drawing.Size(92, 13)
+        Me.taskdetailslink.Size = New System.Drawing.Size(119, 17)
         Me.taskdetailslink.TabIndex = 40
         Me.taskdetailslink.TabStop = True
         Me.taskdetailslink.Text = "View Task Details"
@@ -505,18 +531,19 @@ Partial Class Form1
         Me.beforelogin.Controls.Add(Me.savelogin)
         Me.beforelogin.Controls.Add(Me.Label5)
         Me.beforelogin.Controls.Add(Me.Label8)
-        Me.beforelogin.Location = New System.Drawing.Point(22, 38)
+        Me.beforelogin.Location = New System.Drawing.Point(29, 47)
+        Me.beforelogin.Margin = New System.Windows.Forms.Padding(4)
         Me.beforelogin.Name = "beforelogin"
-        Me.beforelogin.Size = New System.Drawing.Size(265, 344)
+        Me.beforelogin.Size = New System.Drawing.Size(353, 423)
         Me.beforelogin.TabIndex = 36
         '
         'autologin
         '
         Me.autologin.AutoSize = True
-        Me.autologin.Location = New System.Drawing.Point(15, 246)
-        Me.autologin.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.autologin.Location = New System.Drawing.Point(20, 303)
+        Me.autologin.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.autologin.Name = "autologin"
-        Me.autologin.Size = New System.Drawing.Size(77, 17)
+        Me.autologin.Size = New System.Drawing.Size(98, 21)
         Me.autologin.TabIndex = 41
         Me.autologin.Text = "Auto Login"
         Me.autologin.UseVisualStyleBackColor = True
@@ -525,10 +552,9 @@ Partial Class Form1
         '
         Me.LinkLabel2.AutoSize = True
         Me.LinkLabel2.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkLabel2.Location = New System.Drawing.Point(9, 313)
-        Me.LinkLabel2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabel2.Location = New System.Drawing.Point(12, 385)
         Me.LinkLabel2.Name = "LinkLabel2"
-        Me.LinkLabel2.Size = New System.Drawing.Size(244, 13)
+        Me.LinkLabel2.Size = New System.Drawing.Size(319, 17)
         Me.LinkLabel2.TabIndex = 39
         Me.LinkLabel2.TabStop = True
         Me.LinkLabel2.Text = "Don't have an account? Register for new account"
@@ -536,10 +562,9 @@ Partial Class Form1
         'LinkLabel1
         '
         Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Location = New System.Drawing.Point(164, 96)
-        Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabel1.Location = New System.Drawing.Point(219, 118)
         Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(92, 13)
+        Me.LinkLabel1.Size = New System.Drawing.Size(122, 17)
         Me.LinkLabel1.TabIndex = 38
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Forgot Password?"
@@ -551,9 +576,10 @@ Partial Class Form1
         Me.Label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.SystemColors.Window
-        Me.Label5.Location = New System.Drawing.Point(17, 38)
+        Me.Label5.Location = New System.Drawing.Point(23, 47)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(237, 35)
+        Me.Label5.Size = New System.Drawing.Size(301, 44)
         Me.Label5.TabIndex = 42
         Me.Label5.Text = " USERMAAAEIIII"
         '
@@ -564,9 +590,10 @@ Partial Class Form1
         Me.Label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label8.ForeColor = System.Drawing.SystemColors.Window
-        Me.Label8.Location = New System.Drawing.Point(17, 115)
+        Me.Label8.Location = New System.Drawing.Point(23, 142)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(237, 35)
+        Me.Label8.Size = New System.Drawing.Size(301, 44)
         Me.Label8.TabIndex = 43
         Me.Label8.Text = " USERMAAAEIIII"
         '
@@ -582,9 +609,10 @@ Partial Class Form1
         Me.Panel1.Controls.Add(Me.RichTextBox1)
         Me.Panel1.Controls.Add(Me.Label7)
         Me.Panel1.Controls.Add(Me.inactivitylogs)
-        Me.Panel1.Location = New System.Drawing.Point(331, 38)
+        Me.Panel1.Location = New System.Drawing.Point(441, 47)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(767, 545)
+        Me.Panel1.Size = New System.Drawing.Size(1023, 671)
         Me.Panel1.TabIndex = 37
         '
         'initializer
@@ -592,17 +620,23 @@ Partial Class Form1
         Me.initializer.Enabled = True
         Me.initializer.Interval = 2000
         '
+        'Timer2
+        '
+        Me.Timer2.Enabled = True
+        Me.Timer2.Interval = 150
+        '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1027, 710)
+        Me.ClientSize = New System.Drawing.Size(1570, 874)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.beforelogin)
         Me.Controls.Add(Me.afterlogin)
         Me.Controls.Add(Me.MenuStrip1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.MainMenuStrip = Me.MenuStrip1
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Form1"
@@ -681,4 +715,5 @@ Partial Class Form1
     Friend WithEvents initializer As Timer
     Friend WithEvents Label5 As Label
     Friend WithEvents Label8 As Label
+    Friend WithEvents Timer2 As Timer
 End Class

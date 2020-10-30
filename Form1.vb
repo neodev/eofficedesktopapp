@@ -857,7 +857,8 @@ Public Class Form1
             End If
 
         End If
-
+        Timer2.Enabled = False
+        Button1.Text = "Login"
         Return islogin
 
     End Function
@@ -955,5 +956,12 @@ Public Class Form1
 
     Private Sub NotifyIcon1_Click(sender As Object, e As EventArgs) Handles NotifyIcon1.Click
         Me.WindowState = FormWindowState.Normal
+    End Sub
+
+    Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
+        Button1.Text = " " & Button1.Text & "."
+        If (Button1.Text = "      Login......") Then
+            Button1.Text = "Login"
+        End If
     End Sub
 End Class
