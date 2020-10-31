@@ -56,10 +56,15 @@ Public Class Form1
     Dim flaglasttask As Boolean = True 'Disable saving selected task
     Dim shorturl As String = "http:///www.brwz.in/"
     Dim islogin As Boolean = False 'flag varibale to restrcit project and task auto selection
-    Dim apiurl As String = "http://kenprotechnologies.com/eofficedesktopapp/api/"
+    'Dim apiurl As String = "http://kenprotechnologies.com/eofficedesktopapp/api/"
+    Dim apiurl As String = "http://dfwwebexpert/eofficedesktopwebapp/api/"
 
     Dim sssavepath As String = "d:\screengrabs\"
     Dim mysqldateformat As String = "yyyy-MM-dd hh:mm:ss"
+    Dim lastactwnw As String
+
+    Dim taskkey As String
+    Dim projectkey As String
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
@@ -106,6 +111,8 @@ Public Class Form1
     End Function
 
     Private Sub tmrGetFgWindow_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrGetFgWindow.Tick
+
+        Dim wnwtimestamp As String
         ' Get the window's handle.
         Dim fg_hwnd As Long = GetForegroundWindow()
         Dim fg_wndttle As String = GetWindowTitle(fg_hwnd)
@@ -114,14 +121,13 @@ Public Class Form1
         ' let that one remain the most recent entry.
         If m_LastHwnd = fg_hwnd And m_LastWndTile = fg_wndttle Then Exit Sub
 
-
-
         m_LastHwnd = fg_hwnd
         m_LastWndTile = fg_wndttle
 
         ' Display the time and the window's title.
         Dim list_item As System.Windows.Forms.ListViewItem
-        list_item = lvwFGWindow.Items.Add(text:=Now.ToString(mysqldateformat))
+        wnwtimestamp = Now.ToString(mysqldateformat)
+        list_item = lvwFGWindow.Items.Add(wnwtimestamp)
 
         list_item.SubItems.Add(fg_hwnd)
         list_item.SubItems.Add(fg_wndttle)
@@ -138,11 +144,11 @@ Public Class Form1
             Console.WriteLine(ex)
         End Try
 
-
         sgfilename = "WC" & CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
         screenGrab.Save(sssavepath & sgfilename)
 
         list_item.SubItems.Add(sgfilename)
+        lastactwnw = "awt=" & wnwtimestamp & "&wh=" & fg_hwnd & "&ss=" & sgfilename
 
         list_item.EnsureVisible()
     End Sub
@@ -294,8 +300,9 @@ Public Class Form1
             'Active
 
             If inactsec > 0 Then
+
                 inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
-                SendData(inactsec & "|" & Now.ToString(mysqldateformat) & "|" & authkey.Text)
+                SendData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
                 inactsec = 0
 
             End If
@@ -375,6 +382,11 @@ Public Class Form1
 
         End If
 
+        If islogin = True Then
+            projectkey = DirectCast(project.SelectedItem, KeyValuePair(Of String, String)).Key
+        End If
+
+
     End Sub
 
     Private Sub task_SelectedIndexChanged(sender As Object, e As EventArgs) Handles task.SelectedIndexChanged
@@ -385,11 +397,14 @@ Public Class Form1
 
         End If
 
+        If islogin Then
+            taskkey = DirectCast(task.SelectedItem, KeyValuePair(Of String, String)).Key
+        End If
+
+
     End Sub
 
-    Private Sub syncact_Tick(sender As Object, e As EventArgs) Handles syncact.Tick
 
-    End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs)
 
@@ -858,7 +873,7 @@ Public Class Form1
             End If
 
         End If
-        Timer2.Enabled = False
+        animate.Enabled = False
         Button1.Text = "Login"
         Return islogin
 
@@ -959,23 +974,22 @@ Public Class Form1
         Me.WindowState = FormWindowState.Normal
     End Sub
 
-    Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
+    Private Sub animate_Tick(sender As Object, e As EventArgs) Handles animate.Tick
         Button1.Text = " " & Button1.Text & "."
         If (Button1.Text = "      Login......") Then
             Button1.Text = "Login"
         End If
     End Sub
 
-    Public Function SendData(strdata As String) As Boolean
+    Public Function SendData(postData As String) As Boolean
 
-        Dim taskkey As String = DirectCast(task.SelectedItem, KeyValuePair(Of String, String)).Key
-        Dim projectkey As String = DirectCast(project.SelectedItem, KeyValuePair(Of String, String)).Key
+        Dim querystring As String = "&islogin=" & islogin & "&t=" & taskkey & "&p=" & projectkey & "&uid=" & authkey.Text & "&" & postData & "&" & lastactwnw
 
-        Dim postData As String = "t=" & taskkey & "&p=" & projectkey & "&uid=" & authkey.Text & "&d=I&v=" & strdata
+        Console.WriteLine(querystring)
 
         Dim tempCookies As New CookieContainer
         Dim encoding As New UTF8Encoding
-        Dim byteData As Byte() = encoding.GetBytes(postData)
+        Dim byteData As Byte() = encoding.GetBytes(querystring)
 
         Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
         postReq.Method = "POST"
@@ -1000,8 +1014,10 @@ Public Class Form1
 
         RichTextBox1.Text = thepage
 
+
         Return True
 
     End Function
+
 
 End Class

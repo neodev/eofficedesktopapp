@@ -57,9 +57,7 @@ Partial Class Form1
         Me.task = New System.Windows.Forms.ComboBox()
         Me.Projects = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.syncact = New System.Windows.Forms.Timer(Me.components)
         Me.autostart = New System.Windows.Forms.CheckBox()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
@@ -87,7 +85,7 @@ Partial Class Form1
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.initializer = New System.Windows.Forms.Timer(Me.components)
-        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
+        Me.animate = New System.Windows.Forms.Timer(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.afterlogin.SuspendLayout()
         Me.beforelogin.SuspendLayout()
@@ -357,10 +355,6 @@ Partial Class Form1
         Me.Label6.TabIndex = 29
         Me.Label6.Text = "Tasks"
         '
-        'syncact
-        '
-        Me.syncact.Interval = 5000
-        '
         'autostart
         '
         Me.autostart.AutoSize = True
@@ -371,10 +365,6 @@ Partial Class Form1
         Me.autostart.TabIndex = 32
         Me.autostart.Text = "Auto Start"
         Me.autostart.UseVisualStyleBackColor = True
-        '
-        'Timer1
-        '
-        Me.Timer1.Interval = 500
         '
         'MenuStrip1
         '
@@ -620,10 +610,10 @@ Partial Class Form1
         Me.initializer.Enabled = True
         Me.initializer.Interval = 2000
         '
-        'Timer2
+        'animate
         '
-        Me.Timer2.Enabled = True
-        Me.Timer2.Interval = 150
+        Me.animate.Enabled = True
+        Me.animate.Interval = 150
         '
         'Form1
         '
@@ -685,9 +675,7 @@ Partial Class Form1
     Friend WithEvents task As ComboBox
     Friend WithEvents Projects As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents syncact As Timer
     Friend WithEvents autostart As CheckBox
-    Friend WithEvents Timer1 As Timer
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
@@ -715,5 +703,5 @@ Partial Class Form1
     Friend WithEvents initializer As Timer
     Friend WithEvents Label5 As Label
     Friend WithEvents Label8 As Label
-    Friend WithEvents Timer2 As Timer
+    Friend WithEvents animate As Timer
 End Class
