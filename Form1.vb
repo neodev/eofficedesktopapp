@@ -295,6 +295,7 @@ Public Class Form1
 
             If inactsec > 0 Then
                 inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
+                SendData(inactsec & "|" & Now.ToString(mysqldateformat) & "|" & authkey.Text)
                 inactsec = 0
 
             End If
@@ -964,4 +965,43 @@ Public Class Form1
             Button1.Text = "Login"
         End If
     End Sub
+
+    Public Function SendData(strdata As String) As Boolean
+
+        Dim taskkey As String = DirectCast(task.SelectedItem, KeyValuePair(Of String, String)).Key
+        Dim projectkey As String = DirectCast(project.SelectedItem, KeyValuePair(Of String, String)).Key
+
+        Dim postData As String = "t=" & taskkey & "&p=" & projectkey & "&uid=" & authkey.Text & "&d=I&v=" & strdata
+
+        Dim tempCookies As New CookieContainer
+        Dim encoding As New UTF8Encoding
+        Dim byteData As Byte() = encoding.GetBytes(postData)
+
+        Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
+        postReq.Method = "POST"
+        postReq.KeepAlive = True
+        postReq.CookieContainer = tempCookies
+        postReq.ContentType = "application/x-www-form-urlencoded"
+        postReq.Referer = apiurl
+        postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
+        postReq.ContentLength = byteData.Length
+
+        Dim postreqstream As Stream = postReq.GetRequestStream()
+        postreqstream.Write(byteData, 0, byteData.Length)
+        postreqstream.Close()
+
+        Dim postresponse As HttpWebResponse
+        postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
+        tempCookies.Add(postresponse.Cookies)
+        logincookie = tempCookies
+
+        Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
+        Dim thepage As String = postreqreader.ReadToEnd
+
+        RichTextBox1.Text = thepage
+
+        Return True
+
+    End Function
+
 End Class
