@@ -294,6 +294,14 @@ Public Class Form1
 
             'Idle
             inactsec = inactiveTime.Value.TotalSeconds.ToString("#")
+
+            If (inactsec Mod 120) = 0 Then
+
+                inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
+                SendData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
+
+            End If
+
             DoSomething()
 
         Else
