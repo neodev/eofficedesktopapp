@@ -59,7 +59,8 @@ Public Class Form1
     'Dim apiurl As String = "http://kenprotechnologies.com/eofficedesktopapp/api/"
     Dim apiurl As String = "http://dfwwebexpert/eofficedesktopwebapp/api/"
 
-    Dim sssavepath As String = "d:\screengrabs\"
+    Dim sssavepath As String = Application.StartupPath() & "\screengrabs\" '"d:\screengrabs\"
+
     Dim mysqldateformat As String = "yyyy-MM-dd hh:mm:ss"
     Dim lastactwnw As String
 
