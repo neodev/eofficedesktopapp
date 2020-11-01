@@ -471,6 +471,9 @@ Public Class Form1
     Private Sub logout_Click(sender As Object, e As EventArgs) Handles logout.Click
 
         islogin = False
+
+        SendData("d=L")
+
         scrnsvr.Enabled = False
         inactivitylogs.Enabled = False
         tmrGetFgWindow.Enabled = False
@@ -588,9 +591,11 @@ Public Class Form1
 
         authkey.Text = ""
 
+        Dim currnettime As String = Now.ToString(mysqldateformat)
+
         If (TextBox1.Text <> "" And TextBox2.Text <> "") Then
 
-            Dim postData As String = "un=" & TextBox1.Text & "&pw=" & TextBox2.Text
+            Dim postData As String = "un=" & TextBox1.Text & "&pw=" & TextBox2.Text & "&ct=" & currnettime
             Dim tempCookies As New CookieContainer
             Dim encoding As New UTF8Encoding
             Dim byteData As Byte() = encoding.GetBytes(postData)
@@ -983,7 +988,8 @@ Public Class Form1
 
     Public Function SendData(postData As String) As Boolean
 
-        Dim querystring As String = "&islogin=" & islogin & "&t=" & taskkey & "&p=" & projectkey & "&uid=" & authkey.Text & "&" & postData & "&" & lastactwnw
+        Dim currnettime As String = Now.ToString(mysqldateformat)
+        Dim querystring As String = "&ct=" & currnettime & "&islogin=" & islogin & "&t=" & taskkey & "&p=" & projectkey & "&uid=" & authkey.Text & "&" & postData & "&" & lastactwnw
 
         Console.WriteLine(querystring)
 
@@ -1013,7 +1019,6 @@ Public Class Form1
         Dim thepage As String = postreqreader.ReadToEnd
 
         RichTextBox1.Text = thepage
-
 
         Return True
 
