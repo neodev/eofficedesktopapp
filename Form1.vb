@@ -164,10 +164,19 @@ Public Class Form1
         For Each p In Process.GetProcesses(System.Environment.MachineName)
             'Only add proccess that there HWND is not 0
             If p.MainWindowHandle.ToString <> IntPtr.Zero.ToString Then
-                lstboxhandels.Items.Add(Now.ToString(mysqldateformat) + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
-                + " | File Name : " + p.MainModule.FileName.ToString + " | Machine : " + p.MachineName.ToString + " | File Description : " + p.MainModule.FileVersionInfo.FileDescription
-                )
-                'LstBoxHWNDCaptions.Items.Add(p.MainWindowTitle.ToString)
+
+                Try
+                    lstboxhandels.Items.Add(Now.ToString(mysqldateformat) + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
+                     + " | File Name : " + p.MainModule.FileName.ToString + " | Machine : " + p.MachineName.ToString + " | File Description : " + p.MainModule.FileVersionInfo.FileDescription
+                    )
+                Catch
+                    lstboxhandels.Items.Add(Now.ToString(mysqldateformat) + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
+                    + " | File Name : " + " | Machine : " + p.MachineName.ToString
+                   )
+                End Try
+
+
+                'lstboxhandels.Items.Add(p.MainWindowTitle.ToString)
             End If
         Next p
     End Sub
