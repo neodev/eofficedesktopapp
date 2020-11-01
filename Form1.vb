@@ -881,6 +881,10 @@ Public Class Form1
 
     Public Function InitializeApp() As Boolean
 
+        If (Not System.IO.Directory.Exists(sssavepath)) Then
+            System.IO.Directory.CreateDirectory(sssavepath)
+        End If
+
         If AutoLoginReg = "True" Then
 
             If TextBox1.Text <> "" And TextBox2.Text <> "" Then
