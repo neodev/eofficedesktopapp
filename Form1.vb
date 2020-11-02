@@ -307,7 +307,7 @@ Public Class Form1
 
             If (inactsec Mod 120) = 0 Then
 
-                inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
+                'inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
                 SendData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
 
             End If
