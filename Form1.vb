@@ -1046,6 +1046,62 @@ Public Class Form1
 
     End Function
 
+    Public Function GetAuthKey() As String
+
+        authkey.Text = ""
+
+        Dim currnettime As String = Now.ToString(mysqldateformat)
+
+        If (TextBox1.Text <> "" And TextBox2.Text <> "") Then
+
+            Dim postData As String = "un=" & TextBox1.Text & "&pw=" & TextBox2.Text & "&ct=" & currnettime
+            Dim tempCookies As New CookieContainer
+            Dim encoding As New UTF8Encoding
+            Dim byteData As Byte() = encoding.GetBytes(postData)
+
+            Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
+            postReq.Method = "POST"
+            postReq.KeepAlive = True
+            postReq.CookieContainer = tempCookies
+            postReq.ContentType = "application/x-www-form-urlencoded"
+            postReq.Referer = apiurl
+            postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
+            postReq.ContentLength = byteData.Length
+
+            Dim postreqstream As Stream = postReq.GetRequestStream()
+            postreqstream.Write(byteData, 0, byteData.Length)
+            postreqstream.Close()
+
+            Dim postresponse As HttpWebResponse
+            postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
+            tempCookies.Add(postresponse.Cookies)
+            logincookie = tempCookies
+
+            Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
+            Dim thepage As String = postreqreader.ReadToEnd
+
+            RichTextBox1.Text = thepage
+
+
+            Dim datadict As Dictionary(Of String, String) = ParseJSON(thepage)
+
+            If datadict Is Nothing Then
+
+            Else
+
+                authkey.Text = datadict("uid")
+
+            End If
+
+            If authkey.Text <> "" Then
+                    Return True
+                Else
+                    Return False
+                End If
+
+            End If
+
+    End Function
 
     Public Function ParseJSON(jsonData As String) As Dictionary(Of String, String)
 
