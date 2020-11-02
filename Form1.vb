@@ -1047,4 +1047,23 @@ Public Class Form1
     End Function
 
 
+    Public Function ParseJSON(jsonData As String) As Dictionary(Of String, String)
+
+        Dim datadict As Dictionary(Of String, String)
+
+        Try
+
+            Dim jss As New JavaScriptSerializer()
+            datadict = jss.Deserialize(Of Dictionary(Of String, String))(jsonData)
+
+        Catch ex As Exception
+
+            Console.WriteLine("Invalid JSON")   'Invalid JSON
+
+        End Try
+
+        Return datadict
+
+    End Function
+
 End Class
