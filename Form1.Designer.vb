@@ -231,7 +231,7 @@ Partial Class Form1
         '
         'allprocess
         '
-        Me.allprocess.Interval = 60000
+        Me.allprocess.Interval = 5000
         '
         'NotifyIcon1
         '

@@ -155,6 +155,7 @@ Public Class Form1
     End Sub
 
     Private Sub allprocess_Tick(sender As Object, e As EventArgs) Handles allprocess.Tick
+        allprocess.Interval = 120000
         lstboxhandels.Items.Clear()
         'LstBoxHWNDCaptions.Items.Clear()
 
