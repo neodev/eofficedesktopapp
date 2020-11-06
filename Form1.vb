@@ -286,13 +286,13 @@ Public Class Form1
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         If Me.WindowState = FormWindowState.Minimized Then
             NotifyIcon1.Visible = True
-            'NotifyIcon1.Icon = SystemIcons.Application
-            NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
-            NotifyIcon1.BalloonTipText = "I'm here in your Systray for your help!"
-            NotifyIcon1.BalloonTipTitle = "Happy Coding!"
-            NotifyIcon1.ShowBalloonTip(2000)
-            'Me.Hide()
-            'ShowInTaskbar = False
+            ''NotifyIcon1.Icon = SystemIcons.Application
+            'NotifyIcon1.BalloonTipIcon = ToolTipIcon.Info
+            'NotifyIcon1.BalloonTipText = "I'm here in your Systray for your help!"
+            'NotifyIcon1.BalloonTipTitle = "Happy Coding!"
+            'NotifyIcon1.ShowBalloonTip(2000)
+            ''Me.Hide()
+            ''ShowInTaskbar = False
         End If
 
         If Me.WindowState <> FormWindowState.Minimized Then
