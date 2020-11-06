@@ -75,8 +75,8 @@ Partial Class Form1
         Me.AboutEOfficeDesktopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.logout = New System.Windows.Forms.Button()
         Me.afterlogin = New System.Windows.Forms.Panel()
-        Me.autoselproject = New System.Windows.Forms.CheckBox()
         Me.taskdetailslink = New System.Windows.Forms.LinkLabel()
+        Me.autoselproject = New System.Windows.Forms.CheckBox()
         Me.beforelogin = New System.Windows.Forms.Panel()
         Me.autologin = New System.Windows.Forms.CheckBox()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
@@ -488,6 +488,16 @@ Partial Class Form1
         Me.afterlogin.Size = New System.Drawing.Size(353, 362)
         Me.afterlogin.TabIndex = 35
         '
+        'taskdetailslink
+        '
+        Me.taskdetailslink.AutoSize = True
+        Me.taskdetailslink.Location = New System.Drawing.Point(264, 233)
+        Me.taskdetailslink.Name = "taskdetailslink"
+        Me.taskdetailslink.Size = New System.Drawing.Size(72, 17)
+        Me.taskdetailslink.TabIndex = 40
+        Me.taskdetailslink.TabStop = True
+        Me.taskdetailslink.Text = "View Task"
+        '
         'autoselproject
         '
         Me.autoselproject.AutoSize = True
@@ -498,16 +508,6 @@ Partial Class Form1
         Me.autoselproject.TabIndex = 38
         Me.autoselproject.Text = "Autoselect Project and Task"
         Me.autoselproject.UseVisualStyleBackColor = True
-        '
-        'taskdetailslink
-        '
-        Me.taskdetailslink.AutoSize = True
-        Me.taskdetailslink.Location = New System.Drawing.Point(264, 233)
-        Me.taskdetailslink.Name = "taskdetailslink"
-        Me.taskdetailslink.Size = New System.Drawing.Size(72, 17)
-        Me.taskdetailslink.TabIndex = 40
-        Me.taskdetailslink.TabStop = True
-        Me.taskdetailslink.Text = "View Task"
         '
         'beforelogin
         '

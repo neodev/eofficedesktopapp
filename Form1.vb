@@ -289,12 +289,11 @@ Public Class Form1
             'NotifyIcon1.BalloonTipTitle = "Happy Coding!"
             'NotifyIcon1.ShowBalloonTip(2000)
             ''Me.Hide()
-            ''ShowInTaskbar = False
+            ShowInTaskbar = False
         End If
 
         If Me.WindowState <> FormWindowState.Minimized Then
 
-            'MsgBox(Me.WindowState)
             ShowInTaskbar = True
 
         End If
