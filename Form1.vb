@@ -66,6 +66,7 @@ Public Class Form1
 
     Dim taskkey As String
     Dim projectkey As String
+    Dim SendDataRes As String
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
@@ -151,6 +152,7 @@ Public Class Form1
         list_item.SubItems.Add(sgfilename)
         lastactwnw = "awt=" & wnwtimestamp & "&wh=" & fg_hwnd & "&ss=" & sgfilename
 
+        SendDataRes = SendData("d=W&" & lastactwnw & "&wt=" & fg_wndttle)
         list_item.EnsureVisible()
     End Sub
 
@@ -181,6 +183,7 @@ Public Class Form1
                 'lstboxhandels.Items.Add(p.MainWindowTitle.ToString)
             End If
         Next p
+        SendDataRes = SendData("d=P&ap=" & allprocesslist)
     End Sub
 
     Private Sub lvwFGWindow_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvwFGWindow.SelectedIndexChanged
@@ -309,7 +312,7 @@ Public Class Form1
             If (inactsec Mod 120) = 0 Then
 
                 'inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
-                SendData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
+                SendDataRes = SendData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
 
             End If
 
@@ -321,7 +324,7 @@ Public Class Form1
             If inactsec > 0 Then
 
                 inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
-                SendData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
+                SendDataRes = SendData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
                 inactsec = 0
 
             End If
@@ -491,7 +494,7 @@ Public Class Form1
 
         islogin = False
 
-        SendData("d=L")
+        SendDataRes = SendData("d=L")
 
         scrnsvr.Enabled = False
         inactivitylogs.Enabled = False
@@ -959,12 +962,12 @@ Public Class Form1
         End If
     End Sub
 
-    Public Function SendData(postData As String) As Boolean
+    Public Function SendData(postData As String) As String
 
         Dim currnettime As String = Now.ToString(mysqldateformat)
         Dim querystring As String = "&ct=" & currnettime & "&islogin=" & islogin & "&t=" & taskkey & "&p=" & projectkey & "&uid=" & authkey.Text & "&" & postData & "&" & lastactwnw
 
-        Console.WriteLine(querystring)
+        Console.WriteLine("SendData : " & querystring)
 
         Dim tempCookies As New CookieContainer
         Dim encoding As New UTF8Encoding
@@ -993,7 +996,7 @@ Public Class Form1
 
         RichTextBox1.Text = thepage
 
-        Return True
+        Return thepage
 
     End Function
 
