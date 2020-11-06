@@ -56,8 +56,8 @@ Public Class Form1
     Dim flaglasttask As Boolean = True 'Disable saving selected task
     Dim shorturl As String = "http:///www.brwz.in/"
     Dim islogin As Boolean = False 'flag varibale to restrcit project and task auto selection
-    'Dim apiurl As String = "http://kenprotechnologies.com/eofficedesktopapp/api/"
-    Dim apiurl As String = "http://dfwwebexpert/eofficedesktopwebapp/api/"
+    Dim apiurl As String = "http://kenprotechnologies.com/eofficedesktopapp/api/"
+    'Dim apiurl As String = "http://dfwwebexpert/eofficedesktopwebapp/api/"
 
     Dim sssavepath As String = Application.StartupPath() & "\screengrabs\" '"d:\screengrabs\"
 
@@ -208,8 +208,8 @@ Public Class Form1
 
         Console.WriteLine("Form Load : " & Now.ToString(mysqldateformat))
 
-        'Me.Height = 450
-        'Me.Width = 326
+        Me.Height = 450
+        Me.Width = 326
         'Me.WindowState = vbNormal
 
         Me.CenterToScreen()
@@ -356,7 +356,7 @@ Public Class Form1
 
         If TextBox1.Text = "" Or TextBox2.Text = "" Then
 
-            MsgBox("Username and Password is required")
+            MessageBox.Show("Email ID and Password is required", "My Time Tracker", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         Else
 
@@ -461,7 +461,7 @@ Public Class Form1
         If e.CloseReason = CloseReason.UserClosing Then
 
             If systrayalert = True Then
-                MsgBox("I'm here in your Systray for your help!")
+                MessageBox.Show("I'm residing in your Systray for your help!", "My Time Tracker", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 systrayalert = False
             End If
 
@@ -488,7 +488,7 @@ Public Class Form1
 
     Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
         If systrayalert = True Then
-            MsgBox("I'm here in your Systray for your help!")
+            MessageBox.Show("I'm residing in your Systray for your help!", "My Time Tracker", MessageBoxButtons.OK, MessageBoxIcon.Information)
             systrayalert = False
         End If
         Me.WindowState = 1
@@ -636,7 +636,7 @@ Public Class Form1
 
         Else
             initializer.Enabled = False
-            MsgBox("Wrong username or password")
+            MessageBox.Show("Login error! Wrong Eail ID or Password", "My Time Tracker", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Button1.Enabled = True
             Return False
 
