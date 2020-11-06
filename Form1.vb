@@ -67,6 +67,8 @@ Public Class Form1
     Dim taskkey As String
     Dim projectkey As String
     Dim SendDataRes As String
+    Dim allprocesslist As String
+    Dim processlist As Integer()
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
@@ -154,58 +156,39 @@ Public Class Form1
         SendDataRes = SendData("d=W&" & lastactwnw & "&wt=" & fg_wndttle)
         list_item.SubItems.Add(SendDataRes)
         list_item.EnsureVisible()
+
+
+        Dim processitem As Dictionary(Of String, String)
+        Dim processfound As Boolean = False
+
+        For i = 0 To lstboxhandels.Items.Count - 1
+
+            processitem = ParseJSON(lstboxhandels.Items(i).ToString)
+
+            If (fg_hwnd = processitem("wh")) Then
+                Console.WriteLine(("Process Item window handler " & processitem("wh")))
+                processfound = True
+                Exit For
+            End If
+            Console.WriteLine("Process : " & i)
+            Console.WriteLine(("Process Item " & lstboxhandels.Items(i).ToString))
+
+        Next
+        'Proceee not in list
+        'Wait for timer to run process list atleat once - intial form load
+        If processfound = False And lstboxhandels.Items.Count > 0 Then
+
+            getAllProcess()
+
+        End If
+
     End Sub
 
     Private Sub allprocess_Tick(sender As Object, e As EventArgs) Handles allprocess.Tick
 
         allprocess.Interval = 120000
 
-        lstboxhandels.Items.Clear()
-        'LstBoxHWNDCaptions.Items.Clear()
-
-        Dim p As Process
-        Dim prslist As String
-        Dim allprocesslist As String
-        Dim fn As String
-
-        'Process.GetProcessById();
-
-        For Each p In Process.GetProcesses(System.Environment.MachineName)
-            'Only add proccess that there HWND is not 0
-            If p.MainWindowHandle.ToString <> IntPtr.Zero.ToString Then
-
-                Try
-                    'lstboxhandels.Items.Add(Now.ToString(mysqldateformat) + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
-                    ' + " | File Name : " + p.MainModule.FileName.ToString + " | Machine : " + p.MachineName.ToString + " | File Description : " + p.MainModule.FileVersionInfo.FileDescription
-                    ' )
-                    fn = p.MainModule.FileName.ToString
-                    fn = fn.Replace("\", "\\")
-                    prslist = "{""wh"": """ & p.MainWindowHandle.ToString & """, ""pid"": """ & p.Id.ToString & """,""pn"":""" & p.ProcessName.ToString & """,""fn"":""" & fn & """,""fd"":""" & p.MainModule.FileVersionInfo.FileDescription & """}"
-                    lstboxhandels.Items.Add(prslist)
-                    allprocesslist = allprocesslist & prslist & ","
-                Catch
-                    ' lstboxhandels.Items.Add(Now.ToString(mysqldateformat) + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
-                    ' + " | File Name : " + " | Machine : " + p.MachineName.ToString
-                    ' )
-                    prslist = "{""wh"": """ & p.MainWindowHandle.ToString & """, ""pid"": """ & p.Id.ToString & """,""pn"":""" & p.ProcessName.ToString & """,""fn"":""" & """,""fd"":""" & """}"
-                    lstboxhandels.Items.Add(prslist)
-                    allprocesslist = allprocesslist & prslist & ","
-                End Try
-
-
-                'lstboxhandels.Items.Add(p.MainWindowTitle.ToString)
-            End If
-        Next p
-        allprocesslist.Trim(" ")
-        allprocesslist.Trim(",")
-
-        allprocesslist = "{""mn"":""" & p.MachineName.ToString & """,""pt"":""" & Now.ToString(mysqldateformat) & """,""ap"":[" & allprocesslist.Trim(", ") & "]}"
-        Console.WriteLine(allprocesslist)
-        'If islogin Then
-        SendDataRes = SendData("d=P&ap=" & allprocesslist)
-        'End If
-
-
+        getAllProcess()
 
     End Sub
 
