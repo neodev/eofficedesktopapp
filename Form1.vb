@@ -1104,4 +1104,56 @@ Public Class Form1
 
     End Function
 
+    Public Function getAllProcess() As Boolean
+
+
+        lstboxhandels.Items.Clear()
+        'LstBoxHWNDCaptions.Items.Clear()
+
+        Dim p As Process
+        Dim prslist As String
+        Dim fn As String
+
+        'Process.GetProcessById();
+
+        For Each p In Process.GetProcesses(System.Environment.MachineName)
+            'Only add proccess that there HWND is not 0
+            If p.MainWindowHandle.ToString <> IntPtr.Zero.ToString Then
+
+                Try
+                    'lstboxhandels.Items.Add(Now.ToString(mysqldateformat) + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
+                    ' + " | File Name : " + p.MainModule.FileName.ToString + " | Machine : " + p.MachineName.ToString + " | File Description : " + p.MainModule.FileVersionInfo.FileDescription
+                    ' )
+                    fn = p.MainModule.FileName.ToString
+                    fn = fn.Replace("\", "\\")
+                    prslist = "{""wh"": """ & p.MainWindowHandle.ToString & """, ""pid"": """ & p.Id.ToString & """,""pn"":""" & p.ProcessName.ToString & """,""fn"":""" & fn & """,""fd"":""" & p.MainModule.FileVersionInfo.FileDescription & """}"
+                    lstboxhandels.Items.Add(prslist)
+                    allprocesslist = allprocesslist & prslist & ","
+                Catch
+                    ' lstboxhandels.Items.Add(Now.ToString(mysqldateformat) + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
+                    ' + " | File Name : " + " | Machine : " + p.MachineName.ToString
+                    ' )
+                    prslist = "{""wh"": """ & p.MainWindowHandle.ToString & """, ""pid"": """ & p.Id.ToString & """,""pn"":""" & p.ProcessName.ToString & """,""fn"":""" & """,""fd"":""" & """}"
+                    lstboxhandels.Items.Add(prslist)
+                    allprocesslist = allprocesslist & prslist & ","
+                End Try
+
+
+                'lstboxhandels.Items.Add(p.MainWindowTitle.ToString)
+            End If
+        Next p
+        allprocesslist.Trim(" ")
+        allprocesslist.Trim(",")
+
+        allprocesslist = "{""mn"":""" & p.MachineName.ToString & """,""pt"":""" & Now.ToString(mysqldateformat) & """,""ap"":[" & allprocesslist.Trim(", ") & "]}"
+        Console.WriteLine(allprocesslist)
+        'If islogin Then
+        SendDataRes = SendData("d=P&ap=" & allprocesslist)
+        'End If
+
+        allprocesslist = String.Empty
+
+        Return True
+
+    End Function
 End Class
