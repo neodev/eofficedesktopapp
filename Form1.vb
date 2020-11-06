@@ -94,8 +94,6 @@ Public Class Form1
         End If
 
     End Sub
-    Private m_LastHwnd As Integer
-    Private m_LastWndTile As String
 
 
     ' Return the window's title.
@@ -113,7 +111,8 @@ Public Class Form1
             Return buf.Substring(0, length)
         End If
     End Function
-
+    Private m_LastHwnd As Integer
+    Private m_LastWndTile As String
     Private Sub tmrGetFgWindow_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrGetFgWindow.Tick
 
         Dim wnwtimestamp As String
@@ -192,14 +191,12 @@ Public Class Form1
 
     End Sub
 
-    Private Sub lvwFGWindow_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvwFGWindow.SelectedIndexChanged
 
-    End Sub
 
     Private Sub NotifyIcon1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseDoubleClick
 
         Me.WindowState = FormWindowState.Normal
-        Me.TopMost = True
+        Me.Activate()
 
     End Sub
 
@@ -430,14 +427,16 @@ Public Class Form1
             taskkey = DirectCast(task.SelectedItem, KeyValuePair(Of String, String)).Key
         End If
 
+        If taskkey!= "" Then
+            taskdetailslink.Visible = False
+        Else
+            taskdetailslink.Visible = True
+        End If
+
 
     End Sub
 
 
-
-    Private Sub Button3_Click(sender As Object, e As EventArgs)
-
-    End Sub
 
     Private Sub autostart_CheckedChanged(sender As Object, e As EventArgs) Handles autostart.CheckedChanged
         Dim applicationName As String = Application.ProductName
@@ -518,7 +517,6 @@ Public Class Form1
 
     Private Sub autologin_CheckedChanged(sender As Object, e As EventArgs) Handles autologin.CheckedChanged
 
-
         If autostart.Checked Then
 
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\DTL\EOffice\", "AutoLogin", autologin.Checked)
@@ -544,8 +542,6 @@ Public Class Form1
             End If
             SaveLastProjectTask()
         End If
-
-
     End Sub
 
     Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
@@ -857,6 +853,7 @@ Public Class Form1
     End Function
 
     Private Sub initializer_Tick(sender As Object, e As EventArgs) Handles initializer.Tick
+
         'MsgBox("Initialise")
         Console.WriteLine("Initialise Timer : " & Now.ToString(mysqldateformat))
         'Console.WriteLine("Initialise")
@@ -945,7 +942,7 @@ Public Class Form1
 
     Private Sub NotifyIcon1_MouseClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseClick
         Me.WindowState = FormWindowState.Normal
-        Me.TopMost = True
+        Me.Activate()
     End Sub
 
     Private Sub NotifyIcon1_Click(sender As Object, e As EventArgs) Handles NotifyIcon1.Click
@@ -960,7 +957,6 @@ Public Class Form1
                 Button1.Text = "Login"
             End If
         End If
-
 
     End Sub
 
@@ -1131,9 +1127,6 @@ Public Class Form1
 
     End Function
 
-    Private Sub Form1_GotFocus(sender As Object, e As EventArgs) Handles Me.GotFocus
-        Me.TopMost = False
-    End Sub
 
     Private Sub AboutEOfficeDesktopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutEOfficeDesktopToolStripMenuItem.Click
         System.Diagnostics.Process.Start(shorturl & "3s5gid")
@@ -1155,4 +1148,5 @@ Public Class Form1
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         End
     End Sub
+
 End Class

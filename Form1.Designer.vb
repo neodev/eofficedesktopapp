@@ -169,6 +169,7 @@ Partial Class Form1
         Me.lvwFGWindow.TabIndex = 8
         Me.lvwFGWindow.UseCompatibleStateImageBehavior = False
         Me.lvwFGWindow.View = System.Windows.Forms.View.Details
+        Me.lvwFGWindow.Visible = False
         '
         'ColumnHeader1
         '
@@ -228,6 +229,7 @@ Partial Class Form1
         Me.lstboxhandels.Name = "lstboxhandels"
         Me.lstboxhandels.Size = New System.Drawing.Size(965, 164)
         Me.lstboxhandels.TabIndex = 11
+        Me.lstboxhandels.Visible = False
         '
         'allprocess
         '
@@ -252,6 +254,7 @@ Partial Class Form1
         Me.inactivitylogs.Name = "inactivitylogs"
         Me.inactivitylogs.Size = New System.Drawing.Size(315, 164)
         Me.inactivitylogs.TabIndex = 14
+        Me.inactivitylogs.Visible = False
         '
         'Label7
         '
@@ -338,7 +341,7 @@ Partial Class Form1
         'Projects
         '
         Me.Projects.AutoSize = True
-        Me.Projects.Location = New System.Drawing.Point(16, 89)
+        Me.Projects.Location = New System.Drawing.Point(14, 89)
         Me.Projects.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Projects.Name = "Projects"
         Me.Projects.Size = New System.Drawing.Size(59, 17)
@@ -410,7 +413,7 @@ Partial Class Form1
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(170, 26)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'HelpToolStripMenuItem
@@ -429,29 +432,29 @@ Partial Class Form1
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(245, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(242, 6)
         '
         'AboutToolStripMenuItem
         '
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(248, 26)
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
         Me.AboutToolStripMenuItem.Text = "Give Feddback"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(245, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(242, 6)
         '
         'AboutToolStripMenuItem1
         '
         Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
-        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(248, 26)
+        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(245, 26)
         Me.AboutToolStripMenuItem1.Text = "Conatct Support"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(245, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(242, 6)
         '
         'AboutEOfficeDesktopToolStripMenuItem
         '
@@ -471,8 +474,8 @@ Partial Class Form1
         '
         'afterlogin
         '
-        Me.afterlogin.Controls.Add(Me.autoselproject)
         Me.afterlogin.Controls.Add(Me.taskdetailslink)
+        Me.afterlogin.Controls.Add(Me.autoselproject)
         Me.afterlogin.Controls.Add(Me.project)
         Me.afterlogin.Controls.Add(Me.logout)
         Me.afterlogin.Controls.Add(Me.task)
@@ -499,13 +502,12 @@ Partial Class Form1
         'taskdetailslink
         '
         Me.taskdetailslink.AutoSize = True
-        Me.taskdetailslink.Location = New System.Drawing.Point(221, 233)
+        Me.taskdetailslink.Location = New System.Drawing.Point(264, 233)
         Me.taskdetailslink.Name = "taskdetailslink"
-        Me.taskdetailslink.Size = New System.Drawing.Size(119, 17)
+        Me.taskdetailslink.Size = New System.Drawing.Size(72, 17)
         Me.taskdetailslink.TabIndex = 40
         Me.taskdetailslink.TabStop = True
-        Me.taskdetailslink.Text = "View Task Details"
-        Me.taskdetailslink.Visible = False
+        Me.taskdetailslink.Text = "View Task"
         '
         'beforelogin
         '
