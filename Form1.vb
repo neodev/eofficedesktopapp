@@ -956,10 +956,15 @@ Public Class Form1
     End Sub
 
     Private Sub animate_Tick(sender As Object, e As EventArgs) Handles animate.Tick
-        Button1.Text = " " & Button1.Text & "."
-        If (Button1.Text = "      Login......") Then
-            Button1.Text = "Login"
+
+        If AutoLoginReg = "True" Then
+            Button1.Text = " " & Button1.Text & "."
+            If (Button1.Text = "      Login......") Then
+                Button1.Text = "Login"
+            End If
         End If
+
+
     End Sub
 
     Public Function SendData(postData As String) As String
