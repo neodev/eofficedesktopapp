@@ -199,6 +199,7 @@ Public Class Form1
     Private Sub NotifyIcon1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseDoubleClick
 
         Me.WindowState = FormWindowState.Normal
+        Me.TopMost = True
 
     End Sub
 
@@ -955,6 +956,7 @@ Public Class Form1
 
     Private Sub NotifyIcon1_MouseClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseClick
         Me.WindowState = FormWindowState.Normal
+        Me.TopMost = True
     End Sub
 
     Private Sub NotifyIcon1_Click(sender As Object, e As EventArgs) Handles NotifyIcon1.Click
@@ -1139,4 +1141,8 @@ Public Class Form1
         Return True
 
     End Function
+
+    Private Sub Form1_GotFocus(sender As Object, e As EventArgs) Handles Me.GotFocus
+        Me.TopMost = False
+    End Sub
 End Class
