@@ -423,7 +423,7 @@ Partial Class Form1
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(248, 26)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(245, 26)
         Me.ToolStripMenuItem1.Text = "Keyboard Shortcuts"
         '
         'ToolStripSeparator4
@@ -456,8 +456,8 @@ Partial Class Form1
         'AboutEOfficeDesktopToolStripMenuItem
         '
         Me.AboutEOfficeDesktopToolStripMenuItem.Name = "AboutEOfficeDesktopToolStripMenuItem"
-        Me.AboutEOfficeDesktopToolStripMenuItem.Size = New System.Drawing.Size(248, 26)
-        Me.AboutEOfficeDesktopToolStripMenuItem.Text = "About E Office Desktop"
+        Me.AboutEOfficeDesktopToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
+        Me.AboutEOfficeDesktopToolStripMenuItem.Text = "About My Time Tracker"
         '
         'logout
         '
@@ -624,7 +624,7 @@ Partial Class Form1
         Me.Controls.Add(Me.beforelogin)
         Me.Controls.Add(Me.afterlogin)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False

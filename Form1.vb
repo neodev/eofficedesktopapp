@@ -475,17 +475,6 @@ Public Class Form1
         MyBase.OnFormClosing(e)
     End Sub
 
-    Private Sub AboutToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem1.Click
-        System.Diagnostics.Process.Start(shorturl & "supprt")
-    End Sub
-
-    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
-        System.Diagnostics.Process.Start(shorturl & "gvfdbk")
-    End Sub
-
-    Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
-        End
-    End Sub
 
     Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
         If systrayalert = True Then
@@ -560,20 +549,20 @@ Public Class Form1
     End Sub
 
     Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
-        System.Diagnostics.Process.Start(shorturl & "fptpass")
+        System.Diagnostics.Process.Start(shorturl & "mutkmc")
     End Sub
 
     Private Sub LinkLabel2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel2.LinkClicked
-        System.Diagnostics.Process.Start(shorturl & "cnewact")
+        System.Diagnostics.Process.Start(shorturl & "txyrwx")
     End Sub
 
     Private Sub taskdetailslink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles taskdetailslink.LinkClicked
         Dim key As String = DirectCast(task.SelectedItem, KeyValuePair(Of String, String)).Key
-        System.Diagnostics.Process.Start(shorturl & "tskdtls?cf=" & key)
+        System.Diagnostics.Process.Start(shorturl & "gyasev?cf=" & key)
     End Sub
 
     Private Sub ToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem3.Click
-        System.Diagnostics.Process.Start(shorturl & "myaccnt")
+        System.Diagnostics.Process.Start(shorturl & "ctpwvl")
     End Sub
 
     Public Function SaveLastProjectTask()
@@ -1144,5 +1133,26 @@ Public Class Form1
 
     Private Sub Form1_GotFocus(sender As Object, e As EventArgs) Handles Me.GotFocus
         Me.TopMost = False
+    End Sub
+
+    Private Sub AboutEOfficeDesktopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutEOfficeDesktopToolStripMenuItem.Click
+        System.Diagnostics.Process.Start(shorturl & "3s5gid")
+    End Sub
+
+    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+        System.Diagnostics.Process.Start(shorturl & "os7gut")
+    End Sub
+
+
+    Private Sub AboutToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem1.Click
+        System.Diagnostics.Process.Start(shorturl & "fdfbva")
+    End Sub
+
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+        System.Diagnostics.Process.Start(shorturl & "fmdptk")
+    End Sub
+
+    Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+        End
     End Sub
 End Class
