@@ -151,17 +151,22 @@ Public Class Form1
 
         list_item.SubItems.Add(sgfilename)
         lastactwnw = "awt=" & wnwtimestamp & "&wh=" & fg_hwnd & "&ss=" & sgfilename
-
         SendDataRes = SendData("d=W&" & lastactwnw & "&wt=" & fg_wndttle)
+        list_item.SubItems.Add(SendDataRes)
         list_item.EnsureVisible()
     End Sub
 
     Private Sub allprocess_Tick(sender As Object, e As EventArgs) Handles allprocess.Tick
+
         allprocess.Interval = 120000
+
         lstboxhandels.Items.Clear()
         'LstBoxHWNDCaptions.Items.Clear()
 
         Dim p As Process
+        Dim prslist As String
+        Dim allprocesslist As String
+        Dim fn As String
 
         'Process.GetProcessById();
 
@@ -170,20 +175,38 @@ Public Class Form1
             If p.MainWindowHandle.ToString <> IntPtr.Zero.ToString Then
 
                 Try
-                    lstboxhandels.Items.Add(Now.ToString(mysqldateformat) + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
-                     + " | File Name : " + p.MainModule.FileName.ToString + " | Machine : " + p.MachineName.ToString + " | File Description : " + p.MainModule.FileVersionInfo.FileDescription
-                    )
+                    'lstboxhandels.Items.Add(Now.ToString(mysqldateformat) + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
+                    ' + " | File Name : " + p.MainModule.FileName.ToString + " | Machine : " + p.MachineName.ToString + " | File Description : " + p.MainModule.FileVersionInfo.FileDescription
+                    ' )
+                    fn = p.MainModule.FileName.ToString
+                    fn = fn.Replace("\", "\\")
+                    prslist = "{""wh"": """ & p.MainWindowHandle.ToString & """, ""pid"": """ & p.Id.ToString & """,""pn"":""" & p.ProcessName.ToString & """,""fn"":""" & fn & """,""fd"":""" & p.MainModule.FileVersionInfo.FileDescription & """}"
+                    lstboxhandels.Items.Add(prslist)
+                    allprocesslist = allprocesslist & prslist & ","
                 Catch
-                    lstboxhandels.Items.Add(Now.ToString(mysqldateformat) + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
-                    + " | File Name : " + " | Machine : " + p.MachineName.ToString
-                   )
+                    ' lstboxhandels.Items.Add(Now.ToString(mysqldateformat) + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
+                    ' + " | File Name : " + " | Machine : " + p.MachineName.ToString
+                    ' )
+                    prslist = "{""wh"": """ & p.MainWindowHandle.ToString & """, ""pid"": """ & p.Id.ToString & """,""pn"":""" & p.ProcessName.ToString & """,""fn"":""" & """,""fd"":""" & """}"
+                    lstboxhandels.Items.Add(prslist)
+                    allprocesslist = allprocesslist & prslist & ","
                 End Try
 
 
                 'lstboxhandels.Items.Add(p.MainWindowTitle.ToString)
             End If
         Next p
+        allprocesslist.Trim(" ")
+        allprocesslist.Trim(",")
+
+        allprocesslist = "{""mn"":""" & p.MachineName.ToString & """,""pt"":""" & Now.ToString(mysqldateformat) & """,""ap"":[" & allprocesslist.Trim(", ") & "]}"
+        Console.WriteLine(allprocesslist)
+        'If islogin Then
         SendDataRes = SendData("d=P&ap=" & allprocesslist)
+        'End If
+
+
+
     End Sub
 
     Private Sub lvwFGWindow_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvwFGWindow.SelectedIndexChanged
@@ -957,7 +980,7 @@ Public Class Form1
 
     Private Sub animate_Tick(sender As Object, e As EventArgs) Handles animate.Tick
 
-        If AutoLoginReg = "True" Then
+        If AutoLoginReg = "True" And TextBox1.Text <> "" And TextBox2.Text <> "" Then
             Button1.Text = " " & Button1.Text & "."
             If (Button1.Text = "      Login......") Then
                 Button1.Text = "Login"

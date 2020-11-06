@@ -192,7 +192,7 @@ Partial Class Form1
         '
         'ColumnHeader5
         '
-        Me.ColumnHeader5.Text = "Description"
+        Me.ColumnHeader5.Text = "DBID"
         Me.ColumnHeader5.Width = 112
         '
         'tmrGetFgWindow
