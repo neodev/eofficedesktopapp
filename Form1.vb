@@ -86,7 +86,7 @@ Public Class Form1
             Dim g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(screenGrab)
             g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
             sgfilename = CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
-            screenGrab.Save(sssavepath & "MS" & sgfilename)
+            screenGrab.Save(sssavepath & Now.ToString("MM-dd-yyyy") & "\" & "MS" & sgfilename)
             ''or screenGrab.Save("C:\screenGrab.jpg", System.Drawing.Imaging.ImageFormat.Jpeg)
 
             lastscreensaver = Now
@@ -148,7 +148,7 @@ Public Class Form1
         End Try
 
         sgfilename = "WC" & CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
-        screenGrab.Save(sssavepath & sgfilename)
+        screenGrab.Save(sssavepath & Now.ToString("MM-dd-yyyy") & "\" & sgfilename)
 
         list_item.SubItems.Add(sgfilename)
         lastactwnw = "awt=" & wnwtimestamp & "&wh=" & fg_hwnd & "&ss=" & sgfilename
@@ -195,6 +195,16 @@ Public Class Form1
 
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+
+        If (Not System.IO.Directory.Exists(sssavepath)) Then
+            System.IO.Directory.CreateDirectory(sssavepath)
+        End If
+
+        If (Not System.IO.Directory.Exists(sssavepath & Now.ToString("MM-dd-yyyy"))) Then
+            System.IO.Directory.CreateDirectory(sssavepath & Now.ToString("MM-dd-yyyy"))
+        End If
+
 
         'Console.Clear()
 
