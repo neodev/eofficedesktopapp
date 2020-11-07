@@ -320,11 +320,19 @@ Public Class Form1
 
             'Idle
             inactsec = inactiveTime.Value.TotalSeconds.ToString("#")
-
-            If (inactsec Mod 120) = 0 Then
+            Console.WriteLine(sendPostData & " <> " & "d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
+            If (inactsec Mod 120) = 0 And sendPostData <> "d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat) Then
 
                 'inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
-                SendDataRes = SendData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
+                sendPostData = "d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat)
+                sendRes = SendData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
+                Console.WriteLine(sendRes & " & " & sendPostData)
+                'no internet connection or data not posted to API
+                If sendPostData = sendRes Then
+                    inactivitylogs.Items.Add(inactsec & " - " & Now.ToString(mysqldateformat))
+                Else
+                    inactivitylogs.Items.Add(inactsec & " - " & Now.ToString(mysqldateformat) & "&res=" & sendRes)
+                End If
 
             End If
 
