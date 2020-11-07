@@ -193,12 +193,6 @@ Public Class Form1
 
 
 
-    Private Sub NotifyIcon1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseDoubleClick
-
-        Me.WindowState = FormWindowState.Normal
-        Me.Activate()
-
-    End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -940,12 +934,37 @@ Public Class Form1
     End Sub
 
     Private Sub NotifyIcon1_MouseClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseClick
-        Me.WindowState = FormWindowState.Normal
-        Me.Activate()
+
+        'If Me.WindowState = FormWindowState.Minimized Then
+        'Me.WindowState = FormWindowState.Normal
+        'Me.Activate()
+        ' Else
+        'Me.WindowState = FormWindowState.Minimized
+        ' End If
+
     End Sub
 
     Private Sub NotifyIcon1_Click(sender As Object, e As EventArgs) Handles NotifyIcon1.Click
-        Me.WindowState = FormWindowState.Normal
+
+        If Me.WindowState = FormWindowState.Minimized Then
+            Me.WindowState = FormWindowState.Normal
+            Me.Activate()
+        Else
+            Me.WindowState = FormWindowState.Minimized
+        End If
+
+    End Sub
+
+
+    Private Sub NotifyIcon1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseDoubleClick
+
+        ' If Me.WindowState = FormWindowState.Minimized Then
+        'Me.WindowState = FormWindowState.Normal
+        'Me.Activate()
+        ' Else
+        'Me.WindowState = FormWindowState.Minimized
+        ' End If
+
     End Sub
 
     Private Sub animate_Tick(sender As Object, e As EventArgs) Handles animate.Tick
