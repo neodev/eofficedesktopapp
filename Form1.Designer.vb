@@ -169,7 +169,6 @@ Partial Class Form1
         Me.lvwFGWindow.TabIndex = 8
         Me.lvwFGWindow.UseCompatibleStateImageBehavior = False
         Me.lvwFGWindow.View = System.Windows.Forms.View.Details
-        Me.lvwFGWindow.Visible = False
         '
         'ColumnHeader1
         '
@@ -229,7 +228,6 @@ Partial Class Form1
         Me.lstboxhandels.Name = "lstboxhandels"
         Me.lstboxhandels.Size = New System.Drawing.Size(965, 164)
         Me.lstboxhandels.TabIndex = 11
-        Me.lstboxhandels.Visible = False
         '
         'allprocess
         '
@@ -244,22 +242,22 @@ Partial Class Form1
         'InactivityTimer
         '
         Me.InactivityTimer.Enabled = True
+        Me.InactivityTimer.Interval = 1000
         '
         'inactivitylogs
         '
         Me.inactivitylogs.FormattingEnabled = True
         Me.inactivitylogs.ItemHeight = 16
-        Me.inactivitylogs.Location = New System.Drawing.Point(667, 464)
+        Me.inactivitylogs.Location = New System.Drawing.Point(16, 452)
         Me.inactivitylogs.Margin = New System.Windows.Forms.Padding(4)
         Me.inactivitylogs.Name = "inactivitylogs"
-        Me.inactivitylogs.Size = New System.Drawing.Size(315, 164)
+        Me.inactivitylogs.Size = New System.Drawing.Size(966, 116)
         Me.inactivitylogs.TabIndex = 14
-        Me.inactivitylogs.Visible = False
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(664, 444)
+        Me.Label7.Location = New System.Drawing.Point(15, 431)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(97, 17)
@@ -268,10 +266,10 @@ Partial Class Form1
         '
         'RichTextBox1
         '
-        Me.RichTextBox1.Location = New System.Drawing.Point(17, 518)
+        Me.RichTextBox1.Location = New System.Drawing.Point(16, 627)
         Me.RichTextBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(631, 110)
+        Me.RichTextBox1.Size = New System.Drawing.Size(964, 110)
         Me.RichTextBox1.TabIndex = 18
         Me.RichTextBox1.Text = ""
         '
@@ -287,10 +285,10 @@ Partial Class Form1
         '
         'authkey
         '
-        Me.authkey.Location = New System.Drawing.Point(17, 464)
+        Me.authkey.Location = New System.Drawing.Point(16, 585)
         Me.authkey.Margin = New System.Windows.Forms.Padding(4)
         Me.authkey.Name = "authkey"
-        Me.authkey.Size = New System.Drawing.Size(631, 22)
+        Me.authkey.Size = New System.Drawing.Size(963, 22)
         Me.authkey.TabIndex = 21
         '
         'CheckBox2
@@ -438,7 +436,7 @@ Partial Class Form1
         '
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
         Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(245, 26)
-        Me.AboutToolStripMenuItem.Text = "Give Feddback"
+        Me.AboutToolStripMenuItem.Text = "Give Feedback"
         '
         'ToolStripSeparator1
         '
@@ -449,7 +447,7 @@ Partial Class Form1
         '
         Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
         Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(245, 26)
-        Me.AboutToolStripMenuItem1.Text = "Conatct Support"
+        Me.AboutToolStripMenuItem1.Text = "Contact Support"
         '
         'ToolStripSeparator2
         '
@@ -595,16 +593,16 @@ Partial Class Form1
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Controls.Add(Me.Label4)
         Me.Panel1.Controls.Add(Me.CheckBox2)
+        Me.Panel1.Controls.Add(Me.RichTextBox1)
         Me.Panel1.Controls.Add(Me.CheckBox3)
         Me.Panel1.Controls.Add(Me.lstboxhandels)
         Me.Panel1.Controls.Add(Me.authkey)
-        Me.Panel1.Controls.Add(Me.RichTextBox1)
         Me.Panel1.Controls.Add(Me.Label7)
         Me.Panel1.Controls.Add(Me.inactivitylogs)
         Me.Panel1.Location = New System.Drawing.Point(441, 47)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1023, 671)
+        Me.Panel1.Size = New System.Drawing.Size(1023, 791)
         Me.Panel1.TabIndex = 37
         '
         'initializer
