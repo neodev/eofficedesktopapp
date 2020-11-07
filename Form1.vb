@@ -69,6 +69,8 @@ Public Class Form1
     Dim SendDataRes As String
     Dim allprocesslist As String
     Dim processlist As Integer()
+    Dim intavail As Boolean
+
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
@@ -206,6 +208,7 @@ Public Class Form1
         End If
 
 
+        intavail = HaveInternetConnection()
         'Console.Clear()
 
         Console.WriteLine("Form Load : " & Now.ToString(mysqldateformat))
@@ -307,6 +310,8 @@ Public Class Form1
     Private Sub InactivityTimer_Tick(sender As Object, e As EventArgs) Handles InactivityTimer.Tick
         'Calculates for how long we have been idle
         Dim inactiveTime = _inactiveTimeRetriever.GetInactiveTime
+        Dim sendRes As String
+        Dim sendPostData As String
 
         If (inactiveTime Is Nothing) Then
             'Unknow state
@@ -330,8 +335,17 @@ Public Class Form1
 
             If inactsec > 0 Then
 
-                inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
-                SendDataRes = SendData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
+                'inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
+                sendPostData = "d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat)
+                sendRes = sendData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
+                Console.WriteLine(sendRes & " & " & sendPostData)
+                'no internet connection or data not posted to API
+                If sendPostData = sendRes Then
+                    inactivitylogs.Items.Add(inactsec & " - " & Now.ToString(mysqldateformat))
+                Else
+                    inactivitylogs.Items.Add(inactsec & " - " & Now.ToString(mysqldateformat) & "&res=" & sendRes)
+                End If
+
                 inactsec = 0
 
             End If
@@ -384,6 +398,7 @@ Public Class Form1
         Try
             Return My.Computer.Network.Ping("www.google.com")
         Catch
+            intavail = False
             Return False
         End Try
 
@@ -857,11 +872,15 @@ Public Class Form1
 
     Private Sub initializer_Tick(sender As Object, e As EventArgs) Handles initializer.Tick
 
-        'MsgBox("Initialise")
-        Console.WriteLine("Initialise Timer : " & Now.ToString(mysqldateformat))
-        'Console.WriteLine("Initialise")
-        InitializeApp()
-        initializer.Enabled = False
+        If HaveInternetConnection() Then
+            'MsgBox("Initialise")
+            Console.WriteLine("Initialise Timer : " & Now.ToString(mysqldateformat))
+            'Console.WriteLine("Initialise")
+            InitializeApp()
+            initializer.Enabled = False
+        Else
+            initializer.Interval = 60000
+        End If
 
     End Sub
 
@@ -990,39 +1009,53 @@ Public Class Form1
 
     Public Function SendData(postData As String) As String
 
-        Dim currnettime As String = Now.ToString(mysqldateformat)
-        Dim querystring As String = "&ct=" & currnettime & "&islogin=" & islogin & "&t=" & taskkey & "&p=" & projectkey & "&uid=" & authkey.Text & "&" & postData & "&" & lastactwnw
+        Console.WriteLine("SendData : " & postData)
+        Dim thepage As String
 
-        Console.WriteLine("SendData : " & querystring)
+        If intavail Then
 
-        Dim tempCookies As New CookieContainer
-        Dim encoding As New UTF8Encoding
-        Dim byteData As Byte() = encoding.GetBytes(querystring)
+            Dim currnettime As String = Now.ToString(mysqldateformat)
+            Dim querystring As String = "&ct=" & currnettime & "&islogin=" & islogin & "&t=" & taskkey & "&p=" & projectkey & "&uid=" & authkey.Text & "&" & postData & "&" & lastactwnw
 
-        Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
-        postReq.Method = "POST"
-        postReq.KeepAlive = True
-        postReq.CookieContainer = tempCookies
-        postReq.ContentType = "application/x-www-form-urlencoded"
-        postReq.Referer = apiurl
-        postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
-        postReq.ContentLength = byteData.Length
+            Dim tempCookies As New CookieContainer
+            Dim encoding As New UTF8Encoding
+            Dim byteData As Byte() = encoding.GetBytes(querystring)
 
-        Dim postreqstream As Stream = postReq.GetRequestStream()
-        postreqstream.Write(byteData, 0, byteData.Length)
-        postreqstream.Close()
+            Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
+            postReq.Method = "POST"
+            postReq.KeepAlive = True
+            postReq.CookieContainer = tempCookies
+            postReq.ContentType = "application/x-www-form-urlencoded"
+            postReq.Referer = apiurl
+            postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
+            postReq.ContentLength = byteData.Length
 
-        Dim postresponse As HttpWebResponse
-        postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
-        tempCookies.Add(postresponse.Cookies)
-        logincookie = tempCookies
+            Dim postreqstream As Stream = postReq.GetRequestStream()
+            postreqstream.Write(byteData, 0, byteData.Length)
+            postreqstream.Close()
 
-        Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
-        Dim thepage As String = postreqreader.ReadToEnd
+            Try
 
-        RichTextBox1.Text = thepage
+                Dim postresponse As HttpWebResponse
+                postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
+                tempCookies.Add(postresponse.Cookies)
+                logincookie = tempCookies
 
-        Return thepage
+                Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
+                thepage = postreqreader.ReadToEnd
+
+            Catch ex As Exception
+
+                intavail = HaveInternetConnection()
+
+            End Try
+
+            RichTextBox1.Text = thepage
+
+            Return thepage
+        Else
+            Return postData
+        End If
 
     End Function
 
