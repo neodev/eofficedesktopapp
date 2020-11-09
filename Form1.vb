@@ -1197,6 +1197,40 @@ Public Class Form1
 
     End Function
 
+    Private Function CreateDektopShortCut(ByVal TargetName As String, ByVal ShortCutPath As String, ByVal ShortCutName As String) As Boolean
+
+        Console.WriteLine(" TargetName " & TargetName)
+        Console.WriteLine(" ShortCutPath " & ShortCutPath)
+        Console.WriteLine(" ShortCutName " & ShortCutName)
+
+        Dim oShell As Object
+        Dim oLink As Object
+        'you don’t need to import anything in the project reference to create the Shell Object
+
+        Try
+
+            oShell = CreateObject("WScript.Shell")
+            oLink = oShell.CreateShortcut(ShortCutPath & "\" & ShortCutName & ".lnk")
+
+            oLink.TargetPath = TargetName
+            oLink.WindowStyle = 1
+            oLink.Save()
+        Catch ex As Exception
+
+        End Try
+
+    End Function
+
+    Private Sub desktopshortcut_CheckedChanged(sender As Object, e As EventArgs) Handles desktopshortcut.CheckedChanged
+
+        If desktopshortcut.Checked Then
+
+            Dim desktopPath As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            CreateDektopShortCut(applicationPath, desktopPath, "My Time Tracker")
+
+        End If
+
+    End Sub
 
     Private Sub AboutEOfficeDesktopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutEOfficeDesktopToolStripMenuItem.Click
         System.Diagnostics.Process.Start(shorturl & "3s5gid")
