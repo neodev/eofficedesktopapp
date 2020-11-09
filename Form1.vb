@@ -244,6 +244,7 @@ Public Class Form1
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", applicationName, """" & applicationPath & """")
             autostart.Checked = True
 
+            desktopshortcut.Checked = True
         Else
 
             If startwithos = "" Then
