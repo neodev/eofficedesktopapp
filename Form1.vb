@@ -268,9 +268,10 @@ Public Class Form1
 
             autologin.Checked = True
 
-            If UsernameReg <> "" And PasswordReg <> "" Then
+            If UsernameReg <> "" And PasswordReg <> "" And intavail Then
 
                 Button1.Enabled = False
+                animate.Enabled = True
 
             End If
 
