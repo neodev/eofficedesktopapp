@@ -56,8 +56,8 @@ Public Class Form1
     Dim flaglasttask As Boolean = True 'Disable saving selected task
     Dim shorturl As String = "http:///www.brwz.in/"
     Dim islogin As Boolean = False 'flag varibale to restrcit project and task auto selection
-    Dim apiurl As String = "http://kenprotechnologies.com/eofficedesktopapp/api/"
-    'Dim apiurl As String = "http://dfwwebexpert/eofficedesktopwebapp/api/"
+    'Dim apiurl As String = "http://kenprotechnologies.com/eofficedesktopapp/api/"
+    Dim apiurl As String = "http://dfwwebexpert/eofficedesktopwebapp/api/"
 
     Dim sssavepath As String = Application.StartupPath() & "\screengrabs\" '"d:\screengrabs\"
 
@@ -213,8 +213,8 @@ Public Class Form1
 
         Console.WriteLine("Form Load : " & Now.ToString(mysqldateformat))
 
-        Me.Height = 450
-        Me.Width = 326
+        'Me.Height = 450
+        'Me.Width = 326
         'Me.WindowState = vbNormal
 
         Me.CenterToScreen()
@@ -245,6 +245,7 @@ Public Class Form1
             autostart.Checked = True
 
             desktopshortcut.Checked = True
+
         Else
 
             If startwithos = "" Then
@@ -1253,5 +1254,6 @@ Public Class Form1
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         End
     End Sub
+
 
 End Class

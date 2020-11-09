@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <StartupObject>MyTimeTracker.My.MyApplication</StartupObject>
     <RootNamespace>MyTimeTracker</RootNamespace>
-    <AssemblyName>My Time Tracker</AssemblyName>
+    <AssemblyName>E-Office</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -37,7 +37,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>My Time Tracker.xml</DocumentationFile>
+    <DocumentationFile>E-Office.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -48,7 +48,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>My Time Tracker.xml</DocumentationFile>
+    <DocumentationFile>E-Office.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
