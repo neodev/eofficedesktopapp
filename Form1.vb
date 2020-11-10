@@ -974,9 +974,9 @@ Public Class Form1
 
     End Sub
 
-    Public Function SendData(postData As String) As String
+    Public Function SendGetData(postData As String) As String
 
-        Console.WriteLine("SendData : " & postData)
+        Console.WriteLine("Calling SendGetData... : " & postData)
         Dim thepage As String
 
         If intavail And apidown = False Then
