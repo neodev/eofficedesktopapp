@@ -921,16 +921,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub NotifyIcon1_MouseClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseClick
-
-        'If Me.WindowState = FormWindowState.Minimized Then
-        'Me.WindowState = FormWindowState.Normal
-        'Me.Activate()
-        ' Else
-        'Me.WindowState = FormWindowState.Minimized
-        ' End If
-
-    End Sub
 
     Private Sub NotifyIcon1_Click(sender As Object, e As EventArgs) Handles NotifyIcon1.Click
 
@@ -940,18 +930,6 @@ Public Class Form1
         Else
             Me.WindowState = FormWindowState.Minimized
         End If
-
-    End Sub
-
-
-    Private Sub NotifyIcon1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseDoubleClick
-
-        ' If Me.WindowState = FormWindowState.Minimized Then
-        'Me.WindowState = FormWindowState.Normal
-        'Me.Activate()
-        ' Else
-        'Me.WindowState = FormWindowState.Minimized
-        ' End If
 
     End Sub
 
@@ -995,12 +973,6 @@ Public Class Form1
                 postreqstream.Write(byteData, 0, byteData.Length)
                 postreqstream.Close()
 
-                'Catch ex As Exception
-
-                'End Try
-
-                'Try
-
                 Dim postresponse As HttpWebResponse
                 postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
                 tempCookies.Add(postresponse.Cookies)
@@ -1011,18 +983,13 @@ Public Class Form1
 
             Catch ex As Exception
 
-                'MsgBox(ex)
-
                 intavail = HaveInternetConnection()
                 If intavail And ex.GetType.ToString = "System.Net.WebException" Then
 
                     apidown = True
-
                     Console.WriteLine("apidown : " & apidown)
 
                 End If
-
-                'intavail = HaveInternetConnection()
 
             End Try
 
@@ -1134,7 +1101,6 @@ Public Class Form1
 
     Public Function getAllProcess() As Boolean
 
-
         lstboxhandels.Items.Clear()
         'LstBoxHWNDCaptions.Items.Clear()
 
@@ -1187,13 +1153,8 @@ Public Class Form1
 
     Private Function CreateDektopShortCut(ByVal TargetName As String, ByVal ShortCutPath As String, ByVal ShortCutName As String) As Boolean
 
-        Console.WriteLine(" TargetName " & TargetName)
-        Console.WriteLine(" ShortCutPath " & ShortCutPath)
-        Console.WriteLine(" ShortCutName " & ShortCutName)
-
         Dim oShell As Object
         Dim oLink As Object
-        'you don’t need to import anything in the project reference to create the Shell Object
 
         Try
 
