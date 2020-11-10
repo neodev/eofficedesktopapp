@@ -70,7 +70,7 @@ Public Class Form1
     Dim allprocesslist As String
     Dim processlist As Integer()
     Dim intavail As Boolean
-
+    Dim apidown As Boolean = False
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
@@ -192,9 +192,6 @@ Public Class Form1
         getAllProcess()
 
     End Sub
-
-
-
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
