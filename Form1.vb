@@ -1007,60 +1007,33 @@ Public Class Form1
         authkey.Text = ""
 
         Dim currnettime As String = Now.ToString(mysqldateformat)
-        Dim thepage As String
+        Dim httpres As String
 
         If (TextBox1.Text <> "" And TextBox2.Text <> "") Then
 
             Dim postData As String = "un=" & TextBox1.Text & "&pw=" & TextBox2.Text & "&ct=" & currnettime
-            Dim tempCookies As New CookieContainer
-            Dim encoding As New UTF8Encoding
-            Dim byteData As Byte() = encoding.GetBytes(postData)
 
             Try
 
-                Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
-                postReq.Method = "POST"
-                postReq.KeepAlive = True
-                postReq.CookieContainer = tempCookies
-                postReq.ContentType = "application/x-www-form-urlencoded"
-                postReq.Referer = apiurl
-                postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
-                postReq.ContentLength = byteData.Length
-
-                Dim postreqstream As Stream = postReq.GetRequestStream()
-                postreqstream.Write(byteData, 0, byteData.Length)
-                postreqstream.Close()
-
-                Dim postresponse As HttpWebResponse
-                postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
-                tempCookies.Add(postresponse.Cookies)
-                logincookie = tempCookies
-
-                Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
-                thepage = postreqreader.ReadToEnd
+                httpres = SendGetData(postData)
 
             Catch ex As Exception
 
                 intavail = HaveInternetConnection()
-
                 If intavail And ex.GetType.ToString = "System.Net.WebException" Then
 
                     apidown = True
 
-                    Console.WriteLine("apidown : " & apidown)
-
                 End If
-
 
                 Console.WriteLine("ex.GetType.ToString : " & ex.GetType.ToString)
                 Console.WriteLine("ex.Message : " & ex.Message)
 
             End Try
 
-            RichTextBox1.Text = thepage
+            RichTextBox1.Text = httpres
 
-
-            Dim datadict As Dictionary(Of String, String) = ParseJSON(thepage)
+            Dim datadict As Dictionary(Of String, String) = ParseJSON(httpres)
 
             If datadict Is Nothing Then
 
