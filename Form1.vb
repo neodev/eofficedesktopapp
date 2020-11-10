@@ -154,7 +154,7 @@ Public Class Form1
 
         list_item.SubItems.Add(sgfilename)
         lastactwnw = "awt=" & wnwtimestamp & "&wh=" & fg_hwnd & "&ss=" & sgfilename
-        SendDataRes = SendData("d=W&" & lastactwnw & "&wt=" & fg_wndttle)
+        SendDataRes = SendGetData("d=W&" & lastactwnw & "&wt=" & fg_wndttle)
         list_item.SubItems.Add(SendDataRes)
         list_item.EnsureVisible()
 
@@ -325,7 +325,7 @@ Public Class Form1
 
                 'inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
                 sendPostData = "d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat)
-                sendRes = SendData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
+                sendRes = SendGetData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
                 Console.WriteLine(sendRes & " & " & sendPostData)
                 'no internet connection or data not posted to API
                 If sendPostData = sendRes Then
@@ -345,7 +345,7 @@ Public Class Form1
 
                 'inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
                 sendPostData = "d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat)
-                sendRes = sendData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
+                sendRes = SendGetData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
                 Console.WriteLine(sendRes & " & " & sendPostData)
                 'no internet connection or data not posted to API
                 If sendPostData = sendRes Then
@@ -515,7 +515,7 @@ Public Class Form1
 
         islogin = False
 
-        SendDataRes = SendData("d=L")
+        SendDataRes = SendGetData("d=L")
 
         scrnsvr.Enabled = False
         inactivitylogs.Enabled = False
@@ -1184,7 +1184,7 @@ Public Class Form1
         allprocesslist = "{""mn"":""" & p.MachineName.ToString & """,""pt"":""" & Now.ToString(mysqldateformat) & """,""ap"":[" & allprocesslist.Trim(", ") & "]}"
         Console.WriteLine(allprocesslist)
         'If islogin Then
-        SendDataRes = SendData("d=P&ap=" & allprocesslist)
+        SendDataRes = SendGetData("d=P&ap=" & allprocesslist)
         'End If
 
         allprocesslist = String.Empty
