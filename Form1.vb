@@ -8,7 +8,6 @@ Imports System.ComponentModel
 
 Public Class Form1
 
-
     Inherits System.Windows.Forms.Form
 
     Private _inactiveTimeRetriever As cIdleTimeStool
@@ -158,7 +157,6 @@ Public Class Form1
         list_item.SubItems.Add(SendDataRes)
         list_item.EnsureVisible()
 
-
         Dim processitem As Dictionary(Of String, String)
         Dim processfound As Boolean = False
 
@@ -195,7 +193,6 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-
         If (Not System.IO.Directory.Exists(sssavepath)) Then
             System.IO.Directory.CreateDirectory(sssavepath)
         End If
@@ -203,7 +200,6 @@ Public Class Form1
         If (Not System.IO.Directory.Exists(sssavepath & Now.ToString("MM-dd-yyyy"))) Then
             System.IO.Directory.CreateDirectory(sssavepath & Now.ToString("MM-dd-yyyy"))
         End If
-
 
         intavail = HaveInternetConnection()
         'Console.Clear()
@@ -308,6 +304,7 @@ Public Class Form1
     End Sub
 
     Private Sub InactivityTimer_Tick(sender As Object, e As EventArgs) Handles InactivityTimer.Tick
+
         'Calculates for how long we have been idle
         Dim inactiveTime = _inactiveTimeRetriever.GetInactiveTime
         Dim sendRes As String
@@ -374,7 +371,6 @@ Public Class Form1
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         GetRegValues()
-
         SaveLoginCredentials()
 
         If TextBox1.Text = "" Or TextBox2.Text = "" Then
@@ -382,7 +378,6 @@ Public Class Form1
             MessageBox.Show("Email ID and Password is required", "My Time Tracker", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         Else
-
 
             GetAuthKey()
             islogin = Login()
@@ -422,22 +417,16 @@ Public Class Form1
     Private Sub project_SelectedIndexChanged(sender As Object, e As EventArgs) Handles project.SelectedIndexChanged
 
         If islogin Then
-
             SetTasks()
-
         End If
 
-
         If autoselproject.Checked And islogin Then
-
             SaveLastProjectTask()
-
         End If
 
         If islogin = True Then
             projectkey = DirectCast(project.SelectedItem, KeyValuePair(Of String, String)).Key
         End If
-
 
     End Sub
 
@@ -502,6 +491,7 @@ Public Class Form1
 
 
     Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
+
         If systrayalert = True Then
             MessageBox.Show("I'm residing in your Systray for your help!", "My Time Tracker", MessageBoxButtons.OK, MessageBoxIcon.Information)
             systrayalert = False
@@ -655,7 +645,9 @@ Public Class Form1
                 itemindex = projectindex
 
             Else
+
                 projectindex = projectindex + 1
+
             End If
         Next
 
@@ -1211,6 +1203,7 @@ Public Class Form1
             oLink.TargetPath = TargetName
             oLink.WindowStyle = 1
             oLink.Save()
+
         Catch ex As Exception
 
         End Try
