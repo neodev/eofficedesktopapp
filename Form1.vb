@@ -56,8 +56,8 @@ Public Class Form1
     Dim flaglasttask As Boolean = True 'Disable saving selected task
     Dim shorturl As String = "http:///www.brwz.in/"
     Dim islogin As Boolean = False 'flag varibale to restrcit project and task auto selection
-    'Dim apiurl As String = "http://kenprotechnologies.com/eofficedesktopapp/api/"
-    Dim apiurl As String = "http://dfwwebexpert/eofficedesktopwebapp/api/"
+    Dim apiurl As String = "http://kenprotechnologies.comx/eofficedesktopapp/api/"
+    'Dim apiurl As String = "http://dfwwebexpert/eofficedesktopwebapp/api/"
 
     Dim sssavepath As String = Application.StartupPath() & "\screengrabs\" '"d:\screengrabs\"
 
@@ -629,32 +629,7 @@ Public Class Form1
 
 
 
-    Public Function Login() As Boolean
 
-        'Successfully logined
-        If (authkey.Text <> "") Then
-
-            islogin = True
-            scrnsvr.Enabled = True
-            inactivitylogs.Enabled = True
-            tmrGetFgWindow.Enabled = True
-            allprocess.Enabled = True
-
-            afterlogin.Visible = True
-            beforelogin.Visible = False
-            afterlogin.Top = beforelogin.Top
-
-            Return True
-
-        Else
-            initializer.Enabled = False
-            MessageBox.Show("Login error! Wrong Eail ID or Password", "My Time Tracker", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Button1.Enabled = True
-            Return False
-
-        End If
-
-    End Function
 
     Public Function SetProjects() As Boolean
 
@@ -851,11 +826,23 @@ Public Class Form1
 
     End Function
 
-    Public Function InitializeApp() As Boolean
 
-        If (Not System.IO.Directory.Exists(sssavepath)) Then
-            System.IO.Directory.CreateDirectory(sssavepath)
+
+    Private Sub initializer_Tick(sender As Object, e As EventArgs) Handles initializer.Tick
+
+        If HaveInternetConnection() Then
+            'MsgBox("Initialise")
+            Console.WriteLine("Initialise Timer : " & Now.ToString(mysqldateformat))
+            'Console.WriteLine("Initialise")
+            InitializeApp()
+            initializer.Enabled = False
+        Else
+            initializer.Interval = 60000
         End If
+
+    End Sub
+
+    Public Function InitializeApp() As Boolean
 
         If AutoLoginReg = "True" Then
 
@@ -878,19 +865,42 @@ Public Class Form1
 
     End Function
 
-    Private Sub initializer_Tick(sender As Object, e As EventArgs) Handles initializer.Tick
+    Public Function Login() As Boolean
 
-        If HaveInternetConnection() Then
-            'MsgBox("Initialise")
-            Console.WriteLine("Initialise Timer : " & Now.ToString(mysqldateformat))
-            'Console.WriteLine("Initialise")
-            InitializeApp()
-            initializer.Enabled = False
+        'Successfully logined
+        If (authkey.Text <> "") Then
+
+            islogin = True
+            scrnsvr.Enabled = True
+            inactivitylogs.Enabled = True
+            tmrGetFgWindow.Enabled = True
+            allprocess.Enabled = True
+
+            afterlogin.Visible = True
+            beforelogin.Visible = False
+            afterlogin.Top = beforelogin.Top
+
+            Return True
+
         Else
-            initializer.Interval = 60000
+
+            If apidown = False Then
+
+                initializer.Enabled = False
+                MessageBox.Show("Login error! Wrong Eail ID or Password", "My Time Tracker", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Button1.Enabled = True
+                Return False
+
+            Else
+                Button1.Enabled = True
+                initializer.Interval = 60000
+                Return False
+            End If
+
+
         End If
 
-    End Sub
+    End Function
 
 
     Public Function SaveLoginCredentials()
@@ -1020,7 +1030,7 @@ Public Class Form1
         Console.WriteLine("SendData : " & postData)
         Dim thepage As String
 
-        If intavail Then
+        If intavail And apidown = False Then
 
             Dim currnettime As String = Now.ToString(mysqldateformat)
             Dim querystring As String = "&ct=" & currnettime & "&islogin=" & islogin & "&t=" & taskkey & "&p=" & projectkey & "&uid=" & authkey.Text & "&" & postData & "&" & lastactwnw
@@ -1029,20 +1039,26 @@ Public Class Form1
             Dim encoding As New UTF8Encoding
             Dim byteData As Byte() = encoding.GetBytes(querystring)
 
-            Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
-            postReq.Method = "POST"
-            postReq.KeepAlive = True
-            postReq.CookieContainer = tempCookies
-            postReq.ContentType = "application/x-www-form-urlencoded"
-            postReq.Referer = apiurl
-            postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
-            postReq.ContentLength = byteData.Length
-
-            Dim postreqstream As Stream = postReq.GetRequestStream()
-            postreqstream.Write(byteData, 0, byteData.Length)
-            postreqstream.Close()
-
             Try
+
+                Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
+                postReq.Method = "POST"
+                postReq.KeepAlive = True
+                postReq.CookieContainer = tempCookies
+                postReq.ContentType = "application/x-www-form-urlencoded"
+                postReq.Referer = apiurl
+                postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
+                postReq.ContentLength = byteData.Length
+
+                Dim postreqstream As Stream = postReq.GetRequestStream()
+                postreqstream.Write(byteData, 0, byteData.Length)
+                postreqstream.Close()
+
+                'Catch ex As Exception
+
+                'End Try
+
+                'Try
 
                 Dim postresponse As HttpWebResponse
                 postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
@@ -1054,7 +1070,18 @@ Public Class Form1
 
             Catch ex As Exception
 
+                'MsgBox(ex)
+
                 intavail = HaveInternetConnection()
+                If intavail And ex.GetType.ToString = "System.Net.WebException" Then
+
+                    apidown = True
+
+                    Console.WriteLine("apidown : " & apidown)
+
+                End If
+
+                'intavail = HaveInternetConnection()
 
             End Try
 
@@ -1072,6 +1099,7 @@ Public Class Form1
         authkey.Text = ""
 
         Dim currnettime As String = Now.ToString(mysqldateformat)
+        Dim thepage As String
 
         If (TextBox1.Text <> "" And TextBox2.Text <> "") Then
 
@@ -1080,26 +1108,46 @@ Public Class Form1
             Dim encoding As New UTF8Encoding
             Dim byteData As Byte() = encoding.GetBytes(postData)
 
-            Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
-            postReq.Method = "POST"
-            postReq.KeepAlive = True
-            postReq.CookieContainer = tempCookies
-            postReq.ContentType = "application/x-www-form-urlencoded"
-            postReq.Referer = apiurl
-            postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
-            postReq.ContentLength = byteData.Length
+            Try
 
-            Dim postreqstream As Stream = postReq.GetRequestStream()
-            postreqstream.Write(byteData, 0, byteData.Length)
-            postreqstream.Close()
+                Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
+                postReq.Method = "POST"
+                postReq.KeepAlive = True
+                postReq.CookieContainer = tempCookies
+                postReq.ContentType = "application/x-www-form-urlencoded"
+                postReq.Referer = apiurl
+                postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
+                postReq.ContentLength = byteData.Length
 
-            Dim postresponse As HttpWebResponse
-            postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
-            tempCookies.Add(postresponse.Cookies)
-            logincookie = tempCookies
+                Dim postreqstream As Stream = postReq.GetRequestStream()
+                postreqstream.Write(byteData, 0, byteData.Length)
+                postreqstream.Close()
 
-            Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
-            Dim thepage As String = postreqreader.ReadToEnd
+                Dim postresponse As HttpWebResponse
+                postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
+                tempCookies.Add(postresponse.Cookies)
+                logincookie = tempCookies
+
+                Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
+                thepage = postreqreader.ReadToEnd
+
+            Catch ex As Exception
+
+                intavail = HaveInternetConnection()
+
+                If intavail And ex.GetType.ToString = "System.Net.WebException" Then
+
+                    apidown = True
+
+                    Console.WriteLine("apidown : " & apidown)
+
+                End If
+
+
+                Console.WriteLine("ex.GetType.ToString : " & ex.GetType.ToString)
+                Console.WriteLine("ex.Message : " & ex.Message)
+
+            End Try
 
             RichTextBox1.Text = thepage
 
