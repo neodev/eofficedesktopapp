@@ -679,37 +679,14 @@ Public Class Form1
 
             Dim postData As String = "uid=" & authkey.Text & "&r=t&p=" & key
 
-            Dim tempCookies As New CookieContainer
-            Dim encoding As New UTF8Encoding
-            Dim byteData As Byte() = encoding.GetBytes(postData)
+            Dim httpres As String
+            httpres = SendGetData(postData)
+            RichTextBox1.Text = httpres
 
-            Dim postReq As HttpWebRequest = DirectCast(WebRequest.Create(apiurl), HttpWebRequest)
-            postReq.Method = "POST"
-            postReq.KeepAlive = True
-            postReq.CookieContainer = tempCookies
-            postReq.ContentType = "application/x-www-form-urlencoded"
-            postReq.Referer = apiurl
-            postReq.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0"
-            postReq.ContentLength = byteData.Length
-
-            Dim postreqstream As Stream = postReq.GetRequestStream()
-            postreqstream.Write(byteData, 0, byteData.Length)
-            postreqstream.Close()
-            Dim postresponse As HttpWebResponse
-
-            postresponse = DirectCast(postReq.GetResponse(), HttpWebResponse)
-            tempCookies.Add(postresponse.Cookies)
-            logincookie = tempCookies
-            Dim postreqreader As New StreamReader(postresponse.GetResponseStream())
-
-            Dim thepage As String = postreqreader.ReadToEnd
-
-            RichTextBox1.Text = thepage
-
-            If thepage.Replace(vbCr, "").Replace(vbLf, "") <> "" Then
+            If httpres.Replace(vbCr, "").Replace(vbLf, "") <> "" Then
 
                 Dim jss As New JavaScriptSerializer()
-                Dim datadict As Dictionary(Of String, Object) = jss.Deserialize(Of Dictionary(Of String, Object))(thepage)
+                Dim datadict As Dictionary(Of String, Object) = jss.Deserialize(Of Dictionary(Of String, Object))(httpres)
 
                 If datadict("t").ToString <> "" Then
 
