@@ -8,20 +8,24 @@ Imports System.ComponentModel
 
 Public Class Form1
 
+
     Inherits System.Windows.Forms.Form
+
+    Private Const DESKTOPVERTRES As Integer = &H75
+    Private Const DESKTOPHORZRES As Integer = &H76
 
     Private _inactiveTimeRetriever As cIdleTimeStool
 
     'Declare Function GetWindowThreadProcessId Lib "user32" (ByVal hWnd As Long, lpdwProcessId As Long) As Long
 
     'Public Declare Function GetForegroundWindow Lib "user32" Alias "GetForegroundWindow" () As Long
-    Declare Auto Function SetForegroundWindow Lib "user32.dll" _
-    Alias "SetForegroundWindow" (ByVal hWnd As IntPtr) As Integer
+    Declare Auto Function SetForegroundWindow Lib "user32.dll" Alias "SetForegroundWindow" (ByVal hWnd As IntPtr) As Integer
 
     Declare Function GetForegroundWindow Lib "user32" Alias "GetForegroundWindow" () As Integer
     Declare Function GetWindowTextLength Lib "user32.dll" Alias "GetWindowTextLengthA" (ByVal hwnd As Integer) As Integer
     Declare Function GetWindowText Lib "user32" Alias "GetWindowTextA" (ByVal hwnd As Integer, ByVal lpString As String, ByVal cch As Integer) As Integer
     Declare Function GetWindowThreadProcessId Lib "user32" (ByVal hWnd As Long, lpdwProcessId As Long) As Long
+    Declare Function GetDeviceCaps Lib "gdi32.dll" (ByVal hdc As IntPtr, ByVal nIndex As Integer) As Integer
 
     Dim lastscreensaver As Date
     Dim inactstart As Date
@@ -71,6 +75,8 @@ Public Class Form1
     Dim intavail As Boolean
     Dim apidown As Boolean = False
 
+    Dim actwidth As Integer
+    Dim actheight As Integer
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
         'Dim lastscreensaver = CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds)
@@ -80,10 +86,13 @@ Public Class Form1
         Console.WriteLine(seconds)
 
         If (seconds > minsec) Then
+
+            SetActWidthHeight()
+
             ''Dim unused = MsgBox(milliseconds)
             Dim sgfilename As String
-            Dim screenSize As Size = New Size(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
-            Dim screenGrab As New Bitmap(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
+            Dim screenSize As Size = New Size(actwidth, actheight)
+            Dim screenGrab As New Bitmap(actwidth, actheight)
 
             Try
                 Dim g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(screenGrab)
@@ -123,6 +132,7 @@ Public Class Form1
     Private m_LastWndTile As String
     Private Sub tmrGetFgWindow_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrGetFgWindow.Tick
 
+
         Dim wnwtimestamp As String
         ' Get the window's handle.
         Dim fg_hwnd As Long = GetForegroundWindow()
@@ -145,11 +155,18 @@ Public Class Form1
         'Take screenshot if active window is changed
         lastscreensaver = Now
         Dim sgfilename As String
-        Dim screenSize As Size = New Size(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
-        Dim screenGrab As New Bitmap(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height)
+
+        Dim screenSize As Size = New Size(actwidth, actheight)
+        Dim screenGrab As New Bitmap(actwidth, actheight)
+
+        Console.WriteLine("My.Computer.Screen.Bounds.Width : " & My.Computer.Screen.Bounds.Width)
+        Console.WriteLine("My.Computer.Screen.Bounds.Height : " & My.Computer.Screen.Bounds.Height)
+
+        SetActWidthHeight()
 
         Try
             Dim g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(screenGrab)
+
             g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
         Catch ex As Exception
             Console.WriteLine(ex)
@@ -230,6 +247,7 @@ Public Class Form1
 
         GetRegValues()
 
+        SetActWidthHeight()
         _inactiveTimeRetriever = New cIdleTimeStool
 
 
