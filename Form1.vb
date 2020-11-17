@@ -90,6 +90,7 @@ Public Class Form1
                 g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
             Catch ex As Exception
                 Console.WriteLine(ex)
+                LogException(ex)
             End Try
 
             sgfilename = CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
@@ -152,6 +153,7 @@ Public Class Form1
             g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
         Catch ex As Exception
             Console.WriteLine(ex)
+            LogException(ex)
         End Try
 
         sgfilename = "WC" & CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
@@ -1071,6 +1073,7 @@ Public Class Form1
         Catch ex As Exception
 
             Console.WriteLine("Invalid JSON")   'Invalid JSON
+            LogException(ex)
 
         End Try
 
@@ -1102,13 +1105,14 @@ Public Class Form1
                     prslist = "{""wh"": """ & p.MainWindowHandle.ToString & """, ""pid"": """ & p.Id.ToString & """,""pn"":""" & p.ProcessName.ToString & """,""fn"":""" & fn & """,""fd"":""" & p.MainModule.FileVersionInfo.FileDescription & """}"
                     lstboxhandels.Items.Add(prslist)
                     allprocesslist = allprocesslist & prslist & ","
-                Catch
+                Catch ex As Exception
                     ' lstboxhandels.Items.Add(Now.ToString(mysqldateformat) + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
                     ' + " | File Name : " + " | Machine : " + p.MachineName.ToString
                     ' )
                     prslist = "{""wh"": """ & p.MainWindowHandle.ToString & """, ""pid"": """ & p.Id.ToString & """,""pn"":""" & p.ProcessName.ToString & """,""fn"":""" & """,""fd"":""" & """}"
                     lstboxhandels.Items.Add(prslist)
                     allprocesslist = allprocesslist & prslist & ","
+                    LogException(ex)
                 End Try
 
 
