@@ -27,6 +27,8 @@ Public Class Form1
     Declare Function GetWindowThreadProcessId Lib "user32" (ByVal hWnd As Long, lpdwProcessId As Long) As Long
     Declare Function GetDeviceCaps Lib "gdi32.dll" (ByVal hdc As IntPtr, ByVal nIndex As Integer) As Integer
 
+
+
     Dim lastscreensaver As Date
     Dim inactstart As Date
     Dim inactend As Date
@@ -52,14 +54,13 @@ Public Class Form1
     Dim UsernameReg As String
     Dim PasswordReg As String
 
-
     Dim applicationName As String = Application.ProductName
     Dim applicationPath As String = Application.ExecutablePath
 
     Dim flaglasttask As Boolean = True 'Disable saving selected task
     Dim shorturl As String = "http:///www.brwz.in/"
     Dim islogin As Boolean = False 'flag varibale to restrcit project and task auto selection
-    Dim apiurl As String = "http://kenprotechnologies.comx/eofficedesktopapp/api/"
+    Dim apiurl As String = "http://kenprotechnologies.com/eofficedesktopapp/api/"
     'Dim apiurl As String = "http://dfwwebexpert/eofficedesktopwebapp/api/"
 
     Dim sssavepath As String = Application.StartupPath() & "\screengrabs\" '"d:\screengrabs\"
@@ -77,6 +78,7 @@ Public Class Form1
 
     Dim actwidth As Integer
     Dim actheight As Integer
+
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
         'Dim lastscreensaver = CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds)
@@ -218,6 +220,7 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+
         If (Not System.IO.Directory.Exists(sssavepath)) Then
             System.IO.Directory.CreateDirectory(sssavepath)
         End If
@@ -248,6 +251,7 @@ Public Class Form1
         GetRegValues()
 
         SetActWidthHeight()
+
         _inactiveTimeRetriever = New cIdleTimeStool
 
 
@@ -480,6 +484,7 @@ Public Class Form1
 
 
     Private Sub autostart_CheckedChanged(sender As Object, e As EventArgs) Handles autostart.CheckedChanged
+
         Dim applicationName As String = Application.ProductName
         Dim applicationPath As String = Application.ExecutablePath
 
@@ -494,6 +499,7 @@ Public Class Form1
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", applicationName, "")
 
         End If
+
     End Sub
 
 

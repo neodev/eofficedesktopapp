@@ -78,6 +78,7 @@ Partial Class Form1
         Me.taskdetailslink = New System.Windows.Forms.LinkLabel()
         Me.autoselproject = New System.Windows.Forms.CheckBox()
         Me.beforelogin = New System.Windows.Forms.Panel()
+        Me.desktopshortcut = New System.Windows.Forms.CheckBox()
         Me.autologin = New System.Windows.Forms.CheckBox()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
@@ -86,7 +87,6 @@ Partial Class Form1
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.initializer = New System.Windows.Forms.Timer(Me.components)
         Me.animate = New System.Windows.Forms.Timer(Me.components)
-        Me.desktopshortcut = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1.SuspendLayout()
         Me.afterlogin.SuspendLayout()
         Me.beforelogin.SuspendLayout()
@@ -384,7 +384,7 @@ Partial Class Form1
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem3, Me.ToolStripSeparator6, Me.ToolStripMenuItem2, Me.ToolStripSeparator3, Me.ExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 28)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 24)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'ToolStripMenuItem3
@@ -419,7 +419,7 @@ Partial Class Form1
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ToolStripSeparator4, Me.AboutToolStripMenuItem, Me.ToolStripSeparator1, Me.AboutToolStripMenuItem1, Me.ToolStripSeparator2, Me.AboutEOfficeDesktopToolStripMenuItem})
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(55, 28)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(55, 24)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'ToolStripMenuItem1
@@ -529,6 +529,16 @@ Partial Class Form1
         Me.beforelogin.Size = New System.Drawing.Size(353, 423)
         Me.beforelogin.TabIndex = 36
         '
+        'desktopshortcut
+        '
+        Me.desktopshortcut.AutoSize = True
+        Me.desktopshortcut.Location = New System.Drawing.Point(21, 315)
+        Me.desktopshortcut.Name = "desktopshortcut"
+        Me.desktopshortcut.Size = New System.Drawing.Size(139, 21)
+        Me.desktopshortcut.TabIndex = 38
+        Me.desktopshortcut.Text = "Desktop Shortcut"
+        Me.desktopshortcut.UseVisualStyleBackColor = True
+        '
         'autologin
         '
         Me.autologin.AutoSize = True
@@ -616,16 +626,6 @@ Partial Class Form1
         '
         Me.animate.Interval = 150
         '
-        'desktopshortcut
-        '
-        Me.desktopshortcut.AutoSize = True
-        Me.desktopshortcut.Location = New System.Drawing.Point(21, 315)
-        Me.desktopshortcut.Name = "desktopshortcut"
-        Me.desktopshortcut.Size = New System.Drawing.Size(139, 21)
-        Me.desktopshortcut.TabIndex = 38
-        Me.desktopshortcut.Text = "Desktop Shortcut"
-        Me.desktopshortcut.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -641,7 +641,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Form1"
-        Me.Text = "E-Office"
+        Me.Text = "My Time Tracker"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.afterlogin.ResumeLayout(False)
