@@ -13,6 +13,7 @@ Public Class Form1
 
     Private Const DESKTOPVERTRES As Integer = &H75
     Private Const DESKTOPHORZRES As Integer = &H76
+    Private objMutex As System.Threading.Mutex
 
     Private _inactiveTimeRetriever As cIdleTimeStool
 
@@ -220,6 +221,14 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        'Check to prevent running twice
+        objMutex = New System.Threading.Mutex(False, "MyApplicationName")
+        If objMutex.WaitOne(0, False) = False Then
+            objMutex.Close()
+            objMutex = Nothing
+            End
+        End If
+        'If you get to this point it's frist instance
 
         If (Not System.IO.Directory.Exists(sssavepath)) Then
             System.IO.Directory.CreateDirectory(sssavepath)
