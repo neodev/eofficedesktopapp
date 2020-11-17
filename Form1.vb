@@ -1145,6 +1145,63 @@ Public Class Form1
             oLink.Save()
 
         Catch ex As Exception
+            LogException(ex)
+        End Try
+
+    End Function
+
+    Private Function LogException(ByVal ex As Exception) As Boolean
+
+        Dim FILE_NAME As String = Application.StartupPath() & "\error_logs.txt"
+        Dim i As Integer
+        Dim aryText(4) As String
+
+        aryText(0) = ex.Message
+        aryText(1) = ex.StackTrace
+        aryText(2) = ex.Source
+        aryText(3) = ex.HelpLink
+        aryText(4) = "==========================================="
+
+        Dim objWriter As New System.IO.StreamWriter(FILE_NAME, True)
+
+        For i = 0 To 4
+
+            objWriter.WriteLine(aryText(i))
+
+        Next
+
+        objWriter.Close()
+
+        'MessageBox.Show("Text Appended to the File")
+
+    End Function
+    Private Function SetActWidthHeight() As Boolean
+
+        actwidth = My.Computer.Screen.Bounds.Width
+        actheight = My.Computer.Screen.Bounds.Height
+
+        Try
+
+            Using g As Graphics = Graphics.FromHwnd(IntPtr.Zero)
+                Dim hdc As IntPtr = g.GetHdc
+                Dim TrueScreenSize As New Size(GetDeviceCaps(hdc, DESKTOPHORZRES), GetDeviceCaps(hdc, DESKTOPVERTRES))
+                Dim sclX As Single = CSng(Math.Round((TrueScreenSize.Width / Screen.PrimaryScreen.Bounds.Width), 2))
+                Dim sclY As Single = CSng(Math.Round((TrueScreenSize.Height / Screen.PrimaryScreen.Bounds.Height), 2))
+                g.ReleaseHdc(hdc)
+
+                'show the true screen size
+                Console.WriteLine("Screen Width:  " & TrueScreenSize.Width.ToString & vbLf &
+                          "Screen Height: " & TrueScreenSize.Height.ToString & vbLf & vbLf &
+                          "Scale X: " & sclX.ToString & vbLf &
+                          "Scale Y: " & sclY.ToString)
+                actwidth = TrueScreenSize.Width.ToString
+                actheight = TrueScreenSize.Height.ToString
+            End Using
+
+        Catch ex As Exception
+
+            Console.WriteLine(ex)
+            LogException(ex)
 
         End Try
 
