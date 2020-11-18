@@ -79,6 +79,7 @@ Public Class Form1
 
     Dim actwidth As Integer
     Dim actheight As Integer
+    Dim production = False
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
@@ -221,14 +222,29 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        'Check to prevent running twice
-        objMutex = New System.Threading.Mutex(False, "MyApplicationName")
-        If objMutex.WaitOne(0, False) = False Then
-            objMutex.Close()
-            objMutex = Nothing
-            End
+        If production Then
+
+            Me.Height = 450
+            Me.Width = 326
+
+            'Check to prevent running twice
+            objMutex = New System.Threading.Mutex(False, "MyTimeTracker")
+            If objMutex.WaitOne(0, False) = False Then
+                objMutex.Close()
+                objMutex = Nothing
+                End
+            End If
+            'If you get to this point it's frist instance
+
+            NotifyIcon1.Text = Me.Text & " - " & Application.ProductVersion & " (Live) "
+            Me.Text = Me.Text & " - " & Application.ProductVersion & " (Live) "
+        Else
+
+            NotifyIcon1.Text = Me.Text & " - " & Application.ProductVersion & " (Development) "
+            Me.Text = Me.Text & " - " & Application.ProductVersion & " (Development) "
+
+
         End If
-        'If you get to this point it's frist instance
 
         If (Not System.IO.Directory.Exists(sssavepath)) Then
             System.IO.Directory.CreateDirectory(sssavepath)
@@ -243,8 +259,8 @@ Public Class Form1
 
         Console.WriteLine("Form Load : " & Now.ToString(mysqldateformat))
 
-        'Me.Height = 450
-        'Me.Width = 326
+
+
         'Me.WindowState = vbNormal
 
         Me.CenterToScreen()
@@ -265,7 +281,7 @@ Public Class Form1
 
 
         'If version number mismatching or missing write to registery
-        If CurrentVersion <> versionNumber.ToString Then
+        If CurrentVersion <> versionNumber.ToString And production = True Then
 
             'Assume the application is loading first time or someone modified the version key mannully
 
@@ -288,7 +304,7 @@ Public Class Form1
 
                 autostart.Checked = True
 
-            ElseIf startwithos <> "" And startwithos <> """" & applicationPath & """" Then
+            ElseIf startwithos <> "" And startwithos <> """" & applicationPath & """" And production = True Then
 
                 My.Computer.Registry.CurrentUser.CreateSubKey(applicationName)
                 My.Computer.Registry.SetValue("HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run", applicationName, """" & applicationPath & """")
