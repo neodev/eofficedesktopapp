@@ -1233,25 +1233,24 @@ Public Class Form1
 
         Dim FILE_NAME As String = Application.StartupPath() & "\error_logs.txt"
         Dim i As Integer
-        Dim aryText(4) As String
+        Dim aryText(6) As String
 
         aryText(0) = ex.Message
         aryText(1) = ex.StackTrace
         aryText(2) = ex.Source
         aryText(3) = ex.HelpLink
-        aryText(4) = "==========================================="
+        aryText(4) = Now.ToString(mysqldateformat)
+        aryText(5) = "==========================================="
 
         Dim objWriter As New System.IO.StreamWriter(FILE_NAME, True)
 
-        For i = 0 To 4
+        For i = 0 To 5
 
             objWriter.WriteLine(aryText(i))
 
         Next
 
         objWriter.Close()
-
-        'MessageBox.Show("Text Appended to the File")
 
     End Function
     Private Function SetActWidthHeight() As Boolean
