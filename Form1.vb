@@ -80,6 +80,7 @@ Public Class Form1
     Dim actwidth As Integer
     Dim actheight As Integer
     Dim production = False
+    Dim querystring As String
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
@@ -190,7 +191,7 @@ Public Class Form1
             list_item.SubItems.Add(fg_hwnd)
             list_item.SubItems.Add(fg_wndttle)
             list_item.SubItems.Add(sgfilename)
-            list_item.SubItems.Add(SendDataRes)
+            list_item.SubItems.Add(querystring)
             list_item.EnsureVisible()
 
         Else
@@ -425,7 +426,7 @@ Public Class Form1
                 Console.WriteLine(sendRes & " & " & sendPostData)
                 'no internet connection or data not posted to API
                 If sendPostData = sendRes Then
-                    inactivitylogs.Items.Add(inactsec & " - " & Now.ToString(mysqldateformat) & "&res=" & sendRes)
+                    inactivitylogs.Items.Add(querystring)
                 Else
 
                 End If
@@ -1034,7 +1035,7 @@ Public Class Form1
         If intavail And apidown = False Then
 
             Dim currnettime As String = Now.ToString(mysqldateformat)
-            Dim querystring As String = "&ct=" & currnettime & "&islogin=" & islogin & "&t=" & taskkey & "&p=" & projectkey & "&uid=" & authkey.Text & "&" & postData & "&" & lastactwnw
+            querystring = "&ct=" & currnettime & "&islogin=" & islogin & "&t=" & taskkey & "&p=" & projectkey & "&uid=" & authkey.Text & "&" & postData & "&" & lastactwnw
 
             Dim tempCookies As New CookieContainer
             Dim encoding As New UTF8Encoding
