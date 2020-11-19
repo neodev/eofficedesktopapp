@@ -152,10 +152,9 @@ Public Class Form1
         ' Display the time and the window's title.
         Dim list_item As System.Windows.Forms.ListViewItem
         wnwtimestamp = Now.ToString(mysqldateformat)
-        list_item = lvwFGWindow.Items.Add(wnwtimestamp)
 
-        list_item.SubItems.Add(fg_hwnd)
-        list_item.SubItems.Add(fg_wndttle)
+
+
         'Take screenshot if active window is changed
         lastscreensaver = Now
         Dim sgfilename As String
@@ -180,11 +179,36 @@ Public Class Form1
         sgfilename = "WC" & CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
         screenGrab.Save(sssavepath & Now.ToString("MM-dd-yyyy") & "\" & sgfilename)
 
-        list_item.SubItems.Add(sgfilename)
+
         lastactwnw = "awt=" & wnwtimestamp & "&wh=" & fg_hwnd & "&ss=" & sgfilename
         SendDataRes = SendGetData("d=W&" & lastactwnw & "&wt=" & fg_wndttle)
-        list_item.SubItems.Add(SendDataRes)
-        list_item.EnsureVisible()
+
+
+        If SendDataRes = "d=W&" & lastactwnw & "&wt=" & fg_wndttle Then
+
+            list_item = lvwFGWindow.Items.Add(wnwtimestamp)
+            list_item.SubItems.Add(fg_hwnd)
+            list_item.SubItems.Add(fg_wndttle)
+            list_item.SubItems.Add(sgfilename)
+            list_item.SubItems.Add(SendDataRes)
+            list_item.EnsureVisible()
+
+        Else
+
+            'Dim pos As Int32
+            'Dim listItem As ListViewItem
+
+            'For pos = lvwFGWindow.Items.Count - 1 To 0 Step -1
+            '    listItem = lvwFGWindow.Items(pos)
+            '    'If listItem.SubItems(4).Text = "testvalue" Then
+            '    lvwFGWindow.Items.Remove(listItem)
+            '    'End If
+            '    Console.WriteLine("listItem.SubItems(4).Text : " & listItem.SubItems(4).Text)
+            'Next
+
+        End If
+
+
 
         Dim processitem As Dictionary(Of String, String)
         Dim processfound As Boolean = False
@@ -381,9 +405,9 @@ Public Class Form1
                 Console.WriteLine(sendRes & " & " & sendPostData)
                 'no internet connection or data not posted to API
                 If sendPostData = sendRes Then
-                    inactivitylogs.Items.Add(inactsec & " - " & Now.ToString(mysqldateformat))
-                Else
                     inactivitylogs.Items.Add(inactsec & " - " & Now.ToString(mysqldateformat) & "&res=" & sendRes)
+                Else
+
                 End If
 
             End If
@@ -401,9 +425,9 @@ Public Class Form1
                 Console.WriteLine(sendRes & " & " & sendPostData)
                 'no internet connection or data not posted to API
                 If sendPostData = sendRes Then
-                    inactivitylogs.Items.Add(inactsec & " - " & Now.ToString(mysqldateformat))
-                Else
                     inactivitylogs.Items.Add(inactsec & " - " & Now.ToString(mysqldateformat) & "&res=" & sendRes)
+                Else
+
                 End If
 
                 inactsec = 0
