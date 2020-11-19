@@ -87,6 +87,7 @@ Partial Class Form1
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.initializer = New System.Windows.Forms.Timer(Me.components)
         Me.animate = New System.Windows.Forms.Timer(Me.components)
+        Me.internetchkr = New System.Windows.Forms.Timer(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.afterlogin.SuspendLayout()
         Me.beforelogin.SuspendLayout()
@@ -96,7 +97,7 @@ Partial Class Form1
         'Button1
         '
         Me.Button1.Location = New System.Drawing.Point(200, 244)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(140, 37)
         Me.Button1.TabIndex = 4
@@ -107,7 +108,7 @@ Partial Class Form1
         '
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox1.Location = New System.Drawing.Point(35, 59)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(295, 15)
         Me.TextBox1.TabIndex = 1
@@ -117,7 +118,7 @@ Partial Class Form1
         Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox2.Location = New System.Drawing.Point(33, 155)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(4)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TextBox2.Size = New System.Drawing.Size(291, 16)
@@ -147,7 +148,7 @@ Partial Class Form1
         '
         Me.savelogin.AutoSize = True
         Me.savelogin.Location = New System.Drawing.Point(165, 208)
-        Me.savelogin.Margin = New System.Windows.Forms.Padding(4)
+        Me.savelogin.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.savelogin.Name = "savelogin"
         Me.savelogin.Size = New System.Drawing.Size(178, 21)
         Me.savelogin.TabIndex = 3
@@ -164,7 +165,7 @@ Partial Class Form1
         Me.lvwFGWindow.GridLines = True
         Me.lvwFGWindow.HideSelection = False
         Me.lvwFGWindow.Location = New System.Drawing.Point(17, 47)
-        Me.lvwFGWindow.Margin = New System.Windows.Forms.Padding(4)
+        Me.lvwFGWindow.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lvwFGWindow.Name = "lvwFGWindow"
         Me.lvwFGWindow.Size = New System.Drawing.Size(965, 171)
         Me.lvwFGWindow.TabIndex = 8
@@ -225,7 +226,7 @@ Partial Class Form1
         Me.lstboxhandels.HorizontalScrollbar = True
         Me.lstboxhandels.ItemHeight = 16
         Me.lstboxhandels.Location = New System.Drawing.Point(17, 251)
-        Me.lstboxhandels.Margin = New System.Windows.Forms.Padding(4)
+        Me.lstboxhandels.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstboxhandels.Name = "lstboxhandels"
         Me.lstboxhandels.Size = New System.Drawing.Size(965, 164)
         Me.lstboxhandels.TabIndex = 11
@@ -237,7 +238,7 @@ Partial Class Form1
         'NotifyIcon1
         '
         Me.NotifyIcon1.Icon = CType(resources.GetObject("NotifyIcon1.Icon"), System.Drawing.Icon)
-        Me.NotifyIcon1.Text = "NotifyIcon1"
+        Me.NotifyIcon1.Text = "My Time Tracker"
         Me.NotifyIcon1.Visible = True
         '
         'InactivityTimer
@@ -250,9 +251,9 @@ Partial Class Form1
         Me.inactivitylogs.FormattingEnabled = True
         Me.inactivitylogs.ItemHeight = 16
         Me.inactivitylogs.Location = New System.Drawing.Point(16, 452)
-        Me.inactivitylogs.Margin = New System.Windows.Forms.Padding(4)
+        Me.inactivitylogs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.inactivitylogs.Name = "inactivitylogs"
-        Me.inactivitylogs.Size = New System.Drawing.Size(966, 116)
+        Me.inactivitylogs.Size = New System.Drawing.Size(967, 116)
         Me.inactivitylogs.TabIndex = 14
         '
         'Label7
@@ -267,8 +268,8 @@ Partial Class Form1
         '
         'RichTextBox1
         '
-        Me.RichTextBox1.Location = New System.Drawing.Point(16, 627)
-        Me.RichTextBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.RichTextBox1.Location = New System.Drawing.Point(16, 626)
+        Me.RichTextBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RichTextBox1.Name = "RichTextBox1"
         Me.RichTextBox1.Size = New System.Drawing.Size(964, 110)
         Me.RichTextBox1.TabIndex = 18
@@ -277,7 +278,7 @@ Partial Class Form1
         'Button2
         '
         Me.Button2.Location = New System.Drawing.Point(200, 30)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(143, 36)
         Me.Button2.TabIndex = 20
@@ -287,7 +288,7 @@ Partial Class Form1
         'authkey
         '
         Me.authkey.Location = New System.Drawing.Point(16, 585)
-        Me.authkey.Margin = New System.Windows.Forms.Padding(4)
+        Me.authkey.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.authkey.Name = "authkey"
         Me.authkey.Size = New System.Drawing.Size(963, 22)
         Me.authkey.TabIndex = 21
@@ -296,7 +297,7 @@ Partial Class Form1
         '
         Me.CheckBox2.AutoSize = True
         Me.CheckBox2.Location = New System.Drawing.Point(737, 17)
-        Me.CheckBox2.Margin = New System.Windows.Forms.Padding(4)
+        Me.CheckBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CheckBox2.Name = "CheckBox2"
         Me.CheckBox2.Size = New System.Drawing.Size(101, 21)
         Me.CheckBox2.TabIndex = 22
@@ -307,7 +308,7 @@ Partial Class Form1
         '
         Me.CheckBox3.AutoSize = True
         Me.CheckBox3.Location = New System.Drawing.Point(869, 17)
-        Me.CheckBox3.Margin = New System.Windows.Forms.Padding(4)
+        Me.CheckBox3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.CheckBox3.Name = "CheckBox3"
         Me.CheckBox3.Size = New System.Drawing.Size(110, 21)
         Me.CheckBox3.TabIndex = 23
@@ -322,7 +323,7 @@ Partial Class Form1
         Me.project.IntegralHeight = False
         Me.project.ItemHeight = 18
         Me.project.Location = New System.Drawing.Point(17, 112)
-        Me.project.Margin = New System.Windows.Forms.Padding(4)
+        Me.project.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.project.Name = "project"
         Me.project.Size = New System.Drawing.Size(321, 26)
         Me.project.TabIndex = 26
@@ -332,7 +333,7 @@ Partial Class Form1
         Me.task.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Me.task.FormattingEnabled = True
         Me.task.Location = New System.Drawing.Point(17, 196)
-        Me.task.Margin = New System.Windows.Forms.Padding(4)
+        Me.task.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.task.Name = "task"
         Me.task.Size = New System.Drawing.Size(321, 26)
         Me.task.TabIndex = 27
@@ -340,7 +341,7 @@ Partial Class Form1
         'Projects
         '
         Me.Projects.AutoSize = True
-        Me.Projects.Location = New System.Drawing.Point(14, 89)
+        Me.Projects.Location = New System.Drawing.Point(13, 89)
         Me.Projects.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Projects.Name = "Projects"
         Me.Projects.Size = New System.Drawing.Size(59, 17)
@@ -361,7 +362,7 @@ Partial Class Form1
         '
         Me.autostart.AutoSize = True
         Me.autostart.Location = New System.Drawing.Point(21, 252)
-        Me.autostart.Margin = New System.Windows.Forms.Padding(4)
+        Me.autostart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.autostart.Name = "autostart"
         Me.autostart.Size = New System.Drawing.Size(93, 21)
         Me.autostart.TabIndex = 32
@@ -376,7 +377,7 @@ Partial Class Form1
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(7, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1570, 26)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1571, 26)
         Me.MenuStrip1.TabIndex = 33
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -464,7 +465,7 @@ Partial Class Form1
         'logout
         '
         Me.logout.Location = New System.Drawing.Point(17, 313)
-        Me.logout.Margin = New System.Windows.Forms.Padding(4)
+        Me.logout.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.logout.Name = "logout"
         Me.logout.Size = New System.Drawing.Size(145, 36)
         Me.logout.TabIndex = 34
@@ -482,7 +483,7 @@ Partial Class Form1
         Me.afterlogin.Controls.Add(Me.Label6)
         Me.afterlogin.Controls.Add(Me.Button2)
         Me.afterlogin.Location = New System.Drawing.Point(29, 476)
-        Me.afterlogin.Margin = New System.Windows.Forms.Padding(4)
+        Me.afterlogin.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.afterlogin.Name = "afterlogin"
         Me.afterlogin.Size = New System.Drawing.Size(353, 399)
         Me.afterlogin.TabIndex = 35
@@ -524,7 +525,7 @@ Partial Class Form1
         Me.beforelogin.Controls.Add(Me.Label5)
         Me.beforelogin.Controls.Add(Me.Label8)
         Me.beforelogin.Location = New System.Drawing.Point(29, 47)
-        Me.beforelogin.Margin = New System.Windows.Forms.Padding(4)
+        Me.beforelogin.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.beforelogin.Name = "beforelogin"
         Me.beforelogin.Size = New System.Drawing.Size(353, 423)
         Me.beforelogin.TabIndex = 36
@@ -533,6 +534,7 @@ Partial Class Form1
         '
         Me.desktopshortcut.AutoSize = True
         Me.desktopshortcut.Location = New System.Drawing.Point(21, 315)
+        Me.desktopshortcut.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.desktopshortcut.Name = "desktopshortcut"
         Me.desktopshortcut.Size = New System.Drawing.Size(139, 21)
         Me.desktopshortcut.TabIndex = 38
@@ -612,7 +614,7 @@ Partial Class Form1
         Me.Panel1.Controls.Add(Me.Label7)
         Me.Panel1.Controls.Add(Me.inactivitylogs)
         Me.Panel1.Location = New System.Drawing.Point(441, 47)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1023, 791)
         Me.Panel1.TabIndex = 37
@@ -626,18 +628,22 @@ Partial Class Form1
         '
         Me.animate.Interval = 150
         '
+        'internetchkr
+        '
+        Me.internetchkr.Interval = 10000
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1570, 874)
+        Me.ClientSize = New System.Drawing.Size(1571, 874)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.beforelogin)
         Me.Controls.Add(Me.afterlogin)
         Me.Controls.Add(Me.MenuStrip1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Form1"
@@ -716,4 +722,5 @@ Partial Class Form1
     Friend WithEvents Label8 As Label
     Friend WithEvents animate As Timer
     Friend WithEvents desktopshortcut As CheckBox
+    Friend WithEvents internetchkr As Timer
 End Class

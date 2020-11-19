@@ -457,6 +457,7 @@ Public Class Form1
             Return My.Computer.Network.Ping("www.google.com")
         Catch
             intavail = False
+            internetchkr.Enabled = True
             Return False
         End Try
 
@@ -1292,5 +1293,10 @@ Public Class Form1
         End
     End Sub
 
-
+    Private Sub internetchkr_Tick(sender As Object, e As EventArgs) Handles internetchkr.Tick
+        intavail = HaveInternetConnection()
+        If intavail Then
+            internetchkr.Enabled = False
+        End If
+    End Sub
 End Class
