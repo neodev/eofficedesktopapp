@@ -1027,7 +1027,7 @@ Public Class Form1
 
     End Sub
 
-    Public Function SendGetData(postData As String) As String
+    Public Function SendGetData(postData As String, Optional ByVal resync As String = "N") As String
 
         Console.WriteLine("Calling SendGetData... : " & postData)
         Dim thepage As String
@@ -1035,7 +1035,14 @@ Public Class Form1
         If intavail And apidown = False Then
 
             Dim currnettime As String = Now.ToString(mysqldateformat)
-            querystring = "&ct=" & currnettime & "&islogin=" & islogin & "&t=" & taskkey & "&p=" & projectkey & "&uid=" & authkey.Text & "&" & postData & "&" & lastactwnw
+
+            If resync = "Y" Then
+                querystring = postData
+            Else
+                querystring = "&ct=" & currnettime & "&islogin=" & islogin & "&t=" & taskkey & "&p=" & projectkey & "&uid=" & authkey.Text & "&" & postData & "&" & lastactwnw
+            End If
+
+
 
             Dim tempCookies As New CookieContainer
             Dim encoding As New UTF8Encoding
@@ -1320,7 +1327,49 @@ Public Class Form1
     Private Sub internetchkr_Tick(sender As Object, e As EventArgs) Handles internetchkr.Tick
         intavail = HaveInternetConnection()
         If intavail Then
+            async.Enabled = True
             internetchkr.Enabled = False
+        Else
+            async.Enabled = False
         End If
+    End Sub
+
+    Private Sub async_Tick(sender As Object, e As EventArgs) Handles async.Tick
+
+        Dim listitem As ListViewItem
+        Dim SyncDataRes As String
+
+        For i As Integer = lvwFGWindow.Items.Count - 1 To 0 Step -1
+            listitem = lvwFGWindow.Items(i)
+            SyncDataRes = SendGetData("sync=y" & listitem.SubItems(4).Text, "y")
+            If SyncDataRes = "sync=y" & listitem.SubItems(4).Text Then
+            Else
+                lvwFGWindow.Items.Remove(listitem)
+            End If
+
+            Console.WriteLine("listitem.subitems(4).text : " & listitem.SubItems(4).Text)
+            Exit For
+        Next
+
+        For i As Integer = 0 To inactivitylogs.Items.Count - 1
+
+            Console.WriteLine(" Count " & i)
+            Console.WriteLine(" Text " & inactivitylogs.Items(i).ToString)
+            SyncDataRes = SendGetData("sync=y" & inactivitylogs.Items(i).ToString, "Y")
+
+            Console.WriteLine(" SyncDataRes : " & SyncDataRes)
+
+            If SyncDataRes = "sync=y" & inactivitylogs.Items(i).ToString Then
+
+            Else
+                inactivitylogs.Items.RemoveAt(i)
+            End If
+
+            Exit For
+
+        Next
+
+
+
     End Sub
 End Class
