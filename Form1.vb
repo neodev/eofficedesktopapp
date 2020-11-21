@@ -1165,12 +1165,14 @@ Public Class Form1
 
     Public Function getAllProcess() As Boolean
 
-        lstboxhandels.Items.Clear()
-        'LstBoxHWNDCaptions.Items.Clear()
+        If intavail = True Then
+            lstboxhandels.Items.Clear()
+        End If
 
         Dim p As Process
         Dim prslist As String
         Dim fn As String
+        Dim SendAllPDataRes As String
 
         'Process.GetProcessById();
 
