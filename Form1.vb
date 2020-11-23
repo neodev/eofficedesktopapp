@@ -217,7 +217,7 @@ Public Class Form1
 
             processitem = ParseJSON(lstboxhandels.Items(i).ToString)
 
-            If (fg_hwnd = processitem("wh")) Then
+            If processitem("wh") IsNot Nothing And fg_hwnd = processitem("wh") Then
                 Console.WriteLine(("Process Item window handler " & processitem("wh")))
                 processfound = True
                 Exit For
