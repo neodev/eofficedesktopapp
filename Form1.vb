@@ -80,6 +80,7 @@ Public Class Form1
     Dim actwidth As Integer
     Dim actheight As Integer
     Dim production = False
+    Dim production = True
     Dim querystring As String
     Dim wnwtimestamp As String
     Dim sgfilename As String
@@ -1183,14 +1184,29 @@ Public Class Form1
                     ' )
                     fn = p.MainModule.FileName.ToString
                     fn = fn.Replace("\", "\\")
-                    prslist = "{""wh"": """ & p.MainWindowHandle.ToString & """, ""pid"": """ & p.Id.ToString & """,""pn"":""" & p.ProcessName.ToString & """,""fn"":""" & fn & """,""fd"":""" & p.MainModule.FileVersionInfo.FileDescription & """}"
+
+                    'm_LastHwnd = fg_hwnd
+                    'm_LastWndTile = fg_wndttle
+
+                    'lastactwnw = "awt=" & wnwtimestamp & "&wh=" & fg_hwnd & "&ss=" & sgfilename
+                    'SendDataRes = SendGetData("d=W&" & lastactwnw & "&wt=" & fg_wndttle)
+
+
+                    prslist = "{""pt"":""" & Now.ToString(mysqldateformat) & """,""uid"":""" & authkey.Text & """,""t"": """ & taskkey & """,""p"": """ & projectkey & """,""awttl"": """ & m_LastWndTile & """,""awh"":""" & m_LastHwnd & """,""aws"":""" & sgfilename & """,""awt"": """ & wnwtimestamp & """,""wh"": """ & p.MainWindowHandle.ToString & """, ""pid"": """ & p.Id.ToString & """,""pn"":""" & p.ProcessName.ToString & """,""fn"":""" & fn & """,""fd"":""" & p.MainModule.FileVersionInfo.FileDescription & """}"
+
+                    'querystring = "&ct=" & currnettime & "&islogin=" & islogin & "&t=" & taskkey & "&p=" & projectkey & "&uid=" & authkey.Text & "&" & postData & "&" & lastactwnw
+
                     lstboxhandels.Items.Add(prslist)
                     allprocesslist = allprocesslist & prslist & ","
                 Catch ex As Exception
                     ' lstboxhandels.Items.Add(Now.ToString(mysqldateformat) + "|" + p.MainWindowHandle.ToString + " | Process ID : " + p.Id.ToString + " | Process Name : " + p.ProcessName.ToString _
                     ' + " | File Name : " + " | Machine : " + p.MachineName.ToString
                     ' )
-                    prslist = "{""wh"": """ & p.MainWindowHandle.ToString & """, ""pid"": """ & p.Id.ToString & """,""pn"":""" & p.ProcessName.ToString & """,""fn"":""" & """,""fd"":""" & """}"
+
+                    ' prslist = "{""pt"": """ & Now.ToString(mysqldateformat) & """,""wh"": """ & p.MainWindowHandle.ToString & """, ""pid"": """ & p.Id.ToString & """,""pn"":""" & p.ProcessName.ToString & """,""fn"":""" & """,""fd"":""" & """}"
+
+                    prslist = "{""pt"":""" & Now.ToString(mysqldateformat) & """,""uid"":""" & authkey.Text & """,""t"": """ & taskkey & """,""p"": """ & projectkey & """,""awttl"": """ & m_LastWndTile & """,""awh"":""" & m_LastHwnd & """,""aws"":""" & sgfilename & """,""awt"": """ & wnwtimestamp & """,""wh"": """ & p.MainWindowHandle.ToString & """, ""pid"": """ & p.Id.ToString & """,""pn"":""" & p.ProcessName.ToString & """,""fn"":""" & """,""fd"":""" & """}"
+
                     lstboxhandels.Items.Add(prslist)
                     allprocesslist = allprocesslist & prslist & ","
                     LogException(ex)
