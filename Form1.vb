@@ -1164,16 +1164,14 @@ Public Class Form1
 
     Public Function getAllProcess() As Boolean
 
-        If intavail = True Then
-            lstboxhandels.Items.Clear()
-        End If
-
         Dim p As Process
         Dim prslist As String
         Dim fn As String
         Dim SendAllPDataRes As String
 
         'Process.GetProcessById();
+
+        'lstboxhandels.Items.Clear()
 
         For Each p In Process.GetProcesses(System.Environment.MachineName)
             'Only add proccess that there HWND is not 0
@@ -1206,9 +1204,17 @@ Public Class Form1
         allprocesslist.Trim(",")
 
         allprocesslist = "{""mn"":""" & p.MachineName.ToString & """,""pt"":""" & Now.ToString(mysqldateformat) & """,""ap"":[" & allprocesslist.Trim(", ") & "]}"
-        Console.WriteLine(allprocesslist)
+        Console.WriteLine("allprocesslist : " & allprocesslist)
+
+
         'If islogin Then
-        SendDataRes = SendGetData("d=P&ap=" & allprocesslist)
+        SendAllPDataRes = SendGetData("d=P&ap=" & allprocesslist)
+
+        If intavail = True And SendAllPDataRes <> "d=P&ap=" & allprocesslist Then
+            lstboxhandels.Items.Clear()
+        End If
+
+        Console.WriteLine("SendAllPDataRes : " & SendAllPDataRes)
         'End If
 
         allprocesslist = String.Empty
