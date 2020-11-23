@@ -81,6 +81,8 @@ Public Class Form1
     Dim actheight As Integer
     Dim production = False
     Dim querystring As String
+    Dim wnwtimestamp As String
+    Dim sgfilename As String
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
@@ -95,7 +97,7 @@ Public Class Form1
             SetActWidthHeight()
 
             ''Dim unused = MsgBox(milliseconds)
-            Dim sgfilename As String
+            'Dim sgfilename As String
             Dim screenSize As Size = New Size(actwidth, actheight)
             Dim screenGrab As New Bitmap(actwidth, actheight)
 
@@ -137,8 +139,6 @@ Public Class Form1
     Private m_LastWndTile As String
     Private Sub tmrGetFgWindow_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrGetFgWindow.Tick
 
-
-        Dim wnwtimestamp As String
         ' Get the window's handle.
         Dim fg_hwnd As Long = GetForegroundWindow()
         Dim fg_wndttle As String = GetWindowTitle(fg_hwnd)
@@ -155,10 +155,9 @@ Public Class Form1
         wnwtimestamp = Now.ToString(mysqldateformat)
 
 
-
         'Take screenshot if active window is changed
         lastscreensaver = Now
-        Dim sgfilename As String
+
 
         Dim screenSize As Size = New Size(actwidth, actheight)
         Dim screenGrab As New Bitmap(actwidth, actheight)
