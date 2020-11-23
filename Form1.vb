@@ -79,7 +79,6 @@ Public Class Form1
 
     Dim actwidth As Integer
     Dim actheight As Integer
-    Dim production = False
     Dim production = True
     Dim querystring As String
     Dim wnwtimestamp As String
