@@ -62,7 +62,7 @@ Public Class Form1
     Dim shorturl As String = "http:///www.brwz.in/"
     Dim islogin As Boolean = False 'flag varibale to restrcit project and task auto selection
     Dim apiurl As String = "http://kenprotechnologies.com/eofficedesktopapp/api/"
-    'Dim apiurl As String = "http://dfwwebexpert/eofficedesktopwebapp/api/"
+    Dim testapiurl As String = "http://dfwwebexpert/eofficedesktopwebapp/api/"
 
     Dim sssavepath As String = Application.StartupPath() & "\screengrabs\" '"d:\screengrabs\"
 
@@ -86,6 +86,8 @@ Public Class Form1
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
+
+
         'Dim lastscreensaver = CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds)
 
         Dim seconds As Long = DateDiff(DateInterval.Second, lastscreensaver, Now)
@@ -94,26 +96,37 @@ Public Class Form1
 
         If (seconds > minsec) Then
 
+            Dim fg_hwnd As Long = GetForegroundWindow()
+            Dim fg_wndttle As String = GetWindowTitle(fg_hwnd)
+
             SetActWidthHeight()
+
+            wnwtimestamp = Now.ToString(mysqldateformat)
 
             ''Dim unused = MsgBox(milliseconds)
             'Dim sgfilename As String
             Dim screenSize As Size = New Size(actwidth, actheight)
             Dim screenGrab As New Bitmap(actwidth, actheight)
 
+            sgfilename = CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
+
             Try
+
                 Dim g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(screenGrab)
                 g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
+                screenGrab.Save(sssavepath & Now.ToString("MM-dd-yyyy") & "\" & "MS" & sgfilename)
+                ''or screenGrab.Save("C:\screenGrab.jpg", System.Drawing.Imaging.ImageFormat.Jpeg)
+                lastscreensaver = Now
+
             Catch ex As Exception
+                sgfilename = "F" & sgfilename
                 Console.WriteLine(ex)
                 LogException(ex)
             End Try
 
-            sgfilename = CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
-            screenGrab.Save(sssavepath & Now.ToString("MM-dd-yyyy") & "\" & "MS" & sgfilename)
-            ''or screenGrab.Save("C:\screenGrab.jpg", System.Drawing.Imaging.ImageFormat.Jpeg)
 
-            lastscreensaver = Now
+            lastactwnw = "awt=" & wnwtimestamp & "&wh=" & fg_hwnd & "&ss=" & sgfilename
+            SendDataRes = SendGetData("d=W&" & lastactwnw & "&wt=" & fg_wndttle)
 
         End If
 
@@ -154,10 +167,8 @@ Public Class Form1
         Dim list_item As System.Windows.Forms.ListViewItem
         wnwtimestamp = Now.ToString(mysqldateformat)
 
-
         'Take screenshot if active window is changed
         lastscreensaver = Now
-
 
         Dim screenSize As Size = New Size(actwidth, actheight)
         Dim screenGrab As New Bitmap(actwidth, actheight)
@@ -167,22 +178,24 @@ Public Class Form1
 
         SetActWidthHeight()
 
-        Try
-            Dim g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(screenGrab)
+        sgfilename = "WC" & CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
 
+        Try
+
+            Dim g As System.Drawing.Graphics = System.Drawing.Graphics.FromImage(screenGrab)
             g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
+            screenGrab.Save(sssavepath & Now.ToString("MM-dd-yyyy") & "\" & sgfilename)
+
         Catch ex As Exception
+
+            sgfilename = "F" & sgfilename
             Console.WriteLine(ex)
             LogException(ex)
+
         End Try
-
-        sgfilename = "WC" & CLng(DateTime.UtcNow.Subtract(New DateTime(1970, 1, 1)).TotalMilliseconds) & ".jpg"
-        screenGrab.Save(sssavepath & Now.ToString("MM-dd-yyyy") & "\" & sgfilename)
-
 
         lastactwnw = "awt=" & wnwtimestamp & "&wh=" & fg_hwnd & "&ss=" & sgfilename
         SendDataRes = SendGetData("d=W&" & lastactwnw & "&wt=" & fg_wndttle)
-
 
         If SendDataRes = "d=W&" & lastactwnw & "&wt=" & fg_wndttle Then
 
@@ -207,8 +220,6 @@ Public Class Form1
             'Next
 
         End If
-
-
 
         Dim processitem As Dictionary(Of String, String)
         Dim processfound As Boolean = False
@@ -266,6 +277,9 @@ Public Class Form1
 
             NotifyIcon1.Text = Me.Text & " - " & Application.ProductVersion & " (Development) "
             Me.Text = Me.Text & " - " & Application.ProductVersion & " (Development) "
+
+            apiurl = testapiurl
+            Me.WindowState = WindowState.Maximized
 
 
         End If
@@ -1260,7 +1274,7 @@ Public Class Form1
 
     Private Function LogException(ByVal ex As Exception) As Boolean
 
-        Dim FILE_NAME As String = Application.StartupPath() & "\error_logs.txt"
+        Dim FILE_NAME As String = Application.StartupPath() & "\error_logs_" & Now.ToString("MM-dd-yyyy") & ".txt"
         Dim i As Integer
         Dim aryText(6) As String
 
