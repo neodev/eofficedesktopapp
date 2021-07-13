@@ -1289,7 +1289,7 @@ Public Class Form1
 
     Private Function LogException(ByVal ex As Exception) As Boolean
 
-        Dim FILE_NAME As String = Application.StartupPath() & "\error_logs_" & Now.ToString("MM-dd-yyyy") & ".txt"
+        Dim FILE_NAME As String = Application.StartupPath() & "\logs\error_logs_" & Now.ToString("MM-dd-yyyy") & ".txt"
         Dim i As Integer
         Dim aryText(6) As String
 
