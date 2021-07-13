@@ -79,7 +79,7 @@ Public Class Form1
 
     Dim actwidth As Integer
     Dim actheight As Integer
-    Dim production = True
+    Dim production = False
     Dim querystring As String
     Dim wnwtimestamp As String
     Dim sgfilename As String
@@ -413,7 +413,7 @@ Public Class Form1
             Console.WriteLine(sendPostData & " <> " & "d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
             If (inactsec Mod 120) = 0 And sendPostData <> "d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat) Then
 
-                'inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
+                'ixnactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
                 sendPostData = "d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat)
                 sendRes = SendGetData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
                 Console.WriteLine(sendRes & " & " & sendPostData)
@@ -433,13 +433,21 @@ Public Class Form1
 
             If inactsec > 0 Then
 
-                'inactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
+                'inxactivitylogs.Items.Add(inactsec & "|" & Now.ToString(mysqldateformat))
                 sendPostData = "d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat)
                 sendRes = SendGetData("d=I&tis=" & inactsec & "&ie=" & Now.ToString(mysqldateformat))
                 Console.WriteLine(sendRes & " & " & sendPostData)
                 'no internet connection or data not posted to API
                 If sendPostData = sendRes Then
-                    inactivitylogs.Items.Add(querystring)
+
+                    'Issue ID #1
+                    Try
+                        inactivitylogs.Items.Add(querystring)
+                    Catch ex As Exception
+                        Console.WriteLine("Empty Query String")
+                        LogException(ex)
+                    End Try
+
                 Else
 
                 End If
