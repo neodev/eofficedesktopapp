@@ -390,9 +390,16 @@ Public Class Form1
 
         If Me.WindowState <> FormWindowState.Minimized Then
 
-            ShowInTaskbar = True
+            'if development mode show all form controlls
+            If production Then
+                ShowInTaskbar = True
+            Else
+                Me.WindowState = WindowState.Maximized
+                ShowInTaskbar = True
+            End If
 
         End If
+
 
     End Sub
 
