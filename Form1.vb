@@ -79,10 +79,41 @@ Public Class Form1
 
     Dim actwidth As Integer
     Dim actheight As Integer
-    Dim production = False
+    Dim production = True
     Dim querystring As String
     Dim wnwtimestamp As String
     Dim sgfilename As String
+
+    Public Sub New()
+
+        On Error Resume Next
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+    End Sub
+
+    Private Function FormatBytes(ByVal bytes As Long) As String
+
+        If bytes < 1000 Then
+            Return CStr(bytes) & "B"
+        ElseIf bytes < 1000000 Then
+            Return FormatNumber(bytes / 1024, 2) & "KB"
+        ElseIf bytes < 1000000000 Then
+            Return FormatNumber(bytes / 1048576, 2) & "MB"
+        Else
+            Return FormatNumber(bytes / 1073741824, 2) & "GB"
+        End If
+
+    End Function
+
+    Private Class AsmComparer
+        Implements IComparer(Of Assembly)
+
+        Public Function Compare(x As System.Reflection.Assembly, y As System.Reflection.Assembly) As Integer Implements System.Collections.Generic.IComparer(Of System.Reflection.Assembly).Compare
+            Return String.Compare(x.ToString(), y.ToString())
+        End Function
+    End Class
 
     Private Sub scrnsvr_Tick(sender As Object, e As EventArgs) Handles scrnsvr.Tick
 
@@ -1287,26 +1318,64 @@ Public Class Form1
 
     End Function
 
-    Private Function LogException(ByVal ex As Exception) As Boolean
+    Public Function LogException(ByVal ex As Exception) As Boolean
 
         Dim FILE_NAME As String = Application.StartupPath() & "\logs\error_logs_" & Now.ToString("MM-dd-yyyy") & ".txt"
         Dim i As Integer
         Dim aryText(6) As String
 
-        aryText(0) = ex.Message
-        aryText(1) = ex.StackTrace
-        aryText(2) = ex.Source
-        aryText(3) = ex.HelpLink
-        aryText(4) = Now.ToString(mysqldateformat)
-        aryText(5) = "==========================================="
-
         Dim objWriter As New System.IO.StreamWriter(FILE_NAME, True)
 
-        For i = 0 To 5
+        ' Add any initialization after the InitializeComponent() call.
+        objWriter.WriteLine("==================" & Now.ToString(mysqldateformat) & "=========================")
+        objWriter.WriteLine("Product Name:      " & My.Application.Info.ProductName)
+        objWriter.WriteLine("Product Version:   " & My.Application.Info.Version.ToString())
 
-            objWriter.WriteLine(aryText(i))
 
-        Next
+        Dim asms As New List(Of Assembly)
+
+        For Each asm As Assembly In My.Application.Info.LoadedAssemblies
+            asms.Add(asm)
+        Next asm
+
+        'Assemblies are listed in the order they are loaded - I prefer them alphabetical.
+        'But if the order in which assemblies are being loaded is important, then don't do the sort.
+        Dim asmc As New AsmComparer()
+        asms.Sort(asmc)
+
+
+        For Each asm As Assembly In asms
+            'Many of the assemblies are core .Net assemblies. I do not care about them.
+            'If you do, comemnt out this next line:
+            ''If IO.Path.GetDirectoryName(asm.Location).ToUpper() <> My.Application.Info.DirectoryPath.ToUpper() Then Continue For
+
+            'Included in this list is the executable path - which is meaningless.
+            'Have to cast to Upper (or lower), because one of the paths returns as .EXE, and the other .exe
+            If asm.Location.ToUpper() = Application.ExecutablePath.ToUpper() Then Continue For
+
+            objWriter.WriteLine("Loaded Assembly:   " & asm.ToString())
+        Next asm
+
+        objWriter.WriteLine(vbNewLine)
+        objWriter.WriteLine("OS Name:           " & My.Computer.Info.OSFullName)
+        objWriter.WriteLine("OS Version:        " & My.Computer.Info.OSVersion)
+
+        ''IMPORTANT: This next line is .Net 4.0 only.
+        ''           If you need to know if it is a 64 bit OS or not, you will need to use
+        ''           a different method for any .Net older than 4.0
+        objWriter.WriteLine("OS Platform:       " & IIf(Environment.Is64BitOperatingSystem, "x64", "x86"))
+
+        objWriter.WriteLine("Physical Memory:   " & FormatBytes(My.Computer.Info.AvailablePhysicalMemory) & " / " & FormatBytes(My.Computer.Info.TotalPhysicalMemory) & " (Free / Total)")
+        objWriter.WriteLine("Virtual Memory:    " & FormatBytes(My.Computer.Info.AvailableVirtualMemory) & " / " & FormatBytes(My.Computer.Info.TotalVirtualMemory) & " (Free / Total)")
+
+        objWriter.WriteLine(vbNewLine)
+        objWriter.WriteLine("Error Output:")
+
+        'aryText(3) = ex.Source
+        'aryText(4) = ex.HelpLink
+
+        objWriter.WriteLine(ex.Message)
+        objWriter.WriteLine(ex.StackTrace)
 
         objWriter.Close()
 
@@ -1423,4 +1492,5 @@ Public Class Form1
 
 
     End Sub
+
 End Class
