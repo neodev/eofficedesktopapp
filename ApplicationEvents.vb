@@ -22,7 +22,11 @@
             frmD.LogException(ex)
 
             'Exit the application - Or try to recover from the exception:
-            MsgBox("An unexpected error occurred, please restart the application.", vbOKOnly)
+            'MsgBox("An unexpected error occurred. Trying to restart the application.", "My Time Tracker", vbOKOnly)
+
+            MessageBox.Show("An unexpected error occurred. Trying to restart the application.", "My Time Tracker", MessageBoxButtons.OK)
+
+            System.Windows.Forms.Application.Restart()
             Environment.Exit(0)
 
         End Sub
