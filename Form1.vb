@@ -288,6 +288,7 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+
         If production Then
 
             Me.Height = 450
@@ -322,6 +323,8 @@ Public Class Form1
         If (Not System.IO.Directory.Exists(sssavepath & Now.ToString("MM-dd-yyyy"))) Then
             System.IO.Directory.CreateDirectory(sssavepath & Now.ToString("MM-dd-yyyy"))
         End If
+
+        Handle_NetworkAvailabilityChanged()
 
         intavail = HaveInternetConnection()
         'Console.Clear()
@@ -1491,6 +1494,43 @@ Public Class Form1
 
 
 
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+
+
+
+        Dim ctl As Control
+        'ctl.Text = "This will throw a null exception!"
+
+    End Sub
+
+    Private Sub DisplayAvailability(available As Boolean)
+
+        intavail = available.ToString
+
+        If (available.ToString) Then
+            NotifyIcon1.Text = "My Time Tracker" & " - " & Application.ProductVersion & " (Live) "
+            Me.Text = "My Time Tracker" & " - " & Application.ProductVersion & " (Live) "
+        Else
+
+            NotifyIcon1.Text = "My Time Tracker" & " - " & Application.ProductVersion & " (Offline) "
+            Me.Text = "My Time Tracker" & " - " & Application.ProductVersion & " (Offline) "
+        End If
+
+    End Sub
+
+    Private Sub MyComputerNetwork_NetworkAvailabilityChanged(
+        sender As Object,
+        e As Devices.NetworkAvailableEventArgs)
+
+        DisplayAvailability(e.IsNetworkAvailable)
+    End Sub
+
+    Private Sub Handle_NetworkAvailabilityChanged()
+        AddHandler My.Computer.Network.NetworkAvailabilityChanged,
+           AddressOf MyComputerNetwork_NetworkAvailabilityChanged
+        DisplayAvailability(My.Computer.Network.IsAvailable)
     End Sub
 
 End Class
